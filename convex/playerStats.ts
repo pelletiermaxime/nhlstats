@@ -56,6 +56,27 @@ export const getPlayerStatsByTeam = query({
   },
 });
 
+export const getPlayerStatsWithTeamsByTeam = query({
+  args: { year: v.number(), teamId: v.id("teams") },
+  handler: async (ctx, args) => {
+    const playerStats = await ctx.db
+      .query("playerStats")
+      .withIndex("year_team_id", (q) =>
+        q.eq("year", args.year).eq("team_id", args.teamId)
+      )
+      .collect();
+
+    const team = await ctx.db.get(args.teamId);
+
+    return playerStats
+      .sort((a, b) => b.points - a.points)
+      .map((stat) => ({
+        ...stat,
+        team,
+      }));
+  },
+});
+
 export const getPlayerStatsByPlayerId = query({
   args: { year: v.number(), playerId: v.number() },
   handler: async (ctx, args) => {

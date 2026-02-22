@@ -35,17 +35,15 @@
 <script setup lang="ts">
 import type { Standing } from '~/types/teams'
 import { api } from "../convex/_generated/api";
-import type { FunctionReturnType } from "convex/server";
 
 definePageMeta({
   title: 'Standings'
 })
 
-type StandingsWithTeams = FunctionReturnType<typeof api.standings.getCurrentStandingsWithTeams>;
-
-const { data: [standingsData] } = await useConvexQueriesSSR([
-  api.standings.getCurrentStandingsWithTeams
-]) as { data: [Ref<StandingsWithTeams>] };
+const { data: standingsData } = await useConvexQuery(
+  api.standings.getCurrentStandingsWithTeams,
+  {}
+)
 
 const standings = computed<Standing[]>(() => {
   if (!standingsData.value) return []

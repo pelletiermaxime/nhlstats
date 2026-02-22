@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@unocss/nuxt',
-    'convex-nuxt',
+    'better-convex-nuxt',
     '@nuxt/hints',
     '@nuxtjs/mcp-toolkit'
   ],
