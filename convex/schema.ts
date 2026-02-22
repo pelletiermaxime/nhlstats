@@ -74,5 +74,6 @@ export default defineSchema({
     .index("playerId", ["playerId"])
     .index("year", ["year"])
     .index("year_playerId", ["year", "playerId"])
-    .index("year_team_id", ["year", "team_id"]),
+    .index("year_team_id", ["year", "team_id"])
+    .index("year_points", ["year", "points"]),
 });
