@@ -12,8 +12,8 @@ importers:
         specifier: 1.0.0-alpha.6
         version: 1.0.0-alpha.6(magicast@0.5.2)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
       '@nuxtjs/mcp-toolkit':
-        specifier: ^0.6.4
-        version: 0.6.4(@cfworker/json-schema@4.1.1)(agents@0.4.1)(magicast@0.5.2)(zod@4.3.6)
+        specifier: ^0.7.0
+        version: 0.7.0(@cfworker/json-schema@4.1.1)(agents@0.4.1)(magicast@0.5.2)(zod@4.3.6)
       agents:
         specifier: ^0.4.1
         version: 0.4.1(@cloudflare/ai-chat@0.0.6)(@cloudflare/codemode@0.0.6)(@cloudflare/workers-types@4.20260207.0)(ai@6.0.75(zod@4.3.6))(react@18.3.1)(zod@4.3.6)
@@ -911,10 +911,10 @@ packages:
       rolldown:
         optional: true
 
-  '@nuxtjs/mcp-toolkit@0.6.4':
-    resolution: {integrity: sha512-0mGQJe5NviNRIaUtCxNhMalh6bsVIJ3XLm894P6b1bCxAvXBnt2rsORkqFfPoZHj04iv90620NI7VQhXf/Z52w==}
+  '@nuxtjs/mcp-toolkit@0.7.0':
+    resolution: {integrity: sha512-aOgVFqvH9+Jzk2EAn+kGfsOAi4sxwEuxyO9CvhtcTBPPZq8fuxcIk7gBH+/UCL7/5oK13z9kUMWE9eOK5g7JnA==}
     peerDependencies:
-      agents: '>=0.4.0'
+      agents: '>=0.4.1'
       zod: ^4.1.13
     peerDependenciesMeta:
       agents:
@@ -6771,7 +6771,7 @@ snapshots:
       - vue-tsc
       - yaml
 
-  '@nuxtjs/mcp-toolkit@0.6.4(@cfworker/json-schema@4.1.1)(agents@0.4.1)(magicast@0.5.2)(zod@4.3.6)':
+  '@nuxtjs/mcp-toolkit@0.7.0(@cfworker/json-schema@4.1.1)(agents@0.4.1)(magicast@0.5.2)(zod@4.3.6)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.26.0(@cfworker/json-schema@4.1.1)(zod@4.3.6)
       '@nuxt/kit': 4.3.1(magicast@0.5.2)
