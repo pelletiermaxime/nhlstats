@@ -69,11 +69,13 @@ export const getPlayerStatsByPlayerId = query({
   },
 });
 
-async function fetchPlayerStatsWithTeams(ctx: QueryCtx, year: number) {
-  const playerStats = await ctx.db
+async function fetchPlayerStatsWithTeams(ctx: QueryCtx, year: number, limit?: number) {
+  const query = ctx.db
     .query("playerStats")
-    .withIndex("year", (q) => q.eq("year", year))
-    .collect();
+    .withIndex("year_points", (q) => q.eq("year", year))
+    .order("desc");
+
+  const playerStats = limit ? await query.take(limit) : await query.collect();
 
   const teams = await ctx.db.query("teams").collect();
   const teamMap = new Map(teams.map((t) => [t._id.toString(), t]));
@@ -91,6 +93,13 @@ export const getPlayerStatsWithTeams = query({
   args: { year: v.number() },
   handler: async (ctx, args) => {
     return fetchPlayerStatsWithTeams(ctx, args.year);
+  },
+});
+
+export const getTopPlayerStatsWithTeams = query({
+  args: { year: v.number(), limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    return fetchPlayerStatsWithTeams(ctx, args.year, args.limit ?? 100);
   },
 });
 
