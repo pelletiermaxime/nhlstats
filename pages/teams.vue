@@ -21,17 +21,11 @@
 
 <script setup lang="ts">
 import { api } from "../convex/_generated/api";
-import type { FunctionReturnType } from "convex/server";
 
 definePageMeta({
   title: 'Teams'
 })
 
-type Divisions = FunctionReturnType<typeof api.teams.getDivisions>;
-type TeamsByDivision = FunctionReturnType<typeof api.teams.getTeamsByDivision>;
-
-const { data: [divisions, teamsByDivision] } = await useConvexQueriesSSR([
-  api.teams.getDivisions,
-  api.teams.getTeamsByDivision
-]) as { data: [Ref<Divisions>, Ref<TeamsByDivision>] };
+const { data: divisions } = await useConvexQuery(api.teams.getDivisions, {})
+const { data: teamsByDivision } = await useConvexQuery(api.teams.getTeamsByDivision, {})
 </script>

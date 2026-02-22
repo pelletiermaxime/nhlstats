@@ -4,5 +4,5 @@ import type { Team } from "./teams";
 export type PlayerStats = Doc<"playerStats">;
 
 export interface PlayerStatsWithTeam extends Omit<PlayerStats, "team_id"> {
-  team?: Team;
+  team?: Team | null;
 }
