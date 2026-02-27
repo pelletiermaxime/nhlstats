@@ -19,25 +19,25 @@
     "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
-    "@nuxt/eslint-config": "^1.15.1",
+    "@nuxt/eslint-config": "^1.15.2",
     "@playwright/test": "^1.58.2",
-    "@unocss/nuxt": "^66.6.0",
-    "@unocss/reset": "^66.6.0",
+    "@unocss/nuxt": "^66.6.2",
+    "@unocss/reset": "^66.6.2",
     "eslint": "^9.39.3",
-    "turbo": "^2.8.10",
+    "turbo": "^2.8.11",
     "typescript": "^5.9.3",
-    "unocss": "^66.6.0",
+    "unocss": "^66.6.2",
     "vitest": "^4.0.18",
     "vue-tsc": "^3.2.5",
     "zod": "^4.3.6"
   },
   "dependencies": {
-    "@nuxt/hints": "1.0.0-alpha.6",
-    "@nuxtjs/mcp-toolkit": "^0.6.4",
-    "agents": "^0.4.1",
+    "@nuxt/hints": "1.0.0-alpha.9",
+    "@nuxtjs/mcp-toolkit": "^0.7.0",
+    "agents": "^0.6.0",
+    "better-convex-nuxt": "^0.2.12",
     "convex": "^1.32.0",
-    "better-convex-nuxt": "^0.2.10",
     "nuxt": "^4.3.1",
-    "vue": "^3.5.28"
+    "vue": "^3.5.29"
   }
 }

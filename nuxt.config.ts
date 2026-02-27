@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-10',
   routeRules: {
-    '/': { redirect: '/standings' },
+    '/': { redirect: '/player-stats' },
     '/mcp': { swr: 86400 },
     '/standings': { swr: 3600 },
     '/teams': { swr: 86400 }

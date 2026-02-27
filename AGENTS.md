@@ -4,7 +4,7 @@ This file contains guidelines for agentic coding agents working in this reposito
 
 ## Project Overview
 
-NHL Stats v2 Frontend - A Nuxt 4 application displaying NHL standings and team statistics. Built with Vue 3, TypeScript, UnoCSS, and Convex backend.
+NHL Stats v2 Frontend - A Nuxt 4 application displaying NHL standings, team statistics, and player stats. Built with Vue 3, TypeScript, UnoCSS, and Convex backend.
 
 ## Build/Lint/Test Commands
 
@@ -76,10 +76,15 @@ definePageMeta({
 })
 ```
 
-- Use `useAsyncData()` for data fetching in pages:
+- Use `useConvexQuery()` from `better-convex-nuxt` for data fetching in pages:
 
 ```typescript
-const { data, pending } = await useAsyncData<Standing[]>('standings', () => $fetch('/api/standings'))
+import { api } from "../convex/_generated/api";
+
+const { data: standings } = await useConvexQuery(
+  api.standings.getCurrentStandingsWithTeams,
+  {}
+)
 ```
 
 ### Imports
@@ -90,25 +95,22 @@ const { data, pending } = await useAsyncData<Standing[]>('standings', () => $fet
 
 ### Error Handling
 
-- Use try/catch for async operations
-- Use Nuxt's `createError()` for API errors:
+- Convex errors are handled automatically by `useConvexQuery()`
+- Use try/catch for async operations when needed
+- Use Nuxt's `createError()` for fatal errors:
 
 ```typescript
-try {
-  const response = await $fetch(`${apiUrl}/standings`)
-  return response
-} catch {
-  throw createError({
-    statusCode: 500,
-    statusMessage: 'Failed to fetch standings data'
-  })
-}
+throw createError({
+  statusCode: 500,
+  statusMessage: 'Failed to fetch data'
+})
 ```
 
 ### Convex Backend
 
+- Uses `better-convex-nuxt` module for Vue/Nuxt integration
 - Place functions in `convex/` directory
-- Export query/mutation functions using `query({})` or `mutation({})`
+- Export query/mutation functions using `query({})` or `mutation({})` from `./_generated/server`
 - Access database via `ctx.db`
 - Use `v` validator from `convex/values` for schema definition
 - Define indexes on frequently queried fields
@@ -116,13 +118,15 @@ try {
 
 Example (see `convex/teams.ts`):
 ```typescript
+import { query } from "./_generated/server";
+
 export const getTeams = query({
   args: {},
   handler: async (ctx) => {
-    const teams = await ctx.db.query("teams").collect()
-    return teams
+    const teams = await ctx.db.query("teams").collect();
+    return teams;
   },
-})
+});
 ```
 
 ### Styling
@@ -147,8 +151,8 @@ export const getTeams = query({
 
 ### Nuxt Configuration
 
-- Default home route redirects to `/standings`
-- SWR caching enabled for all routes (4 hours)
+- Default home route redirects to `/player-stats`
+- SWR caching enabled with varying durations per route
 - Deployed to Cloudflare Pages via `nitro.preset: 'cloudflare_pages'`
 - Runtime config in `public.apiUrl` for external API
 
