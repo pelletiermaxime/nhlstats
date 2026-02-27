@@ -19,7 +19,7 @@
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-lg mt-4"
       >
-        <img src="/icons/github.svg" alt="GitHub" class="w-6 h-6" />
+        <img src="/icons/github.svg" alt="GitHub" class="w-6 h-6">
         View on GitHub
       </a>
     </div>
