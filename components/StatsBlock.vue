@@ -8,12 +8,14 @@
       {{ position + 1 }}
     </td>
     <td width="100" align="center">
+      <NuxtLink :to="`/player-stats/${s.short_name}`">
         <img
           :src="`/logos/SVG/${s.short_name}.svg`"
-          class="h-10"
+          class="h-10 cursor-pointer hover:scale-110 transition-transform"
           :alt="`${s.city} ${s.name}`"
           :title="`${s.city} ${s.name}`"
         >
+      </NuxtLink>
     </td>
     <td>{{ s.division }}</td>
     <td>{{ s.conference }}</td>
