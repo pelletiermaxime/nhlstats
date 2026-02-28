@@ -10,8 +10,8 @@
                   v-for="item in menuElements"
                   :key="item.name"
                   :to="item.url"
-                  :class="[route.path === item.url ? 'menu-active' : 'menu-inactive']"
-                  :aria-current="route.path === item.url ? 'page' : undefined"
+                  :class="[isActive(item.url) ? 'menu-active' : 'menu-inactive']"
+                  :aria-current="isActive(item.url) ? 'page' : undefined"
                 >
                   {{ item.name }}
                 </NuxtLink>
@@ -28,8 +28,8 @@
             v-for="item in menuElements"
             :key="item.name"
             :to="item.url"
-            :class="[route.path === item.url ? 'menu-mobile-active' : 'menu-mobile-inactive']"
-            :aria-current="route.path === item.url ? 'page' : undefined"
+            :class="[isActive(item.url) ? 'menu-mobile-active' : 'menu-mobile-inactive']"
+            :aria-current="isActive(item.url) ? 'page' : undefined"
           >
             {{ item.name }}
           </NuxtLink>
@@ -50,4 +50,8 @@ const menuElements = [
 ]
 
 const route = useRoute()
+
+function isActive(url: string): boolean {
+  return route.path === url || route.path.startsWith(`${url}/`)
+}
 </script>

@@ -2,7 +2,10 @@
   <PlayerStatsTable
     :players="players"
     :selected-team-short-name="teamParam"
+    :sort-by="sortBy"
+    :sort-order="sortOrder"
     :on-team-change="onTeamChange"
+    :on-sort-change="onSortChange"
   />
 </template>
 
@@ -12,6 +15,8 @@ import type { Id } from "../../convex/_generated/dataModel"
 import type { FunctionReturnType } from "convex/server"
 
 type Teams = FunctionReturnType<typeof api.teams.getTeams>
+type SortColumn = 'gamesPlayed' | 'goals' | 'assists' | 'points' | 'plusMinus' | 'penaltyMinutes' | 'shots' | 'shootingPct'
+type SortDirection = 'asc' | 'desc'
 
 const route = useRoute()
 const router = useRouter()
@@ -21,6 +26,8 @@ definePageMeta({
 })
 
 const teamParam = computed(() => route.params.team as string)
+const sortBy = ref<SortColumn>('points')
+const sortOrder = ref<SortDirection>('desc')
 
 const { data: teams } = await useConvexQuery(api.teams.getTeams, {})
 
@@ -30,8 +37,13 @@ const selectedTeamId = computed<Id<"teams"> | undefined>(() => {
 })
 
 const { data: teamPlayers } = await useConvexQuery(
-  api.playerStats.getPlayerStatsWithTeamsByTeam,
-  computed(() => selectedTeamId.value ? { year: 2026, teamId: selectedTeamId.value } : 'skip')
+  api.playerStats.getPlayerStatsWithTeamsByTeamSorted,
+  computed(() => selectedTeamId.value ? {
+    year: 2026,
+    teamId: selectedTeamId.value,
+    sortBy: sortBy.value,
+    sortOrder: sortOrder.value,
+  } : 'skip')
 )
 
 const players = computed(() => teamPlayers.value ?? [])
@@ -42,5 +54,10 @@ function onTeamChange(value: string) {
   } else {
     router.push('/player-stats')
   }
+}
+
+function onSortChange(column: SortColumn, direction: SortDirection) {
+  sortBy.value = column
+  sortOrder.value = direction
 }
 </script>

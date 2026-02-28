@@ -75,5 +75,12 @@ export default defineSchema({
     .index("year", ["year"])
     .index("year_playerId", ["year", "playerId"])
     .index("year_team_id", ["year", "team_id"])
-    .index("year_points", ["year", "points"]),
+    .index("year_points", ["year", "points"])
+    .index("year_gamesPlayed", ["year", "gamesPlayed"])
+    .index("year_goals", ["year", "goals"])
+    .index("year_assists", ["year", "assists"])
+    .index("year_plusMinus", ["year", "plusMinus"])
+    .index("year_penaltyMinutes", ["year", "penaltyMinutes"])
+    .index("year_shots", ["year", "shots"])
+    .index("year_shootingPct", ["year", "shootingPct"]),
 });
