@@ -42,7 +42,7 @@
             <NuxtLink :to="`/player-stats/${player.team?.short_name}`">
               <img
                 :src="`/logos/SVG/${player.team?.short_name}.svg`"
-                class="h-8 mx-auto cursor-pointer hover:scale-110 transition-transform"
+                class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform"
                 :alt="`${player.team?.city} ${player.team?.name}`"
                 :title="`Click to filter by ${player.team?.city} ${player.team?.name}`"
               >
