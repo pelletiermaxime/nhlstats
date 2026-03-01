@@ -32,7 +32,7 @@
     "zod": "^4.3.6"
   },
   "dependencies": {
-    "@nuxt/hints": "1.0.0-alpha.9",
+    "@nuxt/hints": "1.0.0-alpha.10",
     "@nuxtjs/mcp-toolkit": "^0.7.0",
     "agents": "^0.6.0",
     "better-convex-nuxt": "^0.2.12",
