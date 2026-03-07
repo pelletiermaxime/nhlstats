@@ -7,7 +7,10 @@ export default defineNuxtConfig({
     '/teams': { swr: 86400 }
   },
   nitro: {
-    preset: 'cloudflare_pages'
+    preset: 'cloudflare_pages',
+    prerender: {
+      routes: ['/player-stats', '/standings', '/teams', '/about']
+    }
   },
   modules: [
     '@unocss/nuxt',
@@ -19,7 +22,8 @@ export default defineNuxtConfig({
   ssr: true,
   runtimeConfig: {
     public: {
-      apiUrl: process.env.API_URL || 'https://api.nhlstats.org'
+      apiUrl: process.env.API_URL || 'https://api.nhlstats.org',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL
     },
     convex: {
       url: process.env.CONVEX_URL
