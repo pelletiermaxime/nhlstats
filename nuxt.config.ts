@@ -27,6 +27,9 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   convex: {
+    auth: {
+      enabled: false
+    },
     url: process.env.CONVEX_URL
   },
   mcp: {
