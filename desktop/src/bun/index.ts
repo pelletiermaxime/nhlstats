@@ -11,7 +11,8 @@ async function getMainViewUrl(): Promise<string> {
 		return DEV_SERVER_URL;
 	} catch {
 		console.log("Nuxt dev server not running. Using production build.");
-		return "views://mainview/index.html";
+		// return "views://mainview/index.html";
+		return 'https://nhlstats.org'
 	}
 }
 
