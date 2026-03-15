@@ -7,10 +7,19 @@
 <script setup lang="ts">
 // Preload critical CSS to prevent FOUC
 useHead({
-  titleTemplate: '%s - NHL Stats',
+  titleTemplate: (titleChunk) => titleChunk ? `${titleChunk} - NHL Stats` : 'NHL Stats',
   meta: [
     { charset: 'utf-8' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'description', content: 'NHL statistics, standings, and player stats' },
+    { name: 'theme-color', content: '#27272a' },
+    { property: 'og:image', content: '/icons/nhlstats-logo-bg.avif' },
+    { property: 'og:title', content: 'NHL Stats' },
+    { property: 'og:description', content: 'NHL statistics, standings, and player stats' }
+  ],
+  link: [
+    { rel: 'icon', type: 'image/avif', sizes: 'any', href: '/icons/favicon.avif' },
+    { rel: 'apple-touch-icon', type: 'image/avif', href: '/icons/favicon.avif' }
   ],
   htmlAttrs: {
     lang: 'en'

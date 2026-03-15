@@ -36,7 +36,9 @@
 import type { Standing } from '~/types/teams'
 import { api } from "../convex/_generated/api";
 
-definePageMeta({
+definePageMeta({})
+
+useHead({
   title: 'Standings'
 })
 

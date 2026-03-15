@@ -17,7 +17,9 @@ type SortDirection = 'asc' | 'desc'
 
 const router = useRouter()
 
-definePageMeta({
+definePageMeta({})
+
+useHead({
   title: 'Player Stats'
 })
 
