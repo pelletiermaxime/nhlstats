@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     browserRedirect: '/mcp'
   },
   experimental: {
-    asyncContext: true
+    asyncContext: true,
+    viewTransition: true,
   }
 })
