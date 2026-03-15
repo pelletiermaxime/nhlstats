@@ -30,7 +30,9 @@
 <script setup lang="ts">
 import { api } from "../convex/_generated/api";
 
-definePageMeta({
+definePageMeta({})
+
+useHead({
   title: 'Teams'
 })
 

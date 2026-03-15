@@ -13,13 +13,14 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     'better-convex-nuxt',
     '@nuxt/hints',
-    '@nuxtjs/mcp-toolkit'
+    '@nuxtjs/mcp-toolkit',
+    '@nuxtjs/seo'
   ],
   css: ['@unocss/reset/tailwind-compat.css'],
   ssr: true,
   runtimeConfig: {
     public: {
-      apiUrl: process.env.API_URL || 'https://api.nhlstats.org'
+      apiUrl: process.env.API_URL || 'https://api.nhlstats.org',
     },
     convex: {
       url: process.env.CONVEX_URL

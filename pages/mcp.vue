@@ -78,7 +78,9 @@
 
 <script setup lang="ts">
 // Define page metadata
-definePageMeta({
+definePageMeta({})
+
+useHead({
   title: 'MCP Configuration'
 })
 </script>

@@ -27,7 +27,9 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
+definePageMeta({})
+
+useHead({
   title: 'About'
 })
 </script>
