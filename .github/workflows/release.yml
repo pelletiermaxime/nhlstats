@@ -3,6 +3,8 @@ name: Build Desktop App
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths:
       - '.github/workflows/release.yml'
       - 'desktop/**'
