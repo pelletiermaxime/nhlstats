@@ -14,8 +14,15 @@ export default defineNuxtConfig({
     'better-convex-nuxt',
     '@nuxt/hints',
     '@nuxtjs/mcp-toolkit',
-    '@nuxtjs/seo'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    'nuxt-seo-utils',
+    'nuxt-site-config'
   ],
+  site: {
+    url: 'https://nhlstats.org',
+    name: 'NHL Stats'
+  },
   css: ['@unocss/reset/tailwind-compat.css'],
   ssr: true,
   runtimeConfig: {
