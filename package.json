@@ -24,7 +24,7 @@
     "@unocss/nuxt": "^66.6.6",
     "@unocss/reset": "^66.6.6",
     "eslint": "^9.39.4",
-    "turbo": "^2.8.17",
+    "turbo": "^2.8.20",
     "typescript": "^5.9.3",
     "unocss": "^66.6.6",
     "vitest": "^4.1.0",
