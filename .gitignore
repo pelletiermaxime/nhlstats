@@ -22,3 +22,6 @@ convex/_generated/
 plans
 .kilocode
 .kilo
+
+# TypeScript build info
+tsconfig.tsbuildinfo

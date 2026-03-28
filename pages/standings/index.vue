@@ -42,10 +42,6 @@ definePageMeta({
   title: 'Standings - League'
 })
 
-useHead({
-  title: 'Standings - League'
-})
-
 const { data: standingsData } = await useConvexQuery(
   api.standings.getCurrentStandingsWithTeams,
   {}

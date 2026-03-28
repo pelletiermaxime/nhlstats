@@ -38,6 +38,7 @@ const standings = computed<Standing[]>(() => {
 const standingsByDivision = computed(() => {
   const groups: Record<string, Standing[]> = {}
   for (const s of standings.value) {
+    if (!s.division) continue
     if (!groups[s.division]) {
       groups[s.division] = []
     }

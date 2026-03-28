@@ -38,14 +38,18 @@ const selectedTeamId = computed<Id<"teams"> | undefined>(() => {
   return team?._id
 })
 
+type PlayerStatsArgs = { year: number, teamId: Id<"teams">, sortBy: SortColumn, sortOrder: SortDirection }
+
+const queryArgs = computed<PlayerStatsArgs | null>(() => selectedTeamId.value ? {
+  year: 2026,
+  teamId: selectedTeamId.value,
+  sortBy: sortBy.value,
+  sortOrder: sortOrder.value,
+} : null)
+
 const { data: teamPlayers } = await useConvexQuery(
   api.playerStats.getPlayerStatsWithTeamsByTeamSorted,
-  computed(() => selectedTeamId.value ? {
-    year: 2026,
-    teamId: selectedTeamId.value,
-    sortBy: sortBy.value,
-    sortOrder: sortOrder.value,
-  } : 'skip')
+  queryArgs
 )
 
 const players = computed(() => teamPlayers.value ?? [])

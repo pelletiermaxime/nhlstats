@@ -139,33 +139,13 @@ export const getTeams = query({
 - Use Tailwind-compatible classes (UnoCSS presetUno)
 - Avoid custom CSS unless necessary
 
-### File Organization
-
-```
-├── app.vue              # App entry point
-├── components/          # Vue components (auto-imported)
-├── convex/             # Convex backend functions
-├── layouts/            # Nuxt layouts
-├── pages/              # Route pages (auto-routed)
-├── server/api/         # Nitro API routes
-├── types/              # TypeScript type definitions
-└── uno.config.ts       # UnoCSS configuration
-```
-
-### Nuxt Configuration
-
-- Default home route redirects to `/player-stats`
-- SWR caching enabled with varying durations per route
-- Deployed to Cloudflare Pages via `nitro.preset: 'cloudflare_pages'`
-- Runtime config in `public.apiUrl` for external API
-
 ### Testing
 
 - Unit tests: Vitest, place in same directory as code
 - Integration tests: Playwright, place in `tests/` directory
 - Test files: `*.test.ts` or `*.spec.ts`
 
-### Before Submitting
+### Run after every change
 
 1. Run `pnpm run lint` to check code quality
 2. Run `pnpm run typecheck` to verify TypeScript
