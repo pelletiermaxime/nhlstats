@@ -114,7 +114,10 @@ throw createError({
 - Access database via `ctx.db`
 - Use `v` validator from `convex/values` for schema definition
 - Define indexes on frequently queried fields
-- Don't manually run `convex dev` as it is already running
+
+**Convex Development Server:**
+- In the **main working directory**: Convex dev server runs externally; don't start it manually
+- In **worktrees**: If schema changes need to be compiled (e.g., `_generated/` is stale), you may run `convex dev` in the worktree to regenerate types. Start it with `cd /home/maximep/projects/nhlstats-v2-frontend && pnpm convex dev` (run from project root to share the same database). When done, stop it with Ctrl+C.
 
 Example (see `convex/teams.ts`):
 ```typescript

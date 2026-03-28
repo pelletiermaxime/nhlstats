@@ -75,7 +75,7 @@
         <tr
           v-for="(player, index) in players"
           :key="player._id"
-          class="odd:bg-zinc-700 text-center"
+          class="even:bg-zinc-600 text-center"
         >
           <td class="py-2 text-lg font-bold">{{ index + 1 }}</td>
           <td class="py-2">

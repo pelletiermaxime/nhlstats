@@ -7,6 +7,7 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .turbo
+.wrangler
 
 # Nuxt
 .nuxt/
@@ -20,3 +21,4 @@ convex/_generated/
 # AI stuff
 plans
 .kilocode
+.kilo

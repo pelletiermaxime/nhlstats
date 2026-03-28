@@ -58,8 +58,11 @@ async function fetchStandingsWithTeams(ctx: QueryCtx, year: number) {
 
     return {
       ...standing,
-      team,
-      division,
+      conference: division?.conference,
+      short_name: team?.short_name,
+      city: team?.city,
+      name: team?.name,
+      division: division?.name,
     };
   });
 }
