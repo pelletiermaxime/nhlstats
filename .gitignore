@@ -16,8 +16,6 @@ test-results/
 dist/
 .nitro/
 
-# Convex
-convex/_generated/
 
 # AI stuff
 plans
