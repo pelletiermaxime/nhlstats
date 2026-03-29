@@ -136,12 +136,12 @@ export const getTeams = query({
 - Use Tailwind-compatible classes (UnoCSS presetUno)
 - Avoid custom CSS unless necessary
 
-# Testing
+## Testing
 
 Uses `@nuxt/test-utils` for first-class Nuxt testing support.
 
 **Test Structure:**
-```
+```text
 tests/
 ├── nuxt/               # Tests requiring Nuxt runtime environment
 │   ├── components/     # Component tests using `mountSuspended`
@@ -151,13 +151,17 @@ tests/
 
 **Test Commands:**
 ```bash
-pnpm run test             # Run all tests (22 tests)
+pnpm run test             # Run all tests
 pnpm run test:browser     # Run browser-based visual regression tests
 pnpm run test:ui          # Run tests with Vitest UI
 ```
 
-**Writing Component Tests:**
-Use `mountSuspended` from `@nuxt/test-utils/runtime` instead of `mount`:
+**Test Location Conventions:**
+
+This codebase uses a **centralized** test structure. All tests live under `tests/` with suffixes indicating their environment:
+
+- `tests/nuxt/**/*.nuxt.test.ts` - Vitest tests requiring Nuxt runtime (components, utilities)
+- `tests/visual/**/*.spec.ts` - Playwright visual regression tests
 
 ```typescript
 import { mountSuspended } from '@nuxt/test-utils/runtime'
@@ -169,7 +173,7 @@ it('renders correctly', async () => {
 })
 ```
 
-- Test files: `*.nuxt.test.ts` or `*.nuxt.spec.ts` for Nuxt environment
+- Test files (centralized pattern): `*.nuxt.test.ts` or `*.nuxt.spec.ts` for Nuxt environment
 - Components get auto-imports, Nuxt composables, and plugin injections
 - Use `mockNuxtImport` to mock auto-imported functions
 - Use `registerEndpoint` to mock Nitro API endpoints
