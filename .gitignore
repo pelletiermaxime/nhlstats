@@ -8,6 +8,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .turbo
 .wrangler
+test-results/
 
 # Nuxt
 .nuxt/
@@ -15,8 +16,6 @@ vite.config.ts.timestamp-*
 dist/
 .nitro/
 
-# Convex
-convex/_generated/
 
 # AI stuff
 plans
