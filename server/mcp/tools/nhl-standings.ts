@@ -33,13 +33,13 @@ export default defineMcpTool({
         l10: item.l10,
         streak: item.streak,
         team: {
-          name: item.team?.name || '',
-          city: item.team?.city || '',
-          shortName: item.team?.short_name || '',
+          name: item.name || '',
+          city: item.city || '',
+          shortName: item.short_name || '',
         },
         division: {
-          name: item.division?.name || '',
-          conference: item.division?.conference || '',
+          name: item.division || '',
+          conference: item.conference || '',
         },
       }))
 

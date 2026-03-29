@@ -50,5 +50,10 @@ export default defineNuxtConfig({
   experimental: {
     asyncContext: true,
     viewTransition: true,
+  },
+  typescript: {
+    tsConfig: {
+      exclude: ['../desktop']
+    }
   }
 })

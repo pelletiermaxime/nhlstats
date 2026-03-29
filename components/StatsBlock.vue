@@ -2,13 +2,13 @@
   <tr
     v-for="(s, position) in standings"
     :key="position"
-    class="odd:bg-zinc-700 text-center"
+    class="even:bg-zinc-600 text-center"
   >
     <td :style="{ background: s.conference === 'EAST' ? '#b9112d' : '#003872', color: 'white', fontSize: '1.8em' }">
       {{ position + 1 }}
     </td>
-    <td width="100" align="center">
-      <NuxtLink :to="`/player-stats/${s.short_name}`">
+    <td class="w-16">
+      <NuxtLink :to="`/player-stats/${s.short_name}`" class="flex justify-center">
         <img
           :src="`/logos/SVG/${s.short_name}.svg`"
           class="h-10 cursor-pointer hover:scale-110 transition-transform"
@@ -17,13 +17,13 @@
         >
       </NuxtLink>
     </td>
-    <td>{{ s.division }}</td>
-    <td>{{ s.conference }}</td>
+    <td v-if="showDivision !== false">{{ s.division }}</td>
+    <td v-if="showConference !== false">{{ s.conference }}</td>
     <td>{{ s.gp }}</td>
     <td>{{ s.w }}</td>
     <td>{{ s.l }}</td>
     <td>{{ s.otl }}</td>
-    <td>{{ s.pts }}</td>
+    <td class="font-bold">{{ s.pts }}</td>
     <td>{{ s.row }}</td>
     <td>{{ s.gf }}</td>
     <td>{{ s.ga }}</td>
@@ -40,5 +40,7 @@ import type { Standing } from '~/types/teams'
 
 defineProps<{
   standings: Standing[]
+  showDivision?: boolean
+  showConference?: boolean
 }>()
 </script>
