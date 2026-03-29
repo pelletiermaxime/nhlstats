@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
+import { ref } from 'vue'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import PlayerStatsTable from '~/components/PlayerStatsTable.vue'
 import type { PlayerStatsWithTeam } from '~/types/players'
@@ -47,7 +48,7 @@ const mockPlayer = (overrides: Partial<PlayerStatsWithTeam> = {}): PlayerStatsWi
   ...overrides
 })
 
-vi.mock('@vueuse/nuxt', () => ({
+vi.mock('better-convex-nuxt', () => ({
   useConvexQuery: () => ({
     data: ref([
       mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
@@ -120,9 +121,7 @@ describe('PlayerStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      },
-      attrs: {
-        'modelValue:searchQuery': 'mcdavid'
+        searchQuery: 'mcdavid',
       }
     })
 

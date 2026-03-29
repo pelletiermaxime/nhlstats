@@ -16,7 +16,9 @@
         </select>
       </div>
       <div class="flex items-center gap-4">
+        <label for="player-search" class="sr-only">Search players</label>
         <input
+          id="player-search"
           v-model="searchQuery"
           type="text"
           placeholder="Search players..."

@@ -6,7 +6,7 @@ exports[`PlayerStatsTable > renders empty state 1`] = `
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
       </select></div>
-    <div class="flex items-center gap-4"><input type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
   <table class="w-4/5 m-auto text-white">
     <thead>
@@ -36,7 +36,7 @@ exports[`PlayerStatsTable > renders filtered by team 1`] = `
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="TOR">
         <option value="">All Teams</option>
       </select></div>
-    <div class="flex items-center gap-4"><input type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
   <table class="w-4/5 m-auto text-white">
     <thead>
@@ -95,7 +95,7 @@ exports[`PlayerStatsTable > renders player list 1`] = `
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
       </select></div>
-    <div class="flex items-center gap-4"><input type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
   <table class="w-4/5 m-auto text-white">
     <thead>
@@ -163,12 +163,12 @@ exports[`PlayerStatsTable > renders player list 1`] = `
 `;
 
 exports[`PlayerStatsTable > renders with search query 1`] = `
-"<div modelvalue:searchquery="mcdavid">
+"<div>
   <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
       </select></div>
-    <div class="flex items-center gap-4"><input type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
   <table class="w-4/5 m-auto text-white">
     <thead>
