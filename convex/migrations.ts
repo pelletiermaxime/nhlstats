@@ -37,3 +37,30 @@ export const migrateDivisionsAddConference = internalMutation({
     };
   },
 });
+
+export const backfillPlayerSearchNames = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const playerStats = await ctx.db.query("playerStats").collect();
+    const updated: string[] = [];
+    const skipped: string[] = [];
+
+    for (const stat of playerStats) {
+      if (stat.searchName) {
+        skipped.push(`${stat.firstName} ${stat.lastName} (already has searchName)`);
+        continue;
+      }
+
+      const searchName = `${stat.firstName} ${stat.lastName}`.toLowerCase();
+      await ctx.db.patch(stat._id, { searchName });
+      updated.push(`${stat.firstName} ${stat.lastName} → ${searchName}`);
+    }
+
+    return {
+      updatedCount: updated.length,
+      skippedCount: skipped.length,
+      updated,
+      skipped,
+    };
+  },
+});

@@ -1,5 +1,6 @@
 <template>
   <PlayerStatsTable
+    v-model:search-query="searchQuery"
     :players="players"
     :selected-team-short-name="''"
     :sort-by="sortBy"
@@ -17,16 +18,12 @@ type SortDirection = 'asc' | 'desc'
 
 const router = useRouter()
 
-definePageMeta({})
-
-useHead({
-  title: 'Player Stats'
-})
-
 const sortBy = ref<SortColumn>('points')
 const sortOrder = ref<SortDirection>('desc')
+const searchQuery = ref('')
+const debouncedSearchQuery = refDebounced(searchQuery, 200)
 
-const { data: allPlayers } = await useConvexQuery(
+const { data: playersData } = await useConvexQuery(
   api.playerStats.getPlayerStatsWithTeamsSorted,
   computed(() => ({
     year: 2026,
@@ -36,7 +33,20 @@ const { data: allPlayers } = await useConvexQuery(
   }))
 )
 
-const players = computed(() => allPlayers.value ?? [])
+const { data: searchResults } = await useConvexQuery(
+  api.playerStats.searchPlayers,
+  computed(() => ({
+    query: debouncedSearchQuery.value,
+    limit: 20,
+  }))
+)
+
+const players = computed(() => {
+  if (debouncedSearchQuery.value.trim()) {
+    return searchResults.value ?? []
+  }
+  return playersData.value ?? []
+})
 
 function onTeamChange(value: string) {
   if (value) {
@@ -48,4 +58,8 @@ function onSortChange(column: SortColumn, direction: SortDirection) {
   sortBy.value = column
   sortOrder.value = direction
 }
+
+useHead({
+  title: 'Player Stats'
+})
 </script>

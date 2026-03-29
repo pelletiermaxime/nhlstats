@@ -17,7 +17,8 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     'nuxt-seo-utils',
-    'nuxt-site-config'
+    'nuxt-site-config',
+    '@vueuse/nuxt'
   ],
   site: {
     url: 'https://nhlstats.org',

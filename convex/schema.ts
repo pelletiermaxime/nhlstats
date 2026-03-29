@@ -48,6 +48,7 @@ export default defineSchema({
     playerId: v.number(),
     firstName: v.string(),
     lastName: v.string(),
+    searchName: v.string(), // Combined first + last name for search
     team_id: v.id("teams"),
     positionCode: v.string(),
     year: v.number(),
@@ -82,5 +83,9 @@ export default defineSchema({
     .index("year_plusMinus", ["year", "plusMinus"])
     .index("year_penaltyMinutes", ["year", "penaltyMinutes"])
     .index("year_shots", ["year", "shots"])
-    .index("year_shootingPct", ["year", "shootingPct"]),
+    .index("year_shootingPct", ["year", "shootingPct"])
+    .searchIndex("search_players", {
+      searchField: "searchName",
+      filterFields: ["team_id"],
+    }),
 });
