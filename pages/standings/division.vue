@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import type { Standing } from '~/types/teams'
 import { api } from "~/convex/_generated/api"
+import { compareStandings } from '~/utils/standings'
 
 definePageMeta({
   title: 'Standings - Division'
@@ -45,7 +46,7 @@ const standingsByDivision = computed(() => {
     groups[s.division]!.push(s)
   }
   for (const div in groups) {
-    groups[div]!.sort((a, b) => b.pts - a.pts)
+    groups[div]!.sort(compareStandings)
   }
   return groups
 })

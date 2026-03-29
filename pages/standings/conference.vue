@@ -67,6 +67,7 @@
 <script setup lang="ts">
 import type { Standing } from '~/types/teams'
 import { api } from "~/convex/_generated/api"
+import { compareStandings } from '~/utils/standings'
 
 definePageMeta({
   title: 'Standings - Conference'
@@ -84,7 +85,7 @@ const standings = computed<Standing[]>(() => {
 const getTeamsByConference = (conference: string) => {
   return standings.value
     .filter(s => s.conference === conference)
-    .sort((a, b) => b.pts - a.pts)
+    .sort(compareStandings)
 }
 
 const westTeams = computed(() => getTeamsByConference('WEST'))

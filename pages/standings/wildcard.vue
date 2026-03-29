@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import type { Standing, StandingWithStatus } from '~/types/teams'
 import { api } from "~/convex/_generated/api"
+import { compareStandings } from '~/utils/standings'
 
 definePageMeta({
   title: 'Standings - Wildcard'
@@ -41,7 +42,7 @@ interface Section {
 }
 
 const buildWildcardSections = (teams: Standing[], divisions: string[]): Section[] => {
-  const sortedTeams = [...teams].sort((a, b) => b.pts - a.pts)
+  const sortedTeams = [...teams].sort(compareStandings)
   const divisionLeaders: Record<string, Standing[]> = {}
 
   for (const div of divisions) {
