@@ -1,0 +1,209 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StatsBlock > renders conference background colors correctly 1`] = `
+"<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
+  <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>
+<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #003872; color: white; font-size: 1.8em;">2</td>
+  <td class="w-16"><a href="/player-stats/VGK" class="flex justify-center"><img src="/logos/SVG/VGK.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Vegas Golden Knights" title="Vegas Golden Knights"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>"
+`;
+
+exports[`StatsBlock > renders position numbers correctly 1`] = `
+"<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
+  <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>
+<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">2</td>
+  <td class="w-16"><a href="/player-stats/MTL" class="flex justify-center"><img src="/logos/SVG/MTL.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Montreal Canadiens" title="Montreal Canadiens"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>
+<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">3</td>
+  <td class="w-16"><a href="/player-stats/BOS" class="flex justify-center"><img src="/logos/SVG/BOS.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Boston Bruins" title="Boston Bruins"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>"
+`;
+
+exports[`StatsBlock > renders standings table rows 1`] = `
+"<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
+  <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>
+<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">2</td>
+  <td class="w-16"><a href="/player-stats/MTL" class="flex justify-center"><img src="/logos/SVG/MTL.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Montreal Canadiens" title="Montreal Canadiens"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>"
+`;
+
+exports[`StatsBlock > renders with both columns hidden 1`] = `
+"<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
+  <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+  <!--v-if-->
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>"
+`;
+
+exports[`StatsBlock > renders with conference column 1`] = `
+"<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
+  <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+  <!--v-if-->
+  <td>EAST</td>
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>"
+`;
+
+exports[`StatsBlock > renders with division column 1`] = `
+"<tr class="even:bg-zinc-600 text-center">
+  <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
+  <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+  <td>ATLANTIC</td>
+  <!--v-if-->
+  <td>50</td>
+  <td>30</td>
+  <td>15</td>
+  <td>5</td>
+  <td class="font-bold">65</td>
+  <td>28</td>
+  <td>150</td>
+  <td>120</td>
+  <td>+30</td>
+  <td>15-5-5</td>
+  <td>15-10-0</td>
+  <td>7-3-0</td>
+  <td>W3</td>
+</tr>"
+`;

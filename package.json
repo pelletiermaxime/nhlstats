@@ -2,7 +2,7 @@
   "name": "nhlstats-v2-frontend",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=24"
   },
@@ -12,33 +12,37 @@
     "dev:convex": "convex dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "test": "npm run test:integration && npm run test:unit",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "test:browser:update": "playwright test --update-snapshots",
+    "test:ui": "vitest --ui",
     "lint": "eslint .",
-    "test:integration": "playwright test",
-    "test:unit": "vitest run",
     "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^1.15.2",
+    "@nuxt/test-utils": "^4.0.0",
     "@playwright/test": "^1.58.2",
-    "@unocss/nuxt": "^66.6.6",
-    "@unocss/reset": "^66.6.6",
-    "eslint": "^9.39.4",
-    "turbo": "^2.8.17",
-    "typescript": "^5.9.3",
-    "unocss": "^66.6.6",
-    "vitest": "^4.1.0",
-    "vue-tsc": "^3.2.5",
+    "@unocss/nuxt": "^66.6.7",
+    "@unocss/reset": "^66.6.7",
+    "@vitest/ui": "4.1.2",
+    "eslint": "^10.1.0",
+    "happy-dom": "^20.8.9",
+    "turbo": "^2.8.21",
+    "typescript": "^6.0.2",
+    "unocss": "^66.6.7",
+    "vitest": "^4.1.2",
+    "vue-tsc": "^3.2.6",
     "zod": "^4.3.6"
   },
   "dependencies": {
-    "@nuxt/hints": "^1.0.0",
-    "@nuxtjs/mcp-toolkit": "^0.7.0",
-    "@nuxtjs/seo": "3.4.0",
-    "agents": "^0.7.6",
+    "@nuxt/hints": "^1.0.2",
+    "@nuxtjs/mcp-toolkit": "^0.12.0",
+    "@nuxtjs/seo": "5.0.2",
+    "agents": "^0.8.7",
     "better-convex-nuxt": "^0.3.4",
-    "convex": "^1.33.1",
+    "convex": "^1.34.1",
     "nuxt": "^4.4.2",
-    "vue": "^3.5.30"
+    "vue": "^3.5.31"
   }
 }

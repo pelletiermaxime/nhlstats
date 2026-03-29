@@ -17,15 +17,12 @@ pnpm run build            # Build for production
 pnpm run preview          # Preview production build
 
 # Testing
-pnpm run test             # Run all tests (unit + integration)
-pnpm run test:unit        # Run Vitest unit tests
-pnpm run test:integration # Run Playwright integration tests
+pnpm run test             # Run all tests (DOM snapshots + unit)
+pnpm run test:browser     # Run browser-based visual regression tests
+pnpm run test:ui          # Run tests with Vitest UI
 
-# Run single test file with Vitest
+# Run single test file
 pnpm exec vitest run path/to/test.file.ts
-
-# Run single test with Playwright
-pnpm exec playwright test path/to/test.spec.ts
 
 # Linting
 pnpm run lint             # Run ESLint on all files
@@ -139,13 +136,99 @@ export const getTeams = query({
 - Use Tailwind-compatible classes (UnoCSS presetUno)
 - Avoid custom CSS unless necessary
 
-### Testing
+# Testing
 
-- Unit tests: Vitest, place in same directory as code
-- Integration tests: Playwright, place in `tests/` directory
-- Test files: `*.test.ts` or `*.spec.ts`
+Uses `@nuxt/test-utils` for first-class Nuxt testing support.
+
+**Test Structure:**
+```
+tests/
+├── nuxt/               # Tests requiring Nuxt runtime environment
+│   ├── components/     # Component tests using `mountSuspended`
+│   └── unit/           # Unit tests for utilities
+└── visual/             # Visual regression (browser mode, skipped by default)
+```
+
+**Test Commands:**
+```bash
+pnpm run test             # Run all tests (22 tests)
+pnpm run test:browser     # Run browser-based visual regression tests
+pnpm run test:ui          # Run tests with Vitest UI
+```
+
+**Writing Component Tests:**
+Use `mountSuspended` from `@nuxt/test-utils/runtime` instead of `mount`:
+
+```typescript
+import { mountSuspended } from '@nuxt/test-utils/runtime'
+import MyComponent from '~/components/MyComponent.vue'
+
+it('renders correctly', async () => {
+  const component = await mountSuspended(MyComponent, { props: { ... } })
+  expect(component.html()).toMatchSnapshot()
+})
+```
+
+- Test files: `*.nuxt.test.ts` or `*.nuxt.spec.ts` for Nuxt environment
+- Components get auto-imports, Nuxt composables, and plugin injections
+- Use `mockNuxtImport` to mock auto-imported functions
+- Use `registerEndpoint` to mock Nitro API endpoints
+
+**Unit Tests:**
+Place utility function tests in `tests/nuxt/unit/`. These run in the Nuxt environment but don't require component mounting.
+
+**Visual Regression Tests:**
+Located in `tests/visual/` and use Playwright's test runner directly (not Vitest).
+
+These tests take full-page screenshots in Chromium and compare against baselines using `toHaveScreenshot()`.
+
+To run visual tests:
+```bash
+# Terminal 1: Start Nuxt dev server
+pnpm dev:nuxt
+
+# Terminal 2: Run visual tests
+pnpm run test:browser
+
+# Update baselines after intentional UI changes
+pnpm run test:browser:update
+```
+
+**Visual Test Configuration:**
+- `playwright.config.ts` - Playwright configuration
+- Screenshots saved in `tests/visual/*.spec.ts-snapshots/`
+- Animations disabled for stable screenshots
+- 1% pixel difference tolerance (`maxDiffPixelRatio: 0.01`)
+
+**To update baselines** when UI intentionally changes:
+```bash
+pnpm run test:browser:update
+```
+
+Note: Visual tests require the dev server running on `:3000`.
+
+**Git LFS for Screenshots:**
+Git LFS is configured (see `.gitattributes`) to track PNG screenshots in `tests/visual/`. This prevents snapshot bloat in the main repository.
+
+**Setup Instructions:**
+```bash
+# 1. Install Git LFS (if not already installed)
+# macOS: brew install git-lfs
+# Ubuntu/Debian: sudo apt install git-lfs
+# Fedora: sudo dnf install git-lfs
+
+# 2. Initialize Git LFS in the repo
+git lfs install
+
+# 3. Track screenshot files (already configured in .gitattributes)
+git lfs track "tests/visual/**/*.png"
+```
+
+**Current LFS-tracked files:**
+- `tests/visual/**/*.png` - Visual regression baselines
 
 ### Run after every change
 
 1. Run `pnpm run lint` to check code quality
 2. Run `pnpm run typecheck` to verify TypeScript
+3. Run `pnpm run test` to verify tests pass
