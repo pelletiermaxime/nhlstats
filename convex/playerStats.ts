@@ -1,5 +1,6 @@
 import { query, internalAction, internalMutation } from "./_generated/server";
 import type { QueryCtx } from "./_generated/server";
+import type { Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
@@ -129,6 +130,50 @@ export const getPlayerStatsByPlayerId = query({
       )
       .first();
     return playerStats;
+  },
+});
+
+export const searchPlayers = query({
+  args: {
+    query: v.string(),
+    teamId: v.optional(v.id("teams")),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const searchQuery = args.query.trim().toLowerCase();
+    if (!searchQuery) {
+      return [];
+    }
+
+    // Build search filter based on whether teamId is provided
+    let playerStats;
+    if (args.teamId) {
+      playerStats = await ctx.db
+        .query("playerStats")
+        .withSearchIndex("search_players", (q) =>
+          q.search("searchName", searchQuery).eq("team_id", args.teamId as Id<"teams">)
+        )
+        .take(args.limit ?? 20);
+    } else {
+      playerStats = await ctx.db
+        .query("playerStats")
+        .withSearchIndex("search_players", (q) =>
+          q.search("searchName", searchQuery)
+        )
+        .take(args.limit ?? 20);
+    }
+
+    // Fetch teams for the results
+    const teams = await ctx.db.query("teams").collect();
+    const teamMap = new Map(teams.map((t) => [t._id.toString(), t]));
+
+    return playerStats.map((stat) => {
+      const team = teamMap.get(stat.team_id.toString());
+      return {
+        ...stat,
+        team,
+      };
+    });
   },
 });
 
@@ -330,6 +375,7 @@ export const syncPlayerStats = internalMutation({
         playerId: playerStat.playerId,
         firstName: playerStat.firstName,
         lastName: playerStat.lastName,
+        searchName: `${playerStat.firstName} ${playerStat.lastName}`.toLowerCase(),
         team_id: teamId,
         positionCode: playerStat.positionCode,
         year: args.year,

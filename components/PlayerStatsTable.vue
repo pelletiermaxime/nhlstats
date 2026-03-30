@@ -1,18 +1,30 @@
 <template>
   <div>
-    <div class="w-4/5 mx-auto mb-4 flex items-center gap-4">
-      <label for="team-filter" class="text-white font-semibold">Filter by Team:</label>
-      <select
-        id="team-filter"
-        :value="selectedTeamShortName"
-        class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500"
-        @change="onTeamChange(($event.target as HTMLSelectElement).value)"
-      >
-        <option value="">All Teams</option>
-        <option v-for="team in sortedTeams" :key="team._id" :value="team.short_name">
-          {{ team.city }} {{ team.name }}
-        </option>
-      </select>
+    <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <label for="team-filter" class="text-white font-semibold">Filter by Team:</label>
+        <select
+          id="team-filter"
+          :value="selectedTeamShortName"
+          class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500"
+          @change="onTeamChange(($event.target as HTMLSelectElement).value)"
+        >
+          <option value="">All Teams</option>
+          <option v-for="team in sortedTeams" :key="team._id" :value="team.short_name">
+            {{ team.city }} {{ team.name }}
+          </option>
+        </select>
+      </div>
+      <div class="flex items-center gap-4">
+        <label for="player-search" class="sr-only">Search players</label>
+        <input
+          id="player-search"
+          v-model="searchQuery"
+          type="text"
+          placeholder="Search players..."
+          class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"
+        >
+      </div>
     </div>
     <table class="w-4/5 m-auto text-white">
       <thead>
@@ -119,6 +131,8 @@ const props = defineProps<{
   onTeamChange: (value: string) => void
   onSortChange: (column: SortColumn, direction: SortDirection) => void
 }>()
+
+const searchQuery = defineModel<string>('searchQuery', { default: '' })
 
 const { data: teams } = await useConvexQuery(api.teams.getTeams, {})
 

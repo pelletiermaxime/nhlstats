@@ -1,0 +1,208 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PlayerStatsTable > renders empty state 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Player</th>
+        <th>Pos</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> G </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> A </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PTS ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> +/- </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PIM </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S% </th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>"
+`;
+
+exports[`PlayerStatsTable > renders filtered by team 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="TOR">
+        <option value="">All Teams</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Player</th>
+        <th>Pos</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> G </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> A </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PTS ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> +/- </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PIM </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S% </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/player-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Auston Matthews</td>
+        <td class="py-2">C</td>
+        <td class="py-2">70</td>
+        <td class="py-2">45</td>
+        <td class="py-2">35</td>
+        <td class="py-2 font-semibold">80</td>
+        <td class="py-2">+15</td>
+        <td class="py-2">20</td>
+        <td class="py-2">250</td>
+        <td class="py-2">1800.0%</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">2</td>
+        <td class="py-2"><a href="/player-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Mitch Marner</td>
+        <td class="py-2">C</td>
+        <td class="py-2">70</td>
+        <td class="py-2">45</td>
+        <td class="py-2">35</td>
+        <td class="py-2 font-semibold">80</td>
+        <td class="py-2">+15</td>
+        <td class="py-2">20</td>
+        <td class="py-2">250</td>
+        <td class="py-2">1800.0%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;
+
+exports[`PlayerStatsTable > renders player list 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Player</th>
+        <th>Pos</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> G </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> A </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PTS ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> +/- </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PIM </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S% </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/player-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Connor McDavid</td>
+        <td class="py-2">C</td>
+        <td class="py-2">70</td>
+        <td class="py-2">45</td>
+        <td class="py-2">35</td>
+        <td class="py-2 font-semibold">124</td>
+        <td class="py-2">+15</td>
+        <td class="py-2">20</td>
+        <td class="py-2">250</td>
+        <td class="py-2">1800.0%</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">2</td>
+        <td class="py-2"><a href="/player-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Auston Matthews</td>
+        <td class="py-2">C</td>
+        <td class="py-2">70</td>
+        <td class="py-2">45</td>
+        <td class="py-2">35</td>
+        <td class="py-2 font-semibold">80</td>
+        <td class="py-2">+15</td>
+        <td class="py-2">20</td>
+        <td class="py-2">250</td>
+        <td class="py-2">1800.0%</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">3</td>
+        <td class="py-2"><a href="/player-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Nathan MacKinnon</td>
+        <td class="py-2">C</td>
+        <td class="py-2">70</td>
+        <td class="py-2">45</td>
+        <td class="py-2">35</td>
+        <td class="py-2 font-semibold">95</td>
+        <td class="py-2">+15</td>
+        <td class="py-2">20</td>
+        <td class="py-2">250</td>
+        <td class="py-2">1800.0%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;
+
+exports[`PlayerStatsTable > renders with search query 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Player</th>
+        <th>Pos</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> G </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> A </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PTS ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> +/- </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> PIM </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> S% </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/player-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Connor McDavid</td>
+        <td class="py-2">C</td>
+        <td class="py-2">70</td>
+        <td class="py-2">45</td>
+        <td class="py-2">35</td>
+        <td class="py-2 font-semibold">124</td>
+        <td class="py-2">+15</td>
+        <td class="py-2">20</td>
+        <td class="py-2">250</td>
+        <td class="py-2">1800.0%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;

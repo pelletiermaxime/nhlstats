@@ -187,11 +187,9 @@ Located in `tests/visual/` and use Playwright's test runner directly (not Vitest
 These tests take full-page screenshots in Chromium and compare against baselines using `toHaveScreenshot()`.
 
 To run visual tests:
-```bash
-# Terminal 1: Start Nuxt dev server
-pnpm dev:nuxt
 
-# Terminal 2: Run visual tests
+```bash
+# Terminal: Run visual tests (dev server must be running on :3000)
 pnpm run test:browser
 
 # Update baselines after intentional UI changes
