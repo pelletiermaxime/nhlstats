@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@nuxt/hints": "^1.0.2",
-    "@nuxtjs/mcp-toolkit": "^0.12.0",
+    "@nuxtjs/mcp-toolkit": "^0.10.0",
     "@nuxtjs/seo": "5.0.2",
     "agents": "^0.8.7",
     "better-convex-nuxt": "^0.3.4",
