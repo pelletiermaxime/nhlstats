@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { ref } from 'vue'
-import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import GoalieStatsTable from '~/components/GoalieStatsTable.vue'
 import type { GoalieStatsWithTeam } from '~/types/goalies'
 import type { Team } from '~/types/teams'
@@ -43,14 +43,12 @@ const mockGoalie = (overrides: Partial<GoalieStatsWithTeam> = {}): GoalieStatsWi
   ...overrides
 })
 
-vi.mock('better-convex-nuxt', () => ({
-  useConvexQuery: () => ({
-    data: ref([
-      mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
-      mockTeam({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' }),
-      mockTeam({ short_name: 'NYR', city: 'New York', name: 'Rangers' }),
-    ])
-  })
+mockNuxtImport('useConvexQuery', () => () => ({
+  data: ref([
+    mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
+    mockTeam({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' }),
+    mockTeam({ short_name: 'NYR', city: 'New York', name: 'Rangers' }),
+  ])
 }))
 
 describe('GoalieStatsTable', () => {

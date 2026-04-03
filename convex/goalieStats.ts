@@ -1,5 +1,4 @@
 import { query, internalAction, internalMutation } from "./_generated/server";
-import type { Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
@@ -51,14 +50,10 @@ export const getGoalieStatsWithTeamsByTeamSorted = query({
     const order = args.sortOrder ?? "desc";
     const sortKey = args.sortBy;
 
-    // For GAA, lower is better so default to asc
-    const isLowerBetter = sortKey === "goalsAgainstAverage";
-    const effectiveOrder = isLowerBetter ? (order === "asc" ? "desc" : "asc") : order;
-
     const sortedStats = goalieStats.sort((a, b) => {
       const aValue = a[sortKey];
       const bValue = b[sortKey];
-      return effectiveOrder === "asc" ? aValue - bValue : bValue - aValue;
+      return order === "asc" ? aValue - bValue : bValue - aValue;
     });
 
     const team = await ctx.db.get(args.teamId);
@@ -83,11 +78,12 @@ export const searchGoalies = query({
     }
 
     let goalieStats;
-    if (args.teamId) {
+    const teamId = args.teamId;
+    if (teamId) {
       goalieStats = await ctx.db
         .query("goalieStats")
         .withSearchIndex("search_goalies", (q) =>
-          q.search("searchName", searchQuery).eq("team_id", args.teamId as Id<"teams">)
+          q.search("searchName", searchQuery).eq("team_id", teamId)
         )
         .take(args.limit ?? 20);
     } else {
@@ -131,14 +127,10 @@ export const getGoalieStatsWithTeamsSorted = query({
     const order = args.sortOrder ?? "desc";
     const limit = args.limit ?? 100;
 
-    // For GAA, lower is better so default to asc
-    const isLowerBetter = args.sortBy === "goalsAgainstAverage";
-    const effectiveOrder = isLowerBetter ? (order === "asc" ? "desc" : "asc") : order;
-
     const query = ctx.db
       .query("goalieStats")
       .withIndex(`year_${args.sortBy}`, (q) => q.eq("year", args.year))
-      .order(effectiveOrder);
+      .order(order);
 
     const goalieStats = await query.take(limit);
 

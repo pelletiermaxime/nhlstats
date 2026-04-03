@@ -88,14 +88,18 @@
         >
           <td class="py-2 text-lg font-bold">{{ index + 1 }}</td>
           <td class="py-2">
-            <NuxtLink :to="`/goalie-stats/${goalie.team?.short_name}`">
+            <NuxtLink
+              v-if="goalie.team"
+              :to="`/goalie-stats/${goalie.team.short_name}`"
+            >
               <img
-                :src="`/logos/SVG/${goalie.team?.short_name}.svg`"
+                :src="`/logos/SVG/${goalie.team.short_name}.svg`"
                 class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform"
-                :alt="`${goalie.team?.city} ${goalie.team?.name}`"
-                :title="`Click to filter by ${goalie.team?.city} ${goalie.team?.name}`"
+                :alt="`${goalie.team.city} ${goalie.team.name}`"
+                :title="`Click to filter by ${goalie.team.city} ${goalie.team.name}`"
               >
             </NuxtLink>
+            <span v-else class="text-zinc-400">-</span>
           </td>
           <td class="py-2">{{ goalie.firstName }} {{ goalie.lastName }}</td>
           <td class="py-2">{{ goalie.gamesPlayed }}</td>
@@ -142,10 +146,6 @@ const sortedTeams = computed(() => {
 
 function toggleSort(column: SortColumn) {
   let newDirection: SortDirection = 'desc'
-  // For GAA, lower is better, so default to asc
-  if (column === 'goalsAgainstAverage') {
-    newDirection = 'asc'
-  }
   if (props.sortBy === column) {
     newDirection = props.sortOrder === 'asc' ? 'desc' : 'asc'
   }

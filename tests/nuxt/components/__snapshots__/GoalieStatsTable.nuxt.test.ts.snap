@@ -5,6 +5,9 @@ exports[`GoalieStatsTable > renders empty state 1`] = `
   <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
       </select></div>
     <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
@@ -37,6 +40,9 @@ exports[`GoalieStatsTable > renders filtered by team 1`] = `
   <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="NYR">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
       </select></div>
     <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
@@ -102,6 +108,9 @@ exports[`GoalieStatsTable > renders goalie list 1`] = `
   <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
       </select></div>
     <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
@@ -183,6 +192,9 @@ exports[`GoalieStatsTable > renders with GAA sort ascending (lower is better) 1`
   <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
       </select></div>
     <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
@@ -248,6 +260,9 @@ exports[`GoalieStatsTable > renders with save percentage sort 1`] = `
   <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
       </select></div>
     <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
@@ -313,6 +328,9 @@ exports[`GoalieStatsTable > renders with search query 1`] = `
   <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
     <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
       </select></div>
     <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
   </div>
