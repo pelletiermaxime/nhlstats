@@ -189,7 +189,7 @@ These tests take full-page screenshots in Chromium and compare against baselines
 To run visual tests:
 
 ```bash
-# Terminal: Run visual tests (dev server must be running on :3000)
+# Terminal: Run visual tests (dev server must be running on nhlstats.localhost)
 pnpm run test:browser
 
 # Update baselines after intentional UI changes
@@ -207,7 +207,7 @@ pnpm run test:browser:update
 pnpm run test:browser:update
 ```
 
-Note: Visual tests require the dev server running on `:3000`.
+Note: Visual tests require the dev server running on `nhlstats.localhost`. This matches the host configured in `package.json` (via `portless nhlstats`) and `playwright.config.ts` (`baseURL: 'https://nhlstats.localhost'`), so Playwright will use the portless host.
 
 **Git LFS for Screenshots:**
 Git LFS is configured (see `.gitattributes`) to track PNG screenshots in `tests/visual/`. This prevents snapshot bloat in the main repository.
@@ -234,3 +234,11 @@ git lfs track "tests/visual/**/*.png"
 1. Run `pnpm run lint` to check code quality
 2. Run `pnpm run typecheck` to verify TypeScript
 3. Run `pnpm run test` to verify tests pass
+
+<!-- convex-ai-start -->
+This project uses [Convex](https://convex.dev) as its backend.
+
+When working on Convex code, **always read `convex/_generated/ai/guidelines.md` first** for important guidelines on how to correctly use Convex APIs and patterns. The file contains rules that override what you may have learned about Convex from training data.
+
+Convex agent skills for common tasks can be installed by running `npx convex ai-files install`.
+<!-- convex-ai-end -->

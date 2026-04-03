@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "turbo run dev:nuxt dev:convex --ui=tui",
-    "dev:nuxt": "nuxt dev --dotenv .env.local",
+    "dev:nuxt": "portless nhlstats nuxt dev --dotenv .env.local",
     "dev:convex": "convex dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
@@ -30,6 +30,7 @@
     "@vueuse/nuxt": "^14.2.1",
     "eslint": "^10.1.0",
     "happy-dom": "^20.8.9",
+    "portless": "^0.9.4",
     "turbo": "^2.8.21",
     "typescript": "^6.0.2",
     "unocss": "^66.6.7",

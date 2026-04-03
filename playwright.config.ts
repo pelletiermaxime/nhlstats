@@ -9,7 +9,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://nhlstats.localhost',
     trace: 'on-first-retry',
     navigationTimeout: 10000,
     actionTimeout: 5000,
