@@ -54,6 +54,7 @@ const menuElements = [
   { name: 'Teams', url: '/teams' },
   { name: 'Standings', url: '/standings' },
   { name: 'Player Stats', url: '/player-stats' },
+  { name: 'Goalie Stats', url: '/goalie-stats' },
   { name: 'MCP/AI tool', url: '/mcp' },
   { name: 'About', url: '/about' }
 ]

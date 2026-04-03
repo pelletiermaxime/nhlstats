@@ -19,6 +19,13 @@ if (!isDev) {
     internal.playerStats.syncPlayerStatsAction,
     { year: 2026, limit: -1 }
   );
+
+  crons.cron(
+    "sync NHL goalie stats",
+    "22 11 * * *",
+    internal.goalieStats.syncGoalieStatsAction,
+    { year: 2026, limit: -1 }
+  );
 }
 
 export default crons;

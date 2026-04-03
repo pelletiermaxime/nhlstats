@@ -88,4 +88,48 @@ export default defineSchema({
       searchField: "searchName",
       filterFields: ["team_id"],
     }),
+
+  goalieStats: defineTable({
+    playerId: v.number(),
+    firstName: v.string(),
+    lastName: v.string(),
+    searchName: v.string(), // Combined first + last name for search
+    team_id: v.id("teams"),
+    year: v.number(),
+    // Games
+    gamesPlayed: v.number(),
+    gamesStarted: v.number(),
+    // Record
+    wins: v.number(),
+    losses: v.number(),
+    otLosses: v.number(),
+    // Stats
+    shotsAgainst: v.number(),
+    goalsAgainst: v.number(),
+    saves: v.number(),
+    savePct: v.number(),
+    goalsAgainstAverage: v.number(),
+    shutouts: v.number(),
+    // Time
+    timeOnIce: v.number(), // in minutes
+    // Additional
+    goals: v.optional(v.number()),
+    assists: v.optional(v.number()),
+    penaltyMinutes: v.optional(v.number()),
+  })
+    .index("playerId", ["playerId"])
+    .index("year", ["year"])
+    .index("year_playerId", ["year", "playerId"])
+    .index("year_team_id", ["year", "team_id"])
+    .index("year_gamesPlayed", ["year", "gamesPlayed"])
+    .index("year_wins", ["year", "wins"])
+    .index("year_losses", ["year", "losses"])
+    .index("year_otLosses", ["year", "otLosses"])
+    .index("year_savePct", ["year", "savePct"])
+    .index("year_goalsAgainstAverage", ["year", "goalsAgainstAverage"])
+    .index("year_shutouts", ["year", "shutouts"])
+    .searchIndex("search_goalies", {
+      searchField: "searchName",
+      filterFields: ["team_id"],
+    }),
 });
