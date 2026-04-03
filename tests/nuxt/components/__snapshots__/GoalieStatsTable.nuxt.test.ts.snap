@@ -1,0 +1,376 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GoalieStatsTable > renders empty state 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Goalie</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th>GS</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> W ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> L </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> OTL </th>
+        <th>SA</th>
+        <th>GA</th>
+        <th>SV</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SV% </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GAA </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SO </th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>"
+`;
+
+exports[`GoalieStatsTable > renders filtered by team 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="NYR">
+        <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Goalie</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th>GS</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> W ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> L </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> OTL </th>
+        <th>SA</th>
+        <th>GA</th>
+        <th>SV</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SV% </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GAA </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SO </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/goalie-stats/NYR"><img src="/logos/SVG/NYR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="New York Rangers" title="Click to filter by New York Rangers"></a></td>
+        <td class="py-2">Igor Shesterkin</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">28</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.1%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">2</td>
+        <td class="py-2"><a href="/goalie-stats/NYR"><img src="/logos/SVG/NYR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="New York Rangers" title="Click to filter by New York Rangers"></a></td>
+        <td class="py-2">Jonathan Quick</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">28</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.1%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;
+
+exports[`GoalieStatsTable > renders goalie list 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Goalie</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th>GS</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> W ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> L </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> OTL </th>
+        <th>SA</th>
+        <th>GA</th>
+        <th>SV</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SV% </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GAA </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SO </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Igor Shesterkin</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">35</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.5%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">2</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Jonathan Quick</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">28</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.1%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">3</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Carey Price</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">22</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">90.5%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;
+
+exports[`GoalieStatsTable > renders with GAA sort ascending (lower is better) 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Goalie</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th>GS</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> W </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> L </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> OTL </th>
+        <th>SA</th>
+        <th>GA</th>
+        <th>SV</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SV% </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GAA ↑</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SO </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Igor Shesterkin</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">28</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.1%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">2</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Jonathan Quick</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">28</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.1%</td>
+        <td class="py-2">2.45</td>
+        <td class="py-2">4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;
+
+exports[`GoalieStatsTable > renders with save percentage sort 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Goalie</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th>GS</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> W </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> L </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> OTL </th>
+        <th>SA</th>
+        <th>GA</th>
+        <th>SV</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SV% ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GAA </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SO </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Igor Shesterkin</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">28</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.5%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">2</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Jonathan Quick</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">28</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.1%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;
+
+exports[`GoalieStatsTable > renders with search query 1`] = `
+"<div>
+  <div class="w-4/5 mx-auto mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-4"><label for="team-filter" class="text-white font-semibold">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500" value="">
+        <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="NYR">New York Rangers</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+      </select></div>
+    <div class="flex items-center gap-4"><label for="goalie-search" class="sr-only">Search goalies</label><input id="goalie-search" type="text" placeholder="Search goalies..." class="bg-zinc-700 text-white px-4 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-64 placeholder-zinc-400"></div>
+  </div>
+  <table class="w-4/5 m-auto text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Goalie</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GP </th>
+        <th>GS</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> W ↓</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> L </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> OTL </th>
+        <th>SA</th>
+        <th>GA</th>
+        <th>SV</th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SV% </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> GAA </th>
+        <th class="cursor-pointer hover:text-blue-400 select-none"> SO </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-zinc-600 text-center">
+        <td class="py-2 text-lg font-bold">1</td>
+        <td class="py-2"><a href="/goalie-stats/TOR"><img src="/logos/SVG/TOR.svg" class="h-10 mx-auto cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Click to filter by Toronto Maple Leafs"></a></td>
+        <td class="py-2">Igor Shesterkin</td>
+        <td class="py-2">45</td>
+        <td class="py-2">44</td>
+        <td class="py-2 font-semibold">35</td>
+        <td class="py-2">12</td>
+        <td class="py-2">5</td>
+        <td class="py-2">1200</td>
+        <td class="py-2">95</td>
+        <td class="py-2">1105</td>
+        <td class="py-2">92.1%</td>
+        <td class="py-2">2.15</td>
+        <td class="py-2">4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>"
+`;

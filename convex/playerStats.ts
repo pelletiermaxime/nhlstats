@@ -1,5 +1,4 @@
 import { query, internalAction, internalMutation } from "./_generated/server";
-import type { QueryCtx } from "./_generated/server";
 import type { Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
@@ -32,51 +31,6 @@ interface NHLPlayerStats {
   shPoints: number;
   shootsCatches: string;
 }
-
-export const getPlayerStatsByYear = query({
-  args: { year: v.number() },
-  handler: async (ctx, args) => {
-    const playerStats = await ctx.db
-      .query("playerStats")
-      .withIndex("year", (q) => q.eq("year", args.year))
-      .collect();
-    return playerStats;
-  },
-});
-
-export const getPlayerStatsByTeam = query({
-  args: { year: v.number(), teamId: v.id("teams") },
-  handler: async (ctx, args) => {
-    const playerStats = await ctx.db
-      .query("playerStats")
-      .withIndex("year_team_id", (q) =>
-        q.eq("year", args.year).eq("team_id", args.teamId)
-      )
-      .collect();
-    return playerStats;
-  },
-});
-
-export const getPlayerStatsWithTeamsByTeam = query({
-  args: { year: v.number(), teamId: v.id("teams") },
-  handler: async (ctx, args) => {
-    const playerStats = await ctx.db
-      .query("playerStats")
-      .withIndex("year_team_id", (q) =>
-        q.eq("year", args.year).eq("team_id", args.teamId)
-      )
-      .collect();
-
-    const team = await ctx.db.get(args.teamId);
-
-    return playerStats
-      .sort((a, b) => b.points - a.points)
-      .map((stat) => ({
-        ...stat,
-        team,
-      }));
-  },
-});
 
 export const getPlayerStatsWithTeamsByTeamSorted = query({
   args: {
@@ -117,19 +71,6 @@ export const getPlayerStatsWithTeamsByTeamSorted = query({
       ...stat,
       team,
     }));
-  },
-});
-
-export const getPlayerStatsByPlayerId = query({
-  args: { year: v.number(), playerId: v.number() },
-  handler: async (ctx, args) => {
-    const playerStats = await ctx.db
-      .query("playerStats")
-      .withIndex("year_playerId", (q) =>
-        q.eq("year", args.year).eq("playerId", args.playerId)
-      )
-      .first();
-    return playerStats;
   },
 });
 
@@ -174,40 +115,6 @@ export const searchPlayers = query({
         team,
       };
     });
-  },
-});
-
-async function fetchPlayerStatsWithTeams(ctx: QueryCtx, year: number, limit?: number) {
-  const query = ctx.db
-    .query("playerStats")
-    .withIndex("year_points", (q) => q.eq("year", year))
-    .order("desc");
-
-  const playerStats = limit ? await query.take(limit) : await query.collect();
-
-  const teams = await ctx.db.query("teams").collect();
-  const teamMap = new Map(teams.map((t) => [t._id.toString(), t]));
-
-  return playerStats.map((stat) => {
-    const team = teamMap.get(stat.team_id.toString());
-    return {
-      ...stat,
-      team,
-    };
-  });
-}
-
-export const getPlayerStatsWithTeams = query({
-  args: { year: v.number() },
-  handler: async (ctx, args) => {
-    return fetchPlayerStatsWithTeams(ctx, args.year);
-  },
-});
-
-export const getTopPlayerStatsWithTeams = query({
-  args: { year: v.number(), limit: v.optional(v.number()) },
-  handler: async (ctx, args) => {
-    return fetchPlayerStatsWithTeams(ctx, args.year, args.limit ?? 100);
   },
 });
 

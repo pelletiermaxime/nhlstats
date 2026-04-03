@@ -9,6 +9,7 @@
  */
 
 import type * as crons from "../crons.js";
+import type * as goalieStats from "../goalieStats.js";
 import type * as migrations from "../migrations.js";
 import type * as playerStats from "../playerStats.js";
 import type * as seed from "../seed.js";
@@ -23,6 +24,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   crons: typeof crons;
+  goalieStats: typeof goalieStats;
   migrations: typeof migrations;
   playerStats: typeof playerStats;
   seed: typeof seed;
