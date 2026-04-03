@@ -94,17 +94,6 @@ export const getStandingByTeamAndYear = query({
   },
 });
 
-export const getTeamByName = query({
-  args: { name: v.string() },
-  handler: async (ctx, args) => {
-    const team = await ctx.db
-      .query("teams")
-      .filter((q) => q.eq(q.field("name"), args.name))
-      .first();
-    return team;
-  },
-});
-
 export const syncStandingsAction = internalAction({
   args: { year: v.number() },
   handler: async (ctx, args) => {

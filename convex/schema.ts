@@ -8,7 +8,7 @@ export default defineSchema({
     name: v.string(),
     year: v.number(),
     division_id: v.optional(v.id("divisions")),
-  }).index("division_id", ["division_id"]),
+  }).index("by_division_id", ["division_id"]),
 
   divisions: defineTable({
     name: v.string(),

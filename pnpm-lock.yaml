@@ -66,6 +66,9 @@ importers:
       happy-dom:
         specifier: ^20.8.9
         version: 20.8.9
+      portless:
+        specifier: ^0.9.4
+        version: 0.9.4
       turbo:
         specifier: ^2.8.21
         version: 2.8.21
@@ -6071,6 +6074,12 @@ packages:
   pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
+
+  portless@0.9.4:
+    resolution: {integrity: sha512-+ylrgmxDd807CldqrFc2Qak4FrUka/3ijwYtGW3dCRm0L6FvxAxONe1tlMqpyxR/CVy58lYNX0GiY6OH8R3Kmg==}
+    engines: {node: '>=20'}
+    os: [darwin, linux, win32]
+    hasBin: true
 
   postcss-calc@10.1.1:
     resolution: {integrity: sha512-NYEsLHh8DgG/PRH2+G9BTuUdtf9ViS+vdoQ0YA5OQdGsfN4ztiwtDWNtBl9EKeqNMFnIu8IKZ0cLxEQ5r5KVMw==}
@@ -14488,6 +14497,8 @@ snapshots:
       fsevents: 2.3.2
 
   pluralize@8.0.0: {}
+
+  portless@0.9.4: {}
 
   postcss-calc@10.1.1(postcss@8.5.8):
     dependencies:

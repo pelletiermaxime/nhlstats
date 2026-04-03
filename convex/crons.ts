@@ -6,21 +6,16 @@ const crons = cronJobs();
 const isDev = process.env.CONVEX_CLOUD_URL?.includes("ideal-peccary-58");
 
 if (!isDev) {
-  crons.hourly(
+  crons.interval(
     "sync NHL standings",
-    {
-      minuteUTC: 0,
-    },
+    { hours: 1 },
     internal.standings.syncStandingsAction,
     { year: 2026 }
   );
 
-  crons.daily(
+  crons.cron(
     "sync NHL player stats",
-    {
-      hourUTC: 12,
-      minuteUTC: 0,
-    },
+    "0 12 * * *",
     internal.playerStats.syncPlayerStatsAction,
     { year: 2026, limit: -1 }
   );
