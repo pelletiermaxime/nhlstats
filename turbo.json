@@ -11,26 +11,52 @@
     },
     "lint": {
       "cache": true,
-      "inputs": ["**/*.{js,ts,vue}", "eslint.config.js"]
+      "inputs": [
+        "**/*.{js,ts,vue}",
+        "!**/node_modules/**",
+        "!.kilo/**",
+        "!.output/**",
+        "!.nuxt/**",
+        "eslint.config.js"
+      ]
     },
     "typecheck": {
       "cache": true,
-      "inputs": ["**/*.{ts,vue}", "tsconfig.json"],
-      "dependsOn": ["^typecheck"]
+      "inputs": [
+        "**/*.{ts,vue}",
+        "!**/node_modules/**",
+        "!.kilo/**",
+        "!.output/**",
+        "!.nuxt/**",
+        "tsconfig.json"
+      ]
     },
     "test": {
       "cache": true,
-      "inputs": ["tests/**/*", "**/*.{ts,vue}"],
-      "dependsOn": ["^typecheck"]
+      "inputs": [
+        "tests/**/*",
+        "**/*.{ts,vue}",
+        "!**/node_modules/**",
+        "!.kilo/**",
+        "!.output/**",
+        "!.nuxt/**"
+      ]
     },
     "test:browser": {
       "cache": true,
-      "inputs": ["tests/visual/**/*", "pages/**/*", "components/**/*", "layouts/**/*"],
-      "dependsOn": ["^typecheck"]
-    },
-    "check": {
-      "cache": true,
-      "dependsOn": ["lint", "typecheck", "test", "test:browser"]
+      "inputs": [
+        "tests/visual/**/*",
+        "pages/**/*",
+        "components/**/*",
+        "layouts/**/*",
+        "server/**/*",
+        "nuxt.config.ts",
+        "playwright.config.ts",
+        "!**/node_modules/**",
+        "!.kilo/**",
+        "!.output/**",
+        "!.nuxt/**"
+      ]
     }
   }
 }
