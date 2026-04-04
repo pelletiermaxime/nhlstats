@@ -26,6 +26,22 @@
               </div>
             </div>
           </div>
+
+          <div class="hidden sm:flex items-center space-x-4">
+            <template v-if="isAuthenticated">
+              <NuxtLink to="/profile" class="text-gray-300 hover:text-white text-sm">
+                {{ user?.email || user?.name || 'Profile' }}
+              </NuxtLink>
+            </template>
+            <template v-else>
+              <NuxtLink to="/auth/signin" class="text-gray-300 hover:text-white text-sm">
+                Sign In
+              </NuxtLink>
+              <NuxtLink to="/auth/signup" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm">
+                Sign Up
+              </NuxtLink>
+            </template>
+          </div>
         </div>
       </div>
 
@@ -42,6 +58,29 @@
           >
             {{ item.name }}
           </NuxtLink>
+
+          <template v-if="isAuthenticated">
+            <NuxtLink
+              to="/profile"
+              class="text-base menu-mobile-inactive"
+            >
+              Profile
+            </NuxtLink>
+          </template>
+          <template v-else>
+            <NuxtLink
+              to="/auth/signin"
+              class="text-base menu-mobile-inactive"
+            >
+              Sign In
+            </NuxtLink>
+            <NuxtLink
+              to="/auth/signup"
+              class="text-base menu-mobile-inactive"
+            >
+              Sign Up
+            </NuxtLink>
+          </template>
         </div>
       </div>
     </nav>
@@ -50,6 +89,8 @@
 </template>
 
 <script setup lang="ts">
+const { isAuthenticated, user } = useConvexAuth()
+
 const menuElements = [
   { name: 'Teams', url: '/teams' },
   { name: 'Standings', url: '/standings' },

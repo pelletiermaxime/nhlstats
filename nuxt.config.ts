@@ -36,10 +36,9 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   convex: {
-    auth: {
-      enabled: false
-    },
-    url: process.env.CONVEX_URL
+    url: process.env.CONVEX_URL,
+    siteUrl: process.env.CONVEX_SITE_URL || 'https://ideal-peccary-58.convex.site',
+    trustedOrigins: ['https://nhlstats.localhost', 'https://nhlstats.org']
   },
   mcp: {
     name: 'nhlstats',
