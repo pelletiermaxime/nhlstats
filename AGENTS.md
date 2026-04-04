@@ -29,6 +29,9 @@ pnpm run lint             # Run ESLint on all files
 pnpm run typecheck        # Run TypeScript type checking (via nuxt typecheck)
 ```
 
+Please *NEVER* start the dev server or the nuxt server unless asked to.
+It's the user's job to start it and the website should be running at all time at https://nhlstats.localhost.
+
 ## Code Style Guidelines
 
 ### General Principles
@@ -212,28 +215,25 @@ Note: Visual tests require the dev server running on `nhlstats.localhost`. This 
 **Git LFS for Screenshots:**
 Git LFS is configured (see `.gitattributes`) to track PNG screenshots in `tests/visual/`. This prevents snapshot bloat in the main repository.
 
-**Setup Instructions:**
-```bash
-# 1. Install Git LFS (if not already installed)
-# macOS: brew install git-lfs
-# Ubuntu/Debian: sudo apt install git-lfs
-# Fedora: sudo dnf install git-lfs
-
-# 2. Initialize Git LFS in the repo
-git lfs install
-
-# 3. Track screenshot files (already configured in .gitattributes)
-git lfs track "tests/visual/**/*.png"
-```
 
 **Current LFS-tracked files:**
 - `tests/visual/**/*.png` - Visual regression baselines
 
 ### Run after every change
 
-1. Run `pnpm run lint` to check code quality
-2. Run `pnpm run typecheck` to verify TypeScript
-3. Run `pnpm run test` to verify tests pass
+Run the `check` task to run all validation in parallel with caching:
+
+```bash
+pnpm run check
+```
+
+This runs lint, typecheck, test, and test:browser in parallel using Turbo.
+
+To run individual checks:
+- `pnpm run lint` - Check code quality with ESLint
+- `pnpm run typecheck` - Verify TypeScript types
+- `pnpm run test` - Run unit tests
+- `pnpm run test:browser` - Run visual regression tests
 
 <!-- convex-ai-start -->
 This project uses [Convex](https://convex.dev) as its backend.
