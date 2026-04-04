@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:browser": "playwright test",
     "test:browser:update": "playwright test --update-snapshots",
-    "test:ui": "vitest --ui",
+    "check": "turbo run lint typecheck test test:browser",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck"
   },

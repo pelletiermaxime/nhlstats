@@ -37,11 +37,15 @@ async function handleSignUp() {
     })
 
     if (authError) {
-      error.value = authError.message ?? null
-    } else {
-      await refreshAuth()
-      router.push('/')
+      error.value = authError.message ?? 'Unable to create account.'
+      return
     }
+    await refreshAuth()
+    await router.push('/')
+  } catch (err) {
+    error.value = err instanceof Error
+      ? err.message
+      : 'Unable to create account. Please try again.'
   } finally {
     loading.value = false
   }

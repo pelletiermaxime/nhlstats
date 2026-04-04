@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
-import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
+import { ref } from 'vue'
 import Signin from '~/pages/auth/signin.vue'
 import Signup from '~/pages/auth/signup.vue'
 import Profile from '~/pages/profile.vue'
@@ -10,15 +11,13 @@ const mockSignUp = vi.fn()
 const mockSignOut = vi.fn()
 const mockRefreshAuth = vi.fn()
 
-vi.mock('better-convex-nuxt', () => ({
-  useConvexAuth: () => ({
-    isAuthenticated: { value: false },
-    user: { value: null },
-    signIn: { email: mockSignIn },
-    signUp: { email: mockSignUp },
-    signOut: mockSignOut,
-    refreshAuth: mockRefreshAuth,
-  }),
+mockNuxtImport('useConvexAuth', () => () => ({
+  isAuthenticated: ref(false),
+  user: ref(null),
+  signIn: { email: mockSignIn },
+  signUp: { email: mockSignUp },
+  signOut: mockSignOut,
+  refreshAuth: mockRefreshAuth,
 }))
 
 describe('Auth Pages', () => {

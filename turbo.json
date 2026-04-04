@@ -8,6 +8,29 @@
     "dev:convex": {
       "cache": false,
       "persistent": true
+    },
+    "lint": {
+      "cache": true,
+      "inputs": ["**/*.{js,ts,vue}", "eslint.config.js"]
+    },
+    "typecheck": {
+      "cache": true,
+      "inputs": ["**/*.{ts,vue}", "tsconfig.json"],
+      "dependsOn": ["^typecheck"]
+    },
+    "test": {
+      "cache": true,
+      "inputs": ["tests/**/*", "**/*.{ts,vue}"],
+      "dependsOn": ["^typecheck"]
+    },
+    "test:browser": {
+      "cache": true,
+      "inputs": ["tests/visual/**/*", "pages/**/*", "components/**/*", "layouts/**/*"],
+      "dependsOn": ["^typecheck"]
+    },
+    "check": {
+      "cache": true,
+      "dependsOn": ["lint", "typecheck", "test", "test:browser"]
     }
   }
 }

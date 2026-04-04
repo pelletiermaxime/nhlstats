@@ -221,10 +221,19 @@ Git LFS is configured (see `.gitattributes`) to track PNG screenshots in `tests/
 
 ### Run after every change
 
-1. Run `pnpm run lint` to check code quality
-2. Run `pnpm run typecheck` to verify TypeScript
-3. Run `pnpm run test` to verify tests pass
-3. Run `pnpm run test:browser` to verify playwright tests
+Run the `check` task to run all validation in parallel with caching:
+
+```bash
+pnpm run check
+```
+
+This runs lint, typecheck, test, and test:browser in parallel using Turbo.
+
+To run individual checks:
+- `pnpm run lint` - Check code quality with ESLint
+- `pnpm run typecheck` - Verify TypeScript types
+- `pnpm run test` - Run unit tests
+- `pnpm run test:browser` - Run visual regression tests
 
 <!-- convex-ai-start -->
 This project uses [Convex](https://convex.dev) as its backend.
