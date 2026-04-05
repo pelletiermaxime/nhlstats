@@ -73,8 +73,8 @@ importers:
         specifier: ^20.8.9
         version: 20.8.9
       portless:
-        specifier: ^0.9.4
-        version: 0.9.4
+        specifier: ^0.9.6
+        version: 0.9.6
       turbo:
         specifier: ^2.9.3
         version: 2.9.3
@@ -5997,8 +5997,8 @@ packages:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
 
-  portless@0.9.4:
-    resolution: {integrity: sha512-+ylrgmxDd807CldqrFc2Qak4FrUka/3ijwYtGW3dCRm0L6FvxAxONe1tlMqpyxR/CVy58lYNX0GiY6OH8R3Kmg==}
+  portless@0.9.6:
+    resolution: {integrity: sha512-imtPnrQ6NNqwYMeCDaJ0PhNx/98Y2piukiMGd0MNCquDuoi7n7mHOf5P1VwhUoqx7s6z+DIqzELein1vAjf/JA==}
     engines: {node: '>=20'}
     os: [darwin, linux, win32]
     hasBin: true
@@ -14412,7 +14412,7 @@ snapshots:
 
   pluralize@8.0.0: {}
 
-  portless@0.9.4: {}
+  portless@0.9.6: {}
 
   postcss-calc@10.1.1(postcss@8.5.8):
     dependencies:

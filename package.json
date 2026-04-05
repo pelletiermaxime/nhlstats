@@ -30,7 +30,7 @@
     "@vueuse/nuxt": "^14.2.1",
     "eslint": "^10.2.0",
     "happy-dom": "^20.8.9",
-    "portless": "^0.9.4",
+    "portless": "^0.9.6",
     "turbo": "^2.9.3",
     "typescript": "^6.0.2",
     "unocss": "^66.6.7",
