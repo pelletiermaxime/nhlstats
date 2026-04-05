@@ -10,6 +10,8 @@ import { components, internal } from "./_generated/api";
 import authConfig from "./auth.config";
 
 const siteUrl = process.env.SITE_URL!;
+const googleClientId = process.env.GOOGLE_CLIENT_ID!;
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET!;
 
 const authFunctions: AuthFunctions = internal.auth;
 
@@ -69,6 +71,12 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
     database: authComponent.adapter(ctx),
     emailAndPassword: {
       enabled: true,
+    },
+    socialProviders: {
+      google: {
+        clientId: googleClientId,
+        clientSecret: googleClientSecret,
+      },
     },
     plugins: [convex({ authConfig })],
     session: {
