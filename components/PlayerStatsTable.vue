@@ -28,91 +28,91 @@
     </div>
     <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
       <table class="w-full text-white min-w-[600px]">
-      <thead>
-        <tr class="text-sm">
-          <th class="px-1 py-2">#</th>
-          <th class="px-1 py-2">Team</th>
-          <th class="px-1 py-2 text-left">Player</th>
-          <th class="px-1 py-2">Pos</th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('gamesPlayed')"
+        <thead>
+          <tr class="text-sm">
+            <th class="px-1 py-2">#</th>
+            <th class="px-1 py-2">Team</th>
+            <th class="px-1 py-2 text-left">Player</th>
+            <th class="px-1 py-2">Pos</th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('gamesPlayed')"
+            >
+              GP {{ sortIndicator('gamesPlayed') }}
+            </th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('goals')"
+            >
+              G {{ sortIndicator('goals') }}
+            </th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('assists')"
+            >
+              A {{ sortIndicator('assists') }}
+            </th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('points')"
+            >
+              PTS {{ sortIndicator('points') }}
+            </th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('plusMinus')"
+            >
+              +/- {{ sortIndicator('plusMinus') }}
+            </th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('penaltyMinutes')"
+            >
+              PIM {{ sortIndicator('penaltyMinutes') }}
+            </th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('shots')"
+            >
+              S {{ sortIndicator('shots') }}
+            </th>
+            <th
+              class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
+              @click="toggleSort('shootingPct')"
+            >
+              S% {{ sortIndicator('shootingPct') }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(player, index) in players"
+            :key="player._id"
+            class="even:bg-zinc-600 text-center text-sm"
           >
-            GP {{ sortIndicator('gamesPlayed') }}
-          </th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('goals')"
-          >
-            G {{ sortIndicator('goals') }}
-          </th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('assists')"
-          >
-            A {{ sortIndicator('assists') }}
-          </th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('points')"
-          >
-            PTS {{ sortIndicator('points') }}
-          </th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('plusMinus')"
-          >
-            +/- {{ sortIndicator('plusMinus') }}
-          </th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('penaltyMinutes')"
-          >
-            PIM {{ sortIndicator('penaltyMinutes') }}
-          </th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('shots')"
-          >
-            S {{ sortIndicator('shots') }}
-          </th>
-          <th
-            class="cursor-pointer hover:text-blue-400 select-none px-1 py-2"
-            @click="toggleSort('shootingPct')"
-          >
-            S% {{ sortIndicator('shootingPct') }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(player, index) in players"
-          :key="player._id"
-          class="even:bg-zinc-600 text-center text-sm"
-        >
-          <td class="px-1 py-2 font-bold">{{ index + 1 }}</td>
-          <td class="px-1 py-2">
-            <NuxtLink :to="`/player-stats/${player.team?.short_name}`">
-              <img
-                :src="`/logos/SVG/${player.team?.short_name}.svg`"
-                class="h-8 sm:h-10 mx-auto cursor-pointer hover:scale-110 transition-transform"
-                :alt="`${player.team?.city} ${player.team?.name}`"
-                :title="`Click to filter by ${player.team?.city} ${player.team?.name}`"
-              >
-            </NuxtLink>
-          </td>
-          <td class="px-1 py-2 text-left">{{ player.firstName }} {{ player.lastName }}</td>
-          <td class="px-1 py-2">{{ player.positionCode }}</td>
-          <td class="px-1 py-2">{{ player.gamesPlayed }}</td>
-          <td class="px-1 py-2">{{ player.goals }}</td>
-          <td class="px-1 py-2">{{ player.assists }}</td>
-          <td class="px-1 py-2 font-semibold">{{ player.points }}</td>
-          <td class="px-1 py-2">{{ player.plusMinus > 0 ? '+' : '' }}{{ player.plusMinus }}</td>
-          <td class="px-1 py-2">{{ player.penaltyMinutes }}</td>
-          <td class="px-1 py-2">{{ player.shots }}</td>
-          <td class="px-1 py-2">{{ (player.shootingPct * 100).toFixed(1) }}%</td>
-        </tr>
-      </tbody>
+            <td class="px-1 py-2 font-bold">{{ index + 1 }}</td>
+            <td class="px-1 py-2">
+              <NuxtLink :to="`/player-stats/${player.team?.short_name}`">
+                <img
+                  :src="`/logos/SVG/${player.team?.short_name}.svg`"
+                  class="h-8 sm:h-10 mx-auto cursor-pointer hover:scale-110 transition-transform"
+                  :alt="`${player.team?.city} ${player.team?.name}`"
+                  :title="`Click to filter by ${player.team?.city} ${player.team?.name}`"
+                >
+              </NuxtLink>
+            </td>
+            <td class="px-1 py-2 text-left">{{ player.firstName }} {{ player.lastName }}</td>
+            <td class="px-1 py-2">{{ player.positionCode }}</td>
+            <td class="px-1 py-2">{{ player.gamesPlayed }}</td>
+            <td class="px-1 py-2">{{ player.goals }}</td>
+            <td class="px-1 py-2">{{ player.assists }}</td>
+            <td class="px-1 py-2 font-semibold">{{ player.points }}</td>
+            <td class="px-1 py-2">{{ player.plusMinus > 0 ? '+' : '' }}{{ player.plusMinus }}</td>
+            <td class="px-1 py-2">{{ player.penaltyMinutes }}</td>
+            <td class="px-1 py-2">{{ player.shots }}</td>
+            <td class="px-1 py-2">{{ (player.shootingPct * 100).toFixed(1) }}%</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

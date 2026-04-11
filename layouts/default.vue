@@ -34,10 +34,20 @@
               </NuxtLink>
             </template>
             <template v-else>
-              <NuxtLink to="/auth/signin" class="text-gray-300 hover:text-white text-sm">
+              <NuxtLink
+                to="/auth/signin"
+                class="text-sm"
+                :class="[isActive('/auth/signin') ? 'menu-active' : 'menu-inactive']"
+                :aria-current="isActive('/auth/signin') ? 'page' : undefined"
+              >
                 Sign In
               </NuxtLink>
-              <NuxtLink to="/auth/signup" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md text-sm">
+              <NuxtLink
+                to="/auth/signup"
+                class="text-sm"
+                :class="[isActive('/auth/signup') ? 'menu-active' : 'menu-inactive']"
+                :aria-current="isActive('/auth/signup') ? 'page' : undefined"
+              >
                 Sign Up
               </NuxtLink>
             </template>
@@ -112,14 +122,18 @@
           <template v-else>
             <NuxtLink
               to="/auth/signin"
-              class="block text-base menu-mobile-inactive"
+              class="block text-base"
+              :class="[isActive('/auth/signin') ? 'menu-mobile-active' : 'menu-mobile-inactive']"
+              :aria-current="isActive('/auth/signin') ? 'page' : undefined"
               @click="mobileMenuOpen = false"
             >
               Sign In
             </NuxtLink>
             <NuxtLink
               to="/auth/signup"
-              class="block text-base menu-mobile-inactive"
+              class="block text-base"
+              :class="[isActive('/auth/signup') ? 'menu-mobile-active' : 'menu-mobile-inactive']"
+              :aria-current="isActive('/auth/signup') ? 'page' : undefined"
               @click="mobileMenuOpen = false"
             >
               Sign Up

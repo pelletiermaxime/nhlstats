@@ -224,7 +224,8 @@ Git LFS is configured (see `.gitattributes`) to track PNG screenshots in `tests/
 Run the `check` task to run all validation in parallel with caching:
 
 ```bash
-pnpm run check
+pnpm run check        # Full output
+pnpm run check:quiet  # Minimal output (for agents)
 ```
 
 This runs lint, typecheck, test, and test:browser in parallel using Turbo.

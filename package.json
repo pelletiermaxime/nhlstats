@@ -16,6 +16,7 @@
     "test:browser": "playwright test",
     "test:browser:update": "playwright test --update-snapshots",
     "check": "turbo run lint typecheck test test:browser",
+    "check:quiet": "turbo run lint typecheck test test:browser --output-logs=errors-only",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck"
   },
