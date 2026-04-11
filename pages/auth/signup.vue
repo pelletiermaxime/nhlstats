@@ -53,7 +53,7 @@ async function handleSignUp() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-zinc-800 flex items-center justify-center px-4">
+  <div class="flex-1 flex flex-col items-center px-4 pt-8 pb-12">
     <div class="max-w-md w-full space-y-8 bg-zinc-700 p-8 rounded-lg">
       <div>
         <h1 class="text-2xl font-bold text-white text-center">Sign Up</h1>
