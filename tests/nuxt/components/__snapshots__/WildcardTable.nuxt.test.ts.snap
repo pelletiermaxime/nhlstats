@@ -1,198 +1,204 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`WildcardTable > renders empty sections 1`] = `
-"<div>
-  <table class="w-4/5 m-auto text-white table-fixed">
-    <thead>
-      <tr>
-        <th class="w-12">Position</th>
-        <th class="w-16">Team</th>
-        <th class="w-10">GP</th>
-        <th class="w-10">W</th>
-        <th class="w-10">L</th>
-        <th class="w-10">OTL</th>
-        <th class="w-10">PTS</th>
-        <th class="w-10">ROW</th>
-        <th class="w-10">GF</th>
-        <th class="w-10">GA</th>
-        <th class="w-10">Diff</th>
-        <th class="w-16">Home</th>
-        <th class="w-16">Away</th>
-        <th class="w-14">L10</th>
-        <th class="w-12">Streak</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="bg-zinc-800">
-        <td colspan="15" class="text-left pl-4 py-2 font-bold text-white">Division</td>
-      </tr>
-    </tbody>
-  </table>
+"<div class="px-4 sm:px-0">
+  <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+    <table class="w-full text-white table-fixed min-w-[900px]">
+      <thead>
+        <tr class="text-sm">
+          <th class="w-10 px-1 py-2">#</th>
+          <th class="w-12 px-1 py-2">Team</th>
+          <th class="w-10 px-1 py-2">GP</th>
+          <th class="w-10 px-1 py-2">W</th>
+          <th class="w-10 px-1 py-2">L</th>
+          <th class="w-10 px-1 py-2">OTL</th>
+          <th class="w-10 px-1 py-2">PTS</th>
+          <th class="w-10 px-1 py-2">ROW</th>
+          <th class="w-10 px-1 py-2">GF</th>
+          <th class="w-10 px-1 py-2">GA</th>
+          <th class="w-10 px-1 py-2">Diff</th>
+          <th class="w-16 px-1 py-2">Home</th>
+          <th class="w-16 px-1 py-2">Away</th>
+          <th class="w-14 px-1 py-2">L10</th>
+          <th class="w-12 px-1 py-2">Streak</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-zinc-800">
+          <td colspan="15" class="text-left pl-4 py-2 font-bold text-white text-sm">Division</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>"
 `;
 
 exports[`WildcardTable > renders wildcard table with sections 1`] = `
-"<div>
-  <table class="w-4/5 m-auto text-white table-fixed">
-    <thead>
-      <tr>
-        <th class="w-12">Position</th>
-        <th class="w-16">Team</th>
-        <th class="w-10">GP</th>
-        <th class="w-10">W</th>
-        <th class="w-10">L</th>
-        <th class="w-10">OTL</th>
-        <th class="w-10">PTS</th>
-        <th class="w-10">ROW</th>
-        <th class="w-10">GF</th>
-        <th class="w-10">GA</th>
-        <th class="w-10">Diff</th>
-        <th class="w-16">Home</th>
-        <th class="w-16">Away</th>
-        <th class="w-14">L10</th>
-        <th class="w-12">Streak</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="bg-zinc-800">
-        <td colspan="15" class="text-left pl-4 py-2 font-bold text-white">Atlantic Division</td>
-      </tr>
-      <tr class="even:bg-zinc-600 text-center">
-        <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
-        <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
-        <!--v-if-->
-        <!--v-if-->
-        <td>50</td>
-        <td>30</td>
-        <td>15</td>
-        <td>5</td>
-        <td class="font-bold">65</td>
-        <td>28</td>
-        <td>150</td>
-        <td>120</td>
-        <td>+30</td>
-        <td>15-5-5</td>
-        <td>15-10-0</td>
-        <td>7-3-0</td>
-        <td>W3</td>
-      </tr>
-      <tr class="bg-zinc-800">
-        <td colspan="15" class="text-left pl-4 py-2 font-bold text-white">Metropolitan Division</td>
-      </tr>
-      <tr class="even:bg-zinc-600 text-center">
-        <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
-        <td class="w-16"><a href="/player-stats/NYR" class="flex justify-center"><img src="/logos/SVG/NYR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="New York Rangers" title="New York Rangers"></a></td>
-        <!--v-if-->
-        <!--v-if-->
-        <td>50</td>
-        <td>30</td>
-        <td>15</td>
-        <td>5</td>
-        <td class="font-bold">65</td>
-        <td>28</td>
-        <td>150</td>
-        <td>120</td>
-        <td>+30</td>
-        <td>15-5-5</td>
-        <td>15-10-0</td>
-        <td>7-3-0</td>
-        <td>W3</td>
-      </tr>
-    </tbody>
-  </table>
+"<div class="px-4 sm:px-0">
+  <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+    <table class="w-full text-white table-fixed min-w-[900px]">
+      <thead>
+        <tr class="text-sm">
+          <th class="w-10 px-1 py-2">#</th>
+          <th class="w-12 px-1 py-2">Team</th>
+          <th class="w-10 px-1 py-2">GP</th>
+          <th class="w-10 px-1 py-2">W</th>
+          <th class="w-10 px-1 py-2">L</th>
+          <th class="w-10 px-1 py-2">OTL</th>
+          <th class="w-10 px-1 py-2">PTS</th>
+          <th class="w-10 px-1 py-2">ROW</th>
+          <th class="w-10 px-1 py-2">GF</th>
+          <th class="w-10 px-1 py-2">GA</th>
+          <th class="w-10 px-1 py-2">Diff</th>
+          <th class="w-16 px-1 py-2">Home</th>
+          <th class="w-16 px-1 py-2">Away</th>
+          <th class="w-14 px-1 py-2">L10</th>
+          <th class="w-12 px-1 py-2">Streak</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-zinc-800">
+          <td colspan="15" class="text-left pl-4 py-2 font-bold text-white text-sm">Atlantic Division</td>
+        </tr>
+        <tr class="even:bg-zinc-600 text-center text-sm">
+          <td class="px-1 py-2" style="background: #b9112d; color: white;">1</td>
+          <td class="w-12 px-1 py-2"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-8 sm:h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+          <!--v-if-->
+          <!--v-if-->
+          <td class="px-1 py-2">50</td>
+          <td class="px-1 py-2">30</td>
+          <td class="px-1 py-2">15</td>
+          <td class="px-1 py-2">5</td>
+          <td class="font-bold px-1 py-2">65</td>
+          <td class="px-1 py-2">28</td>
+          <td class="px-1 py-2">150</td>
+          <td class="px-1 py-2">120</td>
+          <td class="px-1 py-2">+30</td>
+          <td class="px-1 py-2">15-5-5</td>
+          <td class="px-1 py-2">15-10-0</td>
+          <td class="px-1 py-2">7-3-0</td>
+          <td class="px-1 py-2">W3</td>
+        </tr>
+        <tr class="bg-zinc-800">
+          <td colspan="15" class="text-left pl-4 py-2 font-bold text-white text-sm">Metropolitan Division</td>
+        </tr>
+        <tr class="even:bg-zinc-600 text-center text-sm">
+          <td class="px-1 py-2" style="background: #b9112d; color: white;">1</td>
+          <td class="w-12 px-1 py-2"><a href="/player-stats/NYR" class="flex justify-center"><img src="/logos/SVG/NYR.svg" class="h-8 sm:h-10 cursor-pointer hover:scale-110 transition-transform" alt="New York Rangers" title="New York Rangers"></a></td>
+          <!--v-if-->
+          <!--v-if-->
+          <td class="px-1 py-2">50</td>
+          <td class="px-1 py-2">30</td>
+          <td class="px-1 py-2">15</td>
+          <td class="px-1 py-2">5</td>
+          <td class="font-bold px-1 py-2">65</td>
+          <td class="px-1 py-2">28</td>
+          <td class="px-1 py-2">150</td>
+          <td class="px-1 py-2">120</td>
+          <td class="px-1 py-2">+30</td>
+          <td class="px-1 py-2">15-5-5</td>
+          <td class="px-1 py-2">15-10-0</td>
+          <td class="px-1 py-2">7-3-0</td>
+          <td class="px-1 py-2">W3</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>"
 `;
 
 exports[`WildcardTable > renders with wildcard section 1`] = `
-"<div>
-  <table class="w-4/5 m-auto text-white table-fixed">
-    <thead>
-      <tr>
-        <th class="w-12">Position</th>
-        <th class="w-16">Team</th>
-        <th class="w-10">GP</th>
-        <th class="w-10">W</th>
-        <th class="w-10">L</th>
-        <th class="w-10">OTL</th>
-        <th class="w-10">PTS</th>
-        <th class="w-10">ROW</th>
-        <th class="w-10">GF</th>
-        <th class="w-10">GA</th>
-        <th class="w-10">Diff</th>
-        <th class="w-16">Home</th>
-        <th class="w-16">Away</th>
-        <th class="w-14">L10</th>
-        <th class="w-12">Streak</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="bg-zinc-800">
-        <td colspan="15" class="text-left pl-4 py-2 font-bold text-white">Atlantic Division</td>
-      </tr>
-      <tr class="even:bg-zinc-600 text-center">
-        <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
-        <td class="w-16"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
-        <!--v-if-->
-        <!--v-if-->
-        <td>50</td>
-        <td>30</td>
-        <td>15</td>
-        <td>5</td>
-        <td class="font-bold">65</td>
-        <td>28</td>
-        <td>150</td>
-        <td>120</td>
-        <td>+30</td>
-        <td>15-5-5</td>
-        <td>15-10-0</td>
-        <td>7-3-0</td>
-        <td>W3</td>
-      </tr>
-      <tr class="bg-zinc-800">
-        <td colspan="15" class="text-left pl-4 py-2 font-bold text-white">Metropolitan Division</td>
-      </tr>
-      <tr class="even:bg-zinc-600 text-center">
-        <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
-        <td class="w-16"><a href="/player-stats/NYR" class="flex justify-center"><img src="/logos/SVG/NYR.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="New York Rangers" title="New York Rangers"></a></td>
-        <!--v-if-->
-        <!--v-if-->
-        <td>50</td>
-        <td>30</td>
-        <td>15</td>
-        <td>5</td>
-        <td class="font-bold">65</td>
-        <td>28</td>
-        <td>150</td>
-        <td>120</td>
-        <td>+30</td>
-        <td>15-5-5</td>
-        <td>15-10-0</td>
-        <td>7-3-0</td>
-        <td>W3</td>
-      </tr>
-      <tr class="bg-zinc-800">
-        <td colspan="15" class="text-left pl-4 py-2 font-bold text-white">Wild Card</td>
-      </tr>
-      <tr class="even:bg-zinc-600 text-center">
-        <td style="background: #b9112d; color: white; font-size: 1.8em;">1</td>
-        <td class="w-16"><a href="/player-stats/FLA" class="flex justify-center"><img src="/logos/SVG/FLA.svg" class="h-10 cursor-pointer hover:scale-110 transition-transform" alt="Florida Panthers" title="Florida Panthers"></a></td>
-        <!--v-if-->
-        <!--v-if-->
-        <td>50</td>
-        <td>30</td>
-        <td>15</td>
-        <td>5</td>
-        <td class="font-bold">65</td>
-        <td>28</td>
-        <td>150</td>
-        <td>120</td>
-        <td>+30</td>
-        <td>15-5-5</td>
-        <td>15-10-0</td>
-        <td>7-3-0</td>
-        <td>W3</td>
-      </tr>
-    </tbody>
-  </table>
+"<div class="px-4 sm:px-0">
+  <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+    <table class="w-full text-white table-fixed min-w-[900px]">
+      <thead>
+        <tr class="text-sm">
+          <th class="w-10 px-1 py-2">#</th>
+          <th class="w-12 px-1 py-2">Team</th>
+          <th class="w-10 px-1 py-2">GP</th>
+          <th class="w-10 px-1 py-2">W</th>
+          <th class="w-10 px-1 py-2">L</th>
+          <th class="w-10 px-1 py-2">OTL</th>
+          <th class="w-10 px-1 py-2">PTS</th>
+          <th class="w-10 px-1 py-2">ROW</th>
+          <th class="w-10 px-1 py-2">GF</th>
+          <th class="w-10 px-1 py-2">GA</th>
+          <th class="w-10 px-1 py-2">Diff</th>
+          <th class="w-16 px-1 py-2">Home</th>
+          <th class="w-16 px-1 py-2">Away</th>
+          <th class="w-14 px-1 py-2">L10</th>
+          <th class="w-12 px-1 py-2">Streak</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-zinc-800">
+          <td colspan="15" class="text-left pl-4 py-2 font-bold text-white text-sm">Atlantic Division</td>
+        </tr>
+        <tr class="even:bg-zinc-600 text-center text-sm">
+          <td class="px-1 py-2" style="background: #b9112d; color: white;">1</td>
+          <td class="w-12 px-1 py-2"><a href="/player-stats/TOR" class="flex justify-center"><img src="/logos/SVG/TOR.svg" class="h-8 sm:h-10 cursor-pointer hover:scale-110 transition-transform" alt="Toronto Maple Leafs" title="Toronto Maple Leafs"></a></td>
+          <!--v-if-->
+          <!--v-if-->
+          <td class="px-1 py-2">50</td>
+          <td class="px-1 py-2">30</td>
+          <td class="px-1 py-2">15</td>
+          <td class="px-1 py-2">5</td>
+          <td class="font-bold px-1 py-2">65</td>
+          <td class="px-1 py-2">28</td>
+          <td class="px-1 py-2">150</td>
+          <td class="px-1 py-2">120</td>
+          <td class="px-1 py-2">+30</td>
+          <td class="px-1 py-2">15-5-5</td>
+          <td class="px-1 py-2">15-10-0</td>
+          <td class="px-1 py-2">7-3-0</td>
+          <td class="px-1 py-2">W3</td>
+        </tr>
+        <tr class="bg-zinc-800">
+          <td colspan="15" class="text-left pl-4 py-2 font-bold text-white text-sm">Metropolitan Division</td>
+        </tr>
+        <tr class="even:bg-zinc-600 text-center text-sm">
+          <td class="px-1 py-2" style="background: #b9112d; color: white;">1</td>
+          <td class="w-12 px-1 py-2"><a href="/player-stats/NYR" class="flex justify-center"><img src="/logos/SVG/NYR.svg" class="h-8 sm:h-10 cursor-pointer hover:scale-110 transition-transform" alt="New York Rangers" title="New York Rangers"></a></td>
+          <!--v-if-->
+          <!--v-if-->
+          <td class="px-1 py-2">50</td>
+          <td class="px-1 py-2">30</td>
+          <td class="px-1 py-2">15</td>
+          <td class="px-1 py-2">5</td>
+          <td class="font-bold px-1 py-2">65</td>
+          <td class="px-1 py-2">28</td>
+          <td class="px-1 py-2">150</td>
+          <td class="px-1 py-2">120</td>
+          <td class="px-1 py-2">+30</td>
+          <td class="px-1 py-2">15-5-5</td>
+          <td class="px-1 py-2">15-10-0</td>
+          <td class="px-1 py-2">7-3-0</td>
+          <td class="px-1 py-2">W3</td>
+        </tr>
+        <tr class="bg-zinc-800">
+          <td colspan="15" class="text-left pl-4 py-2 font-bold text-white text-sm">Wild Card</td>
+        </tr>
+        <tr class="even:bg-zinc-600 text-center text-sm">
+          <td class="px-1 py-2" style="background: #b9112d; color: white;">1</td>
+          <td class="w-12 px-1 py-2"><a href="/player-stats/FLA" class="flex justify-center"><img src="/logos/SVG/FLA.svg" class="h-8 sm:h-10 cursor-pointer hover:scale-110 transition-transform" alt="Florida Panthers" title="Florida Panthers"></a></td>
+          <!--v-if-->
+          <!--v-if-->
+          <td class="px-1 py-2">50</td>
+          <td class="px-1 py-2">30</td>
+          <td class="px-1 py-2">15</td>
+          <td class="px-1 py-2">5</td>
+          <td class="font-bold px-1 py-2">65</td>
+          <td class="px-1 py-2">28</td>
+          <td class="px-1 py-2">150</td>
+          <td class="px-1 py-2">120</td>
+          <td class="px-1 py-2">+30</td>
+          <td class="px-1 py-2">15-5-5</td>
+          <td class="px-1 py-2">15-10-0</td>
+          <td class="px-1 py-2">7-3-0</td>
+          <td class="px-1 py-2">W3</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>"
 `;
