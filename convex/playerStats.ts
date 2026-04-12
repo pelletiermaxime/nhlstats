@@ -47,6 +47,7 @@ export const getPlayerStatsWithTeamsByTeamSorted = query({
       v.literal("shootingPct")
     ),
     sortOrder: v.optional(v.union(v.literal("asc"), v.literal("desc"))),
+    limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const playerStats = await ctx.db
@@ -65,9 +66,11 @@ export const getPlayerStatsWithTeamsByTeamSorted = query({
       return order === "asc" ? aValue - bValue : bValue - aValue;
     });
 
+    const limitedStats = args.limit ? sortedStats.slice(0, args.limit) : sortedStats;
+
     const team = await ctx.db.get(args.teamId);
 
-    return sortedStats.map((stat) => ({
+    return limitedStats.map((stat) => ({
       ...stat,
       team,
     }));
@@ -155,6 +158,34 @@ export const getPlayerStatsWithTeamsSorted = query({
         team,
       };
     });
+  },
+});
+
+export const getPlayerById = query({
+  args: {
+    playerId: v.number(),
+    year: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const playerYear = args.year ?? 2026;
+
+    const playerStat = await ctx.db
+      .query("playerStats")
+      .withIndex("year_playerId", (q) =>
+        q.eq("year", playerYear).eq("playerId", args.playerId)
+      )
+      .first();
+
+    if (!playerStat) {
+      return null;
+    }
+
+    const team = await ctx.db.get(playerStat.team_id);
+
+    return {
+      ...playerStat,
+      team,
+    };
   },
 });
 
