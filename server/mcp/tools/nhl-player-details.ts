@@ -6,7 +6,7 @@ const DEFAULT_YEAR = 2026
 
 export default defineMcpTool({
   name: 'nhl-player-details',
-  description: 'Get detailed statistics for a specific NHL player',
+  description: 'Get detailed season statistics for a specific NHL player for a given year',
   inputSchema: {
     playerId: z.number().describe('NHL player ID (e.g., 8478402 for Connor McDavid)'),
     year: z.number().optional().describe('The season year (e.g., 2024, 2025, 2026). Defaults to current season')

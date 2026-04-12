@@ -21,7 +21,8 @@ export default defineMcpTool({
 
     const targetYear = year ?? DEFAULT_YEAR
     const targetSortBy = sortBy ?? 'points'
-    const targetLimit = Math.min(limit ?? DEFAULT_LIMIT, MAX_LIMIT)
+    const targetLimit =
+      limit == null ? DEFAULT_LIMIT : Math.max(1, Math.min(Math.trunc(limit), MAX_LIMIT))
 
     try {
       let playerStats

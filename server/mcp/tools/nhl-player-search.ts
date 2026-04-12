@@ -11,14 +11,12 @@ export default defineMcpTool({
   inputSchema: {
     query: z.string().describe('Player name to search for (e.g., "Connor McDavid", "Ovechkin", "Sidney")'),
     team: z.string().optional().describe('Team short name to filter by (e.g., "MTL", "TOR", "EDM")'),
-    year: z.number().optional().describe('The season year (e.g., 2024, 2025, 2026). Defaults to current season'),
     limit: z.number().optional().describe('Number of results to return (default 20, max 50)')
   },
-  handler: async ({ query, team, year, limit }) => {
+  handler: async ({ query, team, limit }) => {
     const runtimeConfig = useRuntimeConfig()
     const convexClient = new ConvexHttpClient(runtimeConfig.convex.url)
 
-    const targetYear = year ?? 2026
     const targetLimit = Math.min(limit ?? DEFAULT_LIMIT, MAX_LIMIT)
 
     try {
@@ -46,10 +44,7 @@ export default defineMcpTool({
         limit: targetLimit
       })
 
-      // Filter by year if specified (client-side filtering since search index doesn't support year)
-      const filteredResults = searchResults.filter((stat) => stat.year === targetYear)
-
-      const cleanResults = filteredResults.map((stat) => ({
+      const cleanResults = searchResults.map((stat) => ({
         playerId: stat.playerId,
         name: `${stat.firstName} ${stat.lastName}`,
         position: stat.positionCode,

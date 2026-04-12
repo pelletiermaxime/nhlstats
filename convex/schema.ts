@@ -21,7 +21,8 @@ export default defineSchema({
     division_id: v.optional(v.id("divisions")),
   })
     .index("by_division_id", ["division_id"])
-    .index("by_short_name", ["short_name"]),
+    .index("by_short_name", ["short_name"])
+    .index("by_year_short_name", ["year", "short_name"]),
 
   divisions: defineTable({
     name: v.string(),

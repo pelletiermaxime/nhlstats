@@ -34,6 +34,16 @@ export default defineMcpTool({
     division: z.string().optional().describe('Filter by division name (e.g., "Atlantic", "Metropolitan", "Central", "Pacific")')
   },
   handler: async ({ conference, division }) => {
+    if (conference && division) {
+      return {
+        content: [{
+          type: 'text',
+          text: 'Cannot specify both conference and division. Please provide only one filter.'
+        }],
+        isError: true
+      }
+    }
+
     const runtimeConfig = useRuntimeConfig()
     const convexClient = new ConvexHttpClient(runtimeConfig.convex.url)
 
