@@ -9,12 +9,11 @@ export default defineMcpTool({
     year: z.number().describe('The year to fetch the standings for (e.g., 2023, 2024, 2026)')
   },
   handler: async ({ year }) => {
-    const { convex } = useRuntimeConfig()
-    const convexUrl = convex.url
+    const runtimeConfig = useRuntimeConfig()
+    const convexClient = new ConvexHttpClient(runtimeConfig.convex.url)
 
     try {
-      const convex = new ConvexHttpClient(convexUrl)
-      const result = await convex.query(api.standings.getStandingsWithTeams, { year })
+      const result = await convexClient.query(api.standings.getStandingsWithTeams, { year })
 
       // Transform to clean format without internal IDs and metadata
       const cleanStandings = result.map((item) => ({
