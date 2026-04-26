@@ -10,6 +10,7 @@
 
 import type * as auth from "../auth.js";
 import type * as crons from "../crons.js";
+import type * as games from "../games.js";
 import type * as goalieStats from "../goalieStats.js";
 import type * as http from "../http.js";
 import type * as migrations from "../migrations.js";
@@ -27,6 +28,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   crons: typeof crons;
+  games: typeof games;
   goalieStats: typeof goalieStats;
   http: typeof http;
   migrations: typeof migrations;

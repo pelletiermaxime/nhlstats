@@ -82,6 +82,7 @@ test.describe('MCP Server', () => {
     expect(toolNames).toContain('nhl-player-details')
     expect(toolNames).toContain('nhl-player-search')
     expect(toolNames).toContain('nhl-teams-list')
+    expect(toolNames).toContain('nhl-scores')
 
     // Verify nhl-standings description
     const standingsTool = tools.find((t) => t.name === 'nhl-standings')
@@ -377,5 +378,50 @@ test.describe('MCP Server', () => {
     const textContent = result.result?.content?.find((c: McpContent) => c.type === 'text')
     expect(textContent).toBeDefined()
     expect(textContent?.text).toContain('not found')
+  })
+
+  test('should call nhl-scores tool successfully', async ({ request }) => {
+    const result = await mcpRequest(request, 'tools/call', {
+      name: 'nhl-scores',
+      arguments: { date: '2026-04-24' }
+    })
+
+    expect(result.result).toBeDefined()
+    expect(result.result?.content).toBeDefined()
+    expect(result.result?.content?.length).toBeGreaterThan(0)
+
+    const textContent = result.result?.content?.find((c: McpContent) => c.type === 'text')
+    expect(textContent).toBeDefined()
+    expect(textContent?.text).toBeDefined()
+
+    // Result is an array of games directly
+    const games = JSON.parse(textContent!.text as string)
+    expect(Array.isArray(games)).toBe(true)
+
+    // If games are returned, verify structure
+    if (games.length > 0) {
+      const firstGame = games[0]
+      expect(firstGame).toHaveProperty('gameId')
+      expect(firstGame).toHaveProperty('gameState')
+      expect(firstGame).toHaveProperty('homeTeam')
+      expect(firstGame).toHaveProperty('awayTeam')
+    }
+  })
+
+  test('should call nhl-scores without date (defaults to today)', async ({ request }) => {
+    const result = await mcpRequest(request, 'tools/call', {
+      name: 'nhl-scores',
+      arguments: {}
+    })
+
+    expect(result.result).toBeDefined()
+    expect(result.result?.content).toBeDefined()
+
+    const textContent = result.result?.content?.find((c: McpContent) => c.type === 'text')
+    expect(textContent).toBeDefined()
+
+    // Result is an array of games directly
+    const games = JSON.parse(textContent!.text as string)
+    expect(Array.isArray(games)).toBe(true)
   })
 })

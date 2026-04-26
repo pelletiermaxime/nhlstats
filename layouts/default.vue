@@ -154,6 +154,7 @@ const mobileMenuOpen = ref(false)
 const menuElements = [
   { name: 'Teams', url: '/teams' },
   { name: 'Standings', url: '/standings' },
+  { name: 'Scores', url: '/scores' },
   { name: 'Player Stats', url: '/player-stats' },
   { name: 'Goalie Stats', url: '/goalie-stats' },
   { name: 'MCP/AI tool', url: '/mcp' },

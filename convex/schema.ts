@@ -146,4 +146,33 @@ export default defineSchema({
       searchField: "searchName",
       filterFields: ["team_id"],
     }),
+
+  games: defineTable({
+    gameId: v.number(),
+    gameDate: v.string(),
+    season: v.number(),
+    homeTeam_id: v.id("teams"),
+    awayTeam_id: v.id("teams"),
+    homeScore: v.optional(v.number()),
+    awayScore: v.optional(v.number()),
+    gameState: v.string(),
+    period: v.optional(v.number()),
+    timeRemaining: v.optional(v.string()),
+    venue: v.optional(v.string()),
+    startTimeUTC: v.string(),
+    goals: v.optional(v.array(v.object({
+      period: v.number(),
+      timeInPeriod: v.string(),
+      playerId: v.number(),
+      lastName: v.string(),
+      teamAbbrev: v.string(),
+      isEmptyNet: v.optional(v.boolean()),
+    }))),
+  })
+    .index("gameId", ["gameId"])
+    .index("season", ["season"])
+    .index("gameDate", ["gameDate"])
+    .index("homeTeam_id", ["homeTeam_id"])
+    .index("awayTeam_id", ["awayTeam_id"])
+    .index("season_date", ["season", "gameDate"]),
 });

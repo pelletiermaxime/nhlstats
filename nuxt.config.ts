@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { redirect: '/player-stats' },
     '/mcp': { swr: 86400 },
+    '/scores': { swr: 60 },
     '/standings': { swr: 3600 },
     '/teams': { swr: 86400 }
   },
