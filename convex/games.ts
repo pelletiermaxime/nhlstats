@@ -79,18 +79,23 @@ export const syncGamesAction = internalAction({
   },
   handler: async (ctx, args) => {
     const fetchDate = args.date ?? new Date()
-      .toISOString()
-      .split("T")[0];
+      .toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
 
     const url = `https://api-web.nhle.com/v1/score/${fetchDate}`;
 
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch games: ${response.statusText}`);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10_000);
+    let data: { games?: NHLGame[] };
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch games: ${response.status} ${response.statusText}`);
+      }
+      data = await response.json();
+    } finally {
+      clearTimeout(timeout);
     }
-
-    const data = await response.json();
-    const games: NHLGame[] = data.games || [];
+    const games: NHLGame[] = Array.isArray(data?.games) ? data.games : [];
 
     await ctx.runMutation(internal.games.syncGames, {
       games: games.map((g) => ({
@@ -149,12 +154,15 @@ export const syncGames = internalMutation({
     ),
   },
   handler: async (ctx, args) => {
+    const seasonYear = args.games[0]?.season;
+    if (!seasonYear) return { inserted: 0, updated: 0 };
+
     const allTeams = await ctx.db.query("teams").collect();
     const teamMap = new Map(allTeams.map((t) => [t.short_name, t._id]));
 
     const existingGames = await ctx.db
       .query("games")
-      .withIndex("season", (q) => q.eq("season", args.games[0]?.season ?? 0))
+      .withIndex("season", (q) => q.eq("season", seasonYear))
       .collect();
     const existingMap = new Map(existingGames.map((g) => [g.gameId, g._id]));
 

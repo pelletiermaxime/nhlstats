@@ -96,7 +96,8 @@
 import { api } from "~/convex/_generated/api"
 
 definePageMeta({
-  title: 'Scores'
+  title: 'Scores',
+  validate: (route) => /^\d{4}-\d{2}-\d{2}$/.test(String(route.params.date))
 })
 
 const route = useRoute()
@@ -127,9 +128,17 @@ function onDateChange(event: Event) {
   }
 }
 
+const seasonFor = (date: string) => {
+  const parts = date.split('-').map(Number)
+  const y = parts[0] ?? 0
+  const m = parts[1] ?? 0
+  const start = m >= 7 ? y : y - 1
+  return start * 10000 + (start + 1)
+}
+
 const queryArgs = computed(() => ({
   date: selectedDate.value,
-  season: 20252026,
+  season: seasonFor(selectedDate.value),
 }))
 
 const { data: games } = await useConvexQuery(

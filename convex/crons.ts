@@ -27,26 +27,26 @@ if (!isDev) {
     { year: 2026, limit: -1 }
   );
 
-  // Evening games — every 5 min from 18:00 to 23:59
+  // Evening games — every 5 min from 22:00 to 03:59 UTC (18:00 to 23:59 ET)
   crons.cron(
     "sync NHL games evening",
-    "*/5 18-23 * * *",
+    "*/5 22-23 * * *",
     internal.games.syncGamesAction,
     {}
   );
 
-  // Late west-coast games — every 5 min from 00:00 to 01:59
+  // Late west-coast games — every 5 min from 04:00 to 05:59 UTC (00:00 to 01:59 ET)
   crons.cron(
     "sync NHL games late night",
-    "*/5 0-1 * * *",
+    "*/5 4-5 * * *",
     internal.games.syncGamesAction,
     {}
   );
 
-  // Weekend afternoon games — every 5 min from 13:00 to 17:59 on Sat & Sun
+  // Weekend afternoon games — every 5 min from 17:00 to 21:59 UTC on Sat & Sun (13:00 to 17:59 ET)
   crons.cron(
     "sync NHL games weekend afternoon",
-    "*/5 13-17 * * 0,6",
+    "*/5 17-21 * * 0,6",
     internal.games.syncGamesAction,
     {}
   );
