@@ -103,6 +103,18 @@
           <p class="text-zinc-300 text-sm">Get list of all NHL teams with optional filtering</p>
           <p class="text-zinc-400 text-xs mt-1">Parameters: conference (optional: EAST, WEST), division (optional)</p>
         </div>
+
+        <div class="border-l-4 border-zinc-500 pl-4">
+          <h3 class="font-semibold text-white">nhl-scores</h3>
+          <p class="text-zinc-300 text-sm">Get NHL scores for a specific date</p>
+          <p class="text-zinc-400 text-xs mt-1">Parameters: date (optional, defaults to today)</p>
+        </div>
+
+        <div class="border-l-4 border-zinc-500 pl-4">
+          <h3 class="font-semibold text-white">nhl-todays-games</h3>
+          <p class="text-zinc-300 text-sm">Get today's NHL games with scores and live status</p>
+          <p class="text-zinc-400 text-xs mt-1">No parameters required</p>
+        </div>
       </div>
 
       <div class="text-zinc-300 mt-6 text-sm">

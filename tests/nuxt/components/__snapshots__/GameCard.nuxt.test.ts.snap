@@ -1,0 +1,143 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GameCard > renders OT goals 1`] = `
+"<div class="bg-zinc-700 rounded-lg p-3 w-full max-w-xl">
+  <!-- Header: Teams and Score -->
+  <div class="flex items-center justify-between mb-2">
+    <!-- Away -->
+    <div class="flex items-center gap-2 flex-1 min-w-0"><img src="/logos/SVG/MTL.svg" class="h-8 w-auto flex-shrink-0" alt="Montreal Canadiens"><span class="text-white font-semibold text-sm truncate">Montreal</span></div><!-- Score -->
+    <div class="flex items-center gap-2 px-2"><span class="text-xl font-bold text-white">2</span><span class="text-zinc-400">-</span><span class="text-xl font-bold text-white">3</span></div><!-- Home -->
+    <div class="flex items-center gap-2 flex-1 min-w-0 justify-end"><span class="text-white font-semibold text-sm truncate">Toronto</span><img src="/logos/SVG/TOR.svg" class="h-8 w-auto flex-shrink-0" alt="Toronto Maple Leafs"></div>
+  </div><!-- Game State -->
+  <div class="flex items-center justify-center gap-2 mb-2"><span class="text-xs px-2 py-0.5 rounded bg-zinc-600 text-zinc-300">FINAL</span><span class="text-zinc-500 text-xs truncate max-w-[150px]">Scotiabank Arena</span></div><!-- Real Goals by Period -->
+  <div class="border-t border-zinc-600 pt-2">
+    <div class="grid grid-cols-2 gap-2 text-xs">
+      <!-- Away Goals -->
+      <div class="space-y-0.5">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-500">—</span></div>
+        <div class="text-green-400 font-medium">OT: <span>—</span></div>
+      </div><!-- Home Goals -->
+      <div class="space-y-0.5 text-right">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-500">—</span></div>
+        <div class="text-green-400 font-medium">OT: <span>05:23 Nylander</span></div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`GameCard > renders empty net modifier 1`] = `
+"<div class="bg-zinc-700 rounded-lg p-3 w-full max-w-xl">
+  <!-- Header: Teams and Score -->
+  <div class="flex items-center justify-between mb-2">
+    <!-- Away -->
+    <div class="flex items-center gap-2 flex-1 min-w-0"><img src="/logos/SVG/MTL.svg" class="h-8 w-auto flex-shrink-0" alt="Montreal Canadiens"><span class="text-white font-semibold text-sm truncate">Montreal</span></div><!-- Score -->
+    <div class="flex items-center gap-2 px-2"><span class="text-xl font-bold text-white">1</span><span class="text-zinc-400">-</span><span class="text-xl font-bold text-white">2</span></div><!-- Home -->
+    <div class="flex items-center gap-2 flex-1 min-w-0 justify-end"><span class="text-white font-semibold text-sm truncate">Toronto</span><img src="/logos/SVG/TOR.svg" class="h-8 w-auto flex-shrink-0" alt="Toronto Maple Leafs"></div>
+  </div><!-- Game State -->
+  <div class="flex items-center justify-center gap-2 mb-2"><span class="text-xs px-2 py-0.5 rounded bg-zinc-600 text-zinc-300">FINAL</span><span class="text-zinc-500 text-xs truncate max-w-[150px]">Scotiabank Arena</span></div><!-- Real Goals by Period -->
+  <div class="border-t border-zinc-600 pt-2">
+    <div class="grid grid-cols-2 gap-2 text-xs">
+      <!-- Away Goals -->
+      <div class="space-y-0.5">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-500">—</span></div>
+      </div><!-- Home Goals -->
+      <div class="space-y-0.5 text-right">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-300">19:30 Matthews (EN)</span></div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`GameCard > renders game with score and teams 1`] = `
+"<div class="bg-zinc-700 rounded-lg p-3 w-full max-w-xl">
+  <!-- Header: Teams and Score -->
+  <div class="flex items-center justify-between mb-2">
+    <!-- Away -->
+    <div class="flex items-center gap-2 flex-1 min-w-0"><img src="/logos/SVG/MTL.svg" class="h-8 w-auto flex-shrink-0" alt="Montreal Canadiens"><span class="text-white font-semibold text-sm truncate">Montreal</span></div><!-- Score -->
+    <div class="flex items-center gap-2 px-2"><span class="text-xl font-bold text-white">1</span><span class="text-zinc-400">-</span><span class="text-xl font-bold text-white">2</span></div><!-- Home -->
+    <div class="flex items-center gap-2 flex-1 min-w-0 justify-end"><span class="text-white font-semibold text-sm truncate">Toronto</span><img src="/logos/SVG/TOR.svg" class="h-8 w-auto flex-shrink-0" alt="Toronto Maple Leafs"></div>
+  </div><!-- Game State -->
+  <div class="flex items-center justify-center gap-2 mb-2"><span class="text-xs px-2 py-0.5 rounded bg-zinc-600 text-zinc-300">FINAL</span><span class="text-zinc-500 text-xs truncate max-w-[150px]">Scotiabank Arena</span></div><!-- Real Goals by Period -->
+  <!--v-if-->
+</div>"
+`;
+
+exports[`GameCard > renders goal scorers by period 1`] = `
+"<div class="bg-zinc-700 rounded-lg p-3 w-full max-w-xl">
+  <!-- Header: Teams and Score -->
+  <div class="flex items-center justify-between mb-2">
+    <!-- Away -->
+    <div class="flex items-center gap-2 flex-1 min-w-0"><img src="/logos/SVG/MTL.svg" class="h-8 w-auto flex-shrink-0" alt="Montreal Canadiens"><span class="text-white font-semibold text-sm truncate">Montreal</span></div><!-- Score -->
+    <div class="flex items-center gap-2 px-2"><span class="text-xl font-bold text-white">1</span><span class="text-zinc-400">-</span><span class="text-xl font-bold text-white">2</span></div><!-- Home -->
+    <div class="flex items-center gap-2 flex-1 min-w-0 justify-end"><span class="text-white font-semibold text-sm truncate">Toronto</span><img src="/logos/SVG/TOR.svg" class="h-8 w-auto flex-shrink-0" alt="Toronto Maple Leafs"></div>
+  </div><!-- Game State -->
+  <div class="flex items-center justify-center gap-2 mb-2"><span class="text-xs px-2 py-0.5 rounded bg-zinc-600 text-zinc-300">FINAL</span><span class="text-zinc-500 text-xs truncate max-w-[150px]">Scotiabank Arena</span></div><!-- Real Goals by Period -->
+  <div class="border-t border-zinc-600 pt-2">
+    <div class="grid grid-cols-2 gap-2 text-xs">
+      <!-- Away Goals -->
+      <div class="space-y-0.5">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-300">15:20 Suzuki</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-500">—</span></div>
+      </div><!-- Home Goals -->
+      <div class="space-y-0.5 text-right">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-300">12:34 Matthews</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-300">08:45 Marner</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-500">—</span></div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`GameCard > renders live game with period badge 1`] = `
+"<div class="bg-zinc-700 rounded-lg p-3 w-full max-w-xl">
+  <!-- Header: Teams and Score -->
+  <div class="flex items-center justify-between mb-2">
+    <!-- Away -->
+    <div class="flex items-center gap-2 flex-1 min-w-0"><img src="/logos/SVG/MTL.svg" class="h-8 w-auto flex-shrink-0" alt="Montreal Canadiens"><span class="text-white font-semibold text-sm truncate">Montreal</span></div><!-- Score -->
+    <div class="flex items-center gap-2 px-2"><span class="text-xl font-bold text-white">0</span><span class="text-zinc-400">-</span><span class="text-xl font-bold text-white">1</span></div><!-- Home -->
+    <div class="flex items-center gap-2 flex-1 min-w-0 justify-end"><span class="text-white font-semibold text-sm truncate">Toronto</span><img src="/logos/SVG/TOR.svg" class="h-8 w-auto flex-shrink-0" alt="Toronto Maple Leafs"></div>
+  </div><!-- Game State -->
+  <div class="flex items-center justify-center gap-2 mb-2"><span class="text-xs px-2 py-0.5 rounded bg-red-600 text-white animate-pulse">LIVE 2nd</span><span class="text-zinc-500 text-xs truncate max-w-[150px]">Scotiabank Arena</span></div><!-- Real Goals by Period -->
+  <div class="border-t border-zinc-600 pt-2">
+    <div class="grid grid-cols-2 gap-2 text-xs">
+      <!-- Away Goals -->
+      <div class="space-y-0.5">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-500">—</span></div>
+      </div><!-- Home Goals -->
+      <div class="space-y-0.5 text-right">
+        <div class="text-zinc-400"> 1st: <span class="text-zinc-300">05:00 Matthews</span></div>
+        <div class="text-zinc-400"> 2nd: <span class="text-zinc-500">—</span></div>
+        <div class="text-zinc-400"> 3rd: <span class="text-zinc-500">—</span></div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`GameCard > renders scheduled game without goals 1`] = `
+"<div class="bg-zinc-700 rounded-lg p-3 w-full max-w-xl">
+  <!-- Header: Teams and Score -->
+  <div class="flex items-center justify-between mb-2">
+    <!-- Away -->
+    <div class="flex items-center gap-2 flex-1 min-w-0"><img src="/logos/SVG/MTL.svg" class="h-8 w-auto flex-shrink-0" alt="Montreal Canadiens"><span class="text-white font-semibold text-sm truncate">Montreal</span></div><!-- Score -->
+    <div class="flex items-center gap-2 px-2"><span class="text-xl text-zinc-400">@</span></div><!-- Home -->
+    <div class="flex items-center gap-2 flex-1 min-w-0 justify-end"><span class="text-white font-semibold text-sm truncate">Toronto</span><img src="/logos/SVG/TOR.svg" class="h-8 w-auto flex-shrink-0" alt="Toronto Maple Leafs"></div>
+  </div><!-- Game State -->
+  <div class="flex items-center justify-center gap-2 mb-2"><span class="text-xs px-2 py-0.5 rounded bg-zinc-500 text-white">7:00 PM EDT</span><span class="text-zinc-500 text-xs truncate max-w-[150px]">Scotiabank Arena</span></div><!-- Real Goals by Period -->
+  <!--v-if-->
+</div>"
+`;

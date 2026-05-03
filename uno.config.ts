@@ -1,4 +1,4 @@
-import { defineConfig, presetUno } from 'unocss'
+import { defineConfig, presetUno, presetIcons } from 'unocss'
 
 export default defineConfig({
   shortcuts: {
@@ -10,7 +10,12 @@ export default defineConfig({
       'text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium',
     title: 'text-white text-4xl text-center'
   },
-  presets: [presetUno()],
+  presets: [
+    presetUno(),
+    presetIcons({
+      scale: 1.2,
+    }),
+  ],
   // Disable transformers that might conflict with Nuxt
   transformers: []
 })
