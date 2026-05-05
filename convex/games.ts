@@ -86,7 +86,11 @@ export const syncGamesAction = internalAction({
     if (args.date) {
       fetchDate = args.date;
     } else if (args.yesterday) {
-      const yesterday = new Date(etDate);
+      const parts = etDate.split('-');
+      const year = parseInt(parts[0]!, 10);
+      const month = parseInt(parts[1]!, 10);
+      const day = parseInt(parts[2]!, 10);
+      const yesterday = new Date(year, month - 1, day);
       yesterday.setDate(yesterday.getDate() - 1);
       fetchDate = yesterday.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
     } else {
