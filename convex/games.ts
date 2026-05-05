@@ -76,10 +76,22 @@ export const getGamesByDate = query({
 export const syncGamesAction = internalAction({
   args: {
     date: v.optional(v.string()),
+    yesterday: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    const fetchDate = args.date ?? new Date()
-      .toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+    const now = new Date();
+    const etDate = now.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+
+    let fetchDate: string;
+    if (args.date) {
+      fetchDate = args.date;
+    } else if (args.yesterday) {
+      const yesterday = new Date(etDate);
+      yesterday.setDate(yesterday.getDate() - 1);
+      fetchDate = yesterday.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+    } else {
+      fetchDate = etDate;
+    }
 
     const url = `https://api-web.nhle.com/v1/score/${fetchDate}`;
 
