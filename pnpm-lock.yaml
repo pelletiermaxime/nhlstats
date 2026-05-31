@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@convex-dev/better-auth':
-        specifier: ^0.12.1
-        version: 0.12.1(@standard-schema/spec@1.1.0)(better-auth@1.6.9(@cloudflare/workers-types@4.20260329.1)(@opentelemetry/api@1.9.1)(react@19.2.4)(vitest@4.1.5)(vue@3.5.33(typescript@6.0.3)))(convex@1.37.0(react@19.2.4))(hono@4.12.16)(react@19.2.4)(typescript@6.0.3)
+        specifier: ^0.12.2
+        version: 0.12.2(@standard-schema/spec@1.1.0)(better-auth@1.6.9(@cloudflare/workers-types@4.20260329.1)(@opentelemetry/api@1.9.1)(react@19.2.4)(vitest@4.1.5)(vue@3.5.33(typescript@6.0.3)))(convex@1.37.0(react@19.2.4))(hono@4.12.16)(react@19.2.4)(typescript@6.0.3)
       '@nuxt/hints':
         specifier: ^1.0.3
         version: 1.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(db0@0.3.4)(ioredis@5.10.1)(magicast@0.5.2)(rolldown@1.0.0-rc.12(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))(srvx@0.11.15)(typescript@6.0.3)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.2)(yaml@2.8.4))(vitest@4.1.5)(vue@3.5.33(typescript@6.0.3))
@@ -417,8 +417,8 @@ packages:
       convex: ^1.25.0
       react: ^18.3.1 || ^19.0.0
 
-  '@convex-dev/better-auth@0.12.1':
-    resolution: {integrity: sha512-fZ1ur7dlgnGy8BfySUZueqo50IrMA6FUjH65foMdQWSi2vsuXQqylVI3PKjH8QGDFFf+2KkF/Gaqpsey7rnolQ==}
+  '@convex-dev/better-auth@0.12.2':
+    resolution: {integrity: sha512-6L8LkXCB5rp9XmQplRj2EVNeD6mkG0b5PPQpm9fooEJ/L3ThGN4jRE4oMfWeBs+9E20eBciWVP0HJooemSgS0w==}
     peerDependencies:
       better-auth: '>=1.6.9 <1.7.0'
       convex: ^1.25.0
@@ -8256,7 +8256,7 @@ snapshots:
       - nanostores
       - typescript
 
-  '@convex-dev/better-auth@0.12.1(@standard-schema/spec@1.1.0)(better-auth@1.6.9(@cloudflare/workers-types@4.20260329.1)(@opentelemetry/api@1.9.1)(react@19.2.4)(vitest@4.1.5)(vue@3.5.33(typescript@6.0.3)))(convex@1.37.0(react@19.2.4))(hono@4.12.16)(react@19.2.4)(typescript@6.0.3)':
+  '@convex-dev/better-auth@0.12.2(@standard-schema/spec@1.1.0)(better-auth@1.6.9(@cloudflare/workers-types@4.20260329.1)(@opentelemetry/api@1.9.1)(react@19.2.4)(vitest@4.1.5)(vue@3.5.33(typescript@6.0.3)))(convex@1.37.0(react@19.2.4))(hono@4.12.16)(react@19.2.4)(typescript@6.0.3)':
     dependencies:
       '@better-fetch/fetch': 1.1.21
       better-auth: 1.6.9(@cloudflare/workers-types@4.20260329.1)(@opentelemetry/api@1.9.1)(react@19.2.4)(vitest@4.1.5)(vue@3.5.33(typescript@6.0.3))
@@ -8267,7 +8267,7 @@ snapshots:
       react: 19.2.4
       remeda: 2.34.0
       semver: 7.7.4
-      type-fest: 4.41.0
+      type-fest: 5.6.0
       zod: 4.4.2
     transitivePeerDependencies:
       - '@standard-schema/spec'

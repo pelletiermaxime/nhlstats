@@ -42,7 +42,7 @@
     "zod": "^4.4.2"
   },
   "dependencies": {
-    "@convex-dev/better-auth": "^0.12.1",
+    "@convex-dev/better-auth": "^0.12.2",
     "@nuxt/hints": "^1.0.3",
     "@nuxtjs/mcp-toolkit": "^0.16.0",
     "@nuxtjs/seo": "5.1.3",
