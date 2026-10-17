@@ -15,7 +15,7 @@
     "check": "vp run verify",
     "check:quiet": "vp run --log=grouped verify",
     "lint": "vp lint",
-    "typecheck": "nuxt typecheck --checker golar",
+    "typecheck": "nuxt typecheck --dotenv .env.local --checker golar",
     "test:ui": "vp test --ui",
     "format": "vp fmt",
     "format:check": "vp fmt --check"

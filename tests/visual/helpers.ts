@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test'
+import { test, type Page } from '@playwright/test'
 
 export interface NuxtRoot extends HTMLElement {
   __vue_app__?: {
@@ -14,9 +14,13 @@ export interface NuxtRoot extends HTMLElement {
 }
 
 export async function openHydratedPage(page: Page, path: string) {
-  await page.goto(path, { waitUntil: 'load' })
-  await page.waitForFunction(() => {
-    const root = document.querySelector<NuxtRoot>('#__nuxt')
-    return root?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false
-  })
+  await page.goto(path, { waitUntil: 'domcontentloaded' })
+  await page.waitForFunction(
+    () => {
+      const root = document.querySelector<NuxtRoot>('#__nuxt')
+      return root?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false
+    },
+    undefined,
+    { timeout: test.info().timeout },
+  )
 }

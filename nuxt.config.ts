@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-10',
   future: {
@@ -67,7 +69,10 @@ export default defineNuxtConfig({
   },
   typescript: {
     tsConfig: {
-      exclude: ['../desktop'],
+      exclude: [fileURLToPath(new URL('./desktop', import.meta.url))],
+      compilerOptions: {
+        rootDir: fileURLToPath(new URL('.', import.meta.url)),
+      },
     },
   },
 })

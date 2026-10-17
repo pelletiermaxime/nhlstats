@@ -71,6 +71,7 @@ test.describe('Authentication', () => {
       await page.fill('input#password', 'wrongpassword')
       const response = page.waitForResponse(
         (response) => new URL(response.url()).pathname === '/api/auth/sign-in/email',
+        { timeout: test.info().project.use.navigationTimeout },
       )
       await page.click('button[type="submit"]')
 
