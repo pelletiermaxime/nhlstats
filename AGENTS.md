@@ -13,24 +13,27 @@ NHL Stats v2 Frontend - A Nuxt 4 application displaying NHL standings, team stat
 pnpm run dev              # Start dev server [Please never do this as I already run it manually]
 
 # Build & Preview
-pnpm run build            # Build for production
-pnpm run preview          # Preview production build
+vp run build            # Build for production
+vp run preview          # Preview production build
 
 # Testing
-pnpm run test             # Run all tests (DOM snapshots + unit)
-pnpm run test:browser     # Run browser-based visual regression tests
-pnpm run test:ui          # Run tests with Vitest UI
+vp test             # Run all tests (DOM snapshots + unit)
+vp run test:browser     # Run browser-based visual regression tests
+vp test --ui          # Run tests with Vitest UI
 
 # Run single test file
-pnpm exec vitest run path/to/test.file.ts
+vp test path/to/test.file.ts
 
-# Linting
-pnpm run lint             # Run ESLint on all files
-pnpm run typecheck        # Run TypeScript type checking (via nuxt typecheck)
+# Formatting and linting
+vp fmt                    # Format project files with Oxfmt
+vp fmt --check            # Check formatting without writing
+vp check                  # VitePlus formatting and lint checks
+vp lint             # Run Oxlint on all files
+vp run typecheck        # Run native TypeScript/Vue checks through Nuxt and Golar
 ```
 
-Please *NEVER* start the dev server or the nuxt server unless asked to.
-It's the user's job to start it and the website should be running at all time at https://nhlstats.localhost.
+Please _NEVER_ start the dev server or the nuxt server unless asked to.
+It's the user's job to start it and the website should be running at all time at http://localhost:3000.
 
 ## Code Style Guidelines
 
@@ -43,6 +46,8 @@ It's the user's job to start it and the website should be running at all time at
 
 ### TypeScript
 
+- `vp run typecheck` uses Nuxt with Golar and `@golar/vue` for native Vue template and TypeScript checks.
+- `vp exec tsc` runs TypeScript 7 through `@typescript/native`; there is no direct TypeScript 6 dependency. Third-party tools may still install it transitively.
 - Use TypeScript interfaces for all type definitions (see `types/teams.ts`)
 - Prefer explicit types over `any`
 - Use `Record<K, T>` for dictionary types
@@ -72,19 +77,16 @@ defineProps<{
 
 ```typescript
 definePageMeta({
-  title: 'Standings'
+  title: 'Standings',
 })
 ```
 
-- Use `useConvexQuery()` from `better-convex-nuxt` for data fetching in pages:
+- Use `useConvexQuery()` from `@lupinum/better-convex-nuxt` for data fetching in pages:
 
 ```typescript
-import { api } from "../convex/_generated/api";
+import { api } from '../convex/_generated/api'
 
-const { data: standings } = await useConvexQuery(
-  api.standings.getCurrentStandingsWithTeams,
-  {}
-)
+const { data: standings } = await useConvexQuery(api.standings.getCurrentStandingsWithTeams, {})
 ```
 
 ### Imports
@@ -102,13 +104,13 @@ const { data: standings } = await useConvexQuery(
 ```typescript
 throw createError({
   statusCode: 500,
-  statusMessage: 'Failed to fetch data'
+  statusMessage: 'Failed to fetch data',
 })
 ```
 
 ### Convex Backend
 
-- Uses `better-convex-nuxt` module for Vue/Nuxt integration
+- Uses `@lupinum/better-convex-nuxt` module for Vue/Nuxt integration
 - Place functions in `convex/` directory
 - Export query/mutation functions using `query({})` or `mutation({})` from `./_generated/server`
 - Access database via `ctx.db`
@@ -116,20 +118,22 @@ throw createError({
 - Define indexes on frequently queried fields
 
 **Convex Development Server:**
+
 - In the **main working directory**: Convex dev server runs externally; don't start it manually
 - In **worktrees**: If schema changes need to be compiled (e.g., `_generated/` is stale), you may run `convex dev` in the worktree to regenerate types. Start it with `cd /home/maximep/projects/nhlstats-v2-frontend && pnpm convex dev` (run from project root to share the same database). When done, stop it with Ctrl+C.
 
 Example (see `convex/teams.ts`):
+
 ```typescript
-import { query } from "./_generated/server";
+import { query } from './_generated/server'
 
 export const getTeams = query({
   args: {},
   handler: async (ctx) => {
-    const teams = await ctx.db.query("teams").collect();
-    return teams;
+    const teams = await ctx.db.query('teams').collect()
+    return teams
   },
-});
+})
 ```
 
 ### Styling
@@ -141,11 +145,13 @@ export const getTeams = query({
 
 ## Testing
 
-Uses `@nuxt/test-utils` for first-class Nuxt testing support.
+Uses VitePlus's bundled Vitest with `@nuxt/test-utils` for first-class Nuxt testing support. Root `vite.config.ts` selects the Nuxt and Convex projects in `tests/nuxt/vitest.config.ts` and `tests/convex/vitest.config.ts`. Keep upstream `vitest` imports for Nuxt transform compatibility; the VitePlus catalog pins one shared version. Use `vp test --project nuxt` or `vp test --project convex` to select an environment. Nuxt tests keep their generated build output separate from the manually managed dev server.
 
 **Test Structure:**
+
 ```text
 tests/
+├── convex/             # Convex backend tests (edge runtime)
 ├── nuxt/               # Tests requiring Nuxt runtime environment
 │   ├── components/     # Component tests using `mountSuspended`
 │   └── unit/           # Unit tests for utilities
@@ -153,10 +159,11 @@ tests/
 ```
 
 **Test Commands:**
+
 ```bash
-pnpm run test             # Run all tests
-pnpm run test:browser     # Run browser-based visual regression tests
-pnpm run test:ui          # Run tests with Vitest UI
+vp test             # Run all tests
+vp run test:browser     # Run browser-based visual regression tests
+vp test --ui          # Run tests with Vitest UI
 ```
 
 **Test Location Conventions:**
@@ -192,54 +199,63 @@ These tests take full-page screenshots in Chromium and compare against baselines
 To run visual tests:
 
 ```bash
-# Terminal: Run visual tests (dev server must be running on nhlstats.localhost)
-pnpm run test:browser
+# Terminal: Run visual tests (dev server must be running on localhost:3000)
+vp run test:browser
 
 # Update baselines after intentional UI changes
-pnpm run test:browser:update
+vp run test:browser:update
 ```
 
 **Visual Test Configuration:**
+
 - `playwright.config.ts` - Playwright configuration
 - Screenshots saved in `tests/visual/*.spec.ts-snapshots/`
 - Animations disabled for stable screenshots
 - 1% pixel difference tolerance (`maxDiffPixelRatio: 0.01`)
 
 **To update baselines** when UI intentionally changes:
+
 ```bash
-pnpm run test:browser:update
+vp run test:browser:update
 ```
 
-Note: Visual tests require the dev server running on `nhlstats.localhost`. This matches the host configured in `package.json` (via `portless nhlstats`) and `playwright.config.ts` (`baseURL: 'https://nhlstats.localhost'`), so Playwright will use the portless host.
+Note: Visual tests use the developer-managed Nuxt server at `http://localhost:3000`. The `dev:nuxt` script fixes the host and port, and `playwright.config.ts` uses that URL by default. Set `PLAYWRIGHT_BASE_URL` to target another running instance; authentication requires its origin to match `SITE_URL`.
 
 **Git LFS for Screenshots:**
 Git LFS is configured (see `.gitattributes`) to track PNG screenshots in `tests/visual/`. This prevents snapshot bloat in the main repository.
 
-
 **Current LFS-tracked files:**
+
 - `tests/visual/**/*.png` - Visual regression baselines
 
 ### Run after every change
 
-Run the `check` task to run all validation in parallel with caching:
+Run the `check` task to run all validation:
 
 ```bash
-pnpm run check        # Full output
-pnpm run check:quiet  # Minimal output (for agents)
+vp run check        # Full output
+vp run check:quiet  # Grouped output (for agents)
 ```
 
-This runs lint, typecheck, test, and test:browser in parallel using Turbo.
+This uses Vite Task to run VitePlus format/lint checks, Nuxt typecheck, both test projects, and browser tests in parallel. Browser checks are not cached. Turbo remains responsible for the development TUI only.
 
 To run individual checks:
-- `pnpm run lint` - Check code quality with ESLint
-- `pnpm run typecheck` - Verify TypeScript types
-- `pnpm run test` - Run unit tests
-- `pnpm run test:browser` - Run visual regression tests
+
+- `vp lint` - Check code quality with Oxlint
+- `vp run typecheck` - Verify TypeScript types
+- `vp test` - Run unit tests
+- `vp run test:browser` - Run visual regression tests
 
 <!-- convex-ai-start -->
+
 This project uses [Convex](https://convex.dev) as its backend.
 
-When working on Convex code, **always read `convex/_generated/ai/guidelines.md` first** for important guidelines on how to correctly use Convex APIs and patterns. The file contains rules that override what you may have learned about Convex from training data.
+When working on Convex code, **always read
+`convex/_generated/ai/guidelines.md` first** for important guidelines on
+how to correctly use Convex APIs and patterns. The file contains rules that
+override what you may have learned about Convex from training data.
 
-Convex agent skills for common tasks can be installed by running `npx convex ai-files install`.
+Convex agent skills for common tasks can be installed by running
+`npx convex ai-files install`.
+
 <!-- convex-ai-end -->

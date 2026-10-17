@@ -1,3 +1,8 @@
+# NHL Stats
+
+Browse NHL standings, scores, team statistics, and player and goalie stats.
+Choose the current or previous season to compare results across the site.
+
 ## Desktop App
 
 Download the NHL Stats desktop app for your platform:
@@ -6,19 +11,6 @@ Download the NHL Stats desktop app for your platform:
 - [Windows](https://github.com/pelletiermaxime/nhlstats/releases/latest/download/stable-win-x64-NHLStats-Setup.zip)
 - [Linux](https://github.com/pelletiermaxime/nhlstats/releases/latest/download/stable-linux-x64-NHLStats-Setup.tar.gz)
 
-## Developing
+## Contributing
 
-```bash
-pnpm i
-pnpm run dev
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-pnpm run build
-```
-
-You can preview the production build with `pnpm run preview`.
+See the [development guide](docs/development.md) for local setup, checks, and builds.

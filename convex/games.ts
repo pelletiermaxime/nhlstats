@@ -1,145 +1,134 @@
-import { query, internalAction, internalMutation } from "./_generated/server";
-import { internal } from "./_generated/api";
-import { v } from "convex/values";
+import { query, internalAction, internalMutation } from './_generated/server'
+import type { ActionCtx } from './_generated/server'
+import { internal } from './_generated/api'
+import { v } from 'convex/values'
+import { gameState, gameWithTeams, goal, countResult, upsertResult } from './lib/validators'
+import { fetchNhl, seasonTeams } from './lib/seasonData'
+import { prepareSeason } from './lib/seasonImport'
+import { easternDate, seasonForDate, shiftDate } from '../shared/utils/seasons'
 
 interface NHLGame {
-  id: number;
-  season: number;
-  gameDate: string;
-  startTimeUTC: string;
-  gameState: string;
-  periodDescriptor?: {
-    number: number;
-  };
-  homeTeam: {
-    id: number;
-    abbrev: string;
-    score?: number;
-  };
-  awayTeam: {
-    id: number;
-    abbrev: string;
-    score?: number;
-  };
-  venue?: {
-    default: string;
-  };
+  id: number
+  season: number
+  gameDate: string
+  gameType?: number
+  startTimeUTC: string
+  gameState: string
+  periodDescriptor?: { number: number }
+  homeTeam: { abbrev: string; score?: number }
+  awayTeam: { abbrev: string; score?: number }
+  venue?: { default: string }
   goals?: Array<{
-    period: number;
-    periodDescriptor?: {
-      number: number;
-      periodType?: string;
-      maxRegulationPeriods?: number;
-    };
-    timeInPeriod: string;
-    playerId: number;
-    lastName?: {
-      default?: string;
-    };
-    teamAbbrev?: string;
-    goalModifier?: string;
-  }>;
+    period?: number
+    periodDescriptor?: { number: number }
+    timeInPeriod: string
+    playerId: number
+    lastName?: { default?: string }
+    teamAbbrev?: string
+    goalModifier?: string
+  }>
 }
 
-function mapGameState(state: string): "SCHEDULED" | "LIVE" | "FINAL" {
-  if (["SCHEDULED", "PRE_GAME", "FUT"].includes(state)) return "SCHEDULED";
-  if (["LIVE", "CRITICAL"].includes(state)) return "LIVE";
-  return "FINAL";
+export function mapGameState(state: string): 'SCHEDULED' | 'LIVE' | 'FINAL' {
+  if (['LIVE', 'CRIT', 'CRITICAL'].includes(state)) return 'LIVE'
+  if (['OFF', 'FINAL'].includes(state)) return 'FINAL'
+  return 'SCHEDULED'
+}
+
+function mapGame(game: NHLGame) {
+  return {
+    gameId: game.id,
+    gameDate: game.gameDate,
+    season: game.season,
+    homeTeamAbbrev: game.homeTeam.abbrev,
+    awayTeamAbbrev: game.awayTeam.abbrev,
+    homeScore: game.homeTeam.score,
+    awayScore: game.awayTeam.score,
+    gameState: mapGameState(game.gameState),
+    period: game.periodDescriptor?.number,
+    venue: game.venue?.default,
+    startTimeUTC: game.startTimeUTC,
+    goals: game.goals?.map((g) => ({
+      period: g.periodDescriptor?.number ?? g.period ?? 1,
+      timeInPeriod: g.timeInPeriod,
+      playerId: g.playerId,
+      lastName: g.lastName?.default ?? String(g.playerId),
+      teamAbbrev: g.teamAbbrev ?? '',
+      isEmptyNet: g.goalModifier === 'empty-net',
+    })),
+  }
 }
 
 export const getGamesByDate = query({
-  args: {
-    date: v.string(),
-    season: v.number(),
-  },
+  args: { date: v.string(), season: v.number() },
+  returns: v.array(gameWithTeams),
   handler: async (ctx, args) => {
+    if (seasonForDate(args.date).id !== args.season) return []
     const games = await ctx.db
-      .query("games")
-      .withIndex("season_date", (q) =>
-        q.eq("season", args.season).eq("gameDate", args.date)
-      )
-      .collect();
-
-    const teams = await ctx.db.query("teams").collect();
-    const teamMap = new Map(teams.map((t) => [t._id.toString(), t]));
-
-    return games.map((game) => ({
-      ...game,
-      gameState: game.gameState as "SCHEDULED" | "LIVE" | "FINAL",
-      homeTeam: teamMap.get(game.homeTeam_id.toString()) ?? null,
-      awayTeam: teamMap.get(game.awayTeam_id.toString()) ?? null,
-      goals: game.goals || [],
-    }));
+      .query('games')
+      .withIndex('season_date', (q) => q.eq('season', args.season).eq('gameDate', args.date))
+      .take(32)
+    return Promise.all(
+      games.map(async (game) => ({
+        ...game,
+        gameState: mapGameState(game.gameState),
+        homeTeam: await ctx.db.get(game.homeTeam_id),
+        awayTeam: await ctx.db.get(game.awayTeam_id),
+        goals: game.goals ?? [],
+      })),
+    )
   },
-});
+})
 
 export const syncGamesAction = internalAction({
-  args: {
-    date: v.optional(v.string()),
-    yesterday: v.optional(v.boolean()),
-  },
+  args: { date: v.optional(v.string()), yesterday: v.optional(v.boolean()) },
+  returns: countResult,
   handler: async (ctx, args) => {
-    const now = new Date();
-    const etDate = now.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-
-    let fetchDate: string;
-    if (args.date) {
-      fetchDate = args.date;
-    } else if (args.yesterday) {
-      const parts = etDate.split('-');
-      const year = parseInt(parts[0]!, 10);
-      const month = parseInt(parts[1]!, 10);
-      const day = parseInt(parts[2]!, 10);
-      const yesterday = new Date(year, month - 1, day);
-      yesterday.setDate(yesterday.getDate() - 1);
-      fetchDate = yesterday.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-    } else {
-      fetchDate = etDate;
-    }
-
-    const url = `https://api-web.nhle.com/v1/score/${fetchDate}`;
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10_000);
-    let data: { games?: NHLGame[] };
-    try {
-      const response = await fetch(url, { signal: controller.signal });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch games: ${response.status} ${response.statusText}`);
-      }
-      data = await response.json();
-    } finally {
-      clearTimeout(timeout);
-    }
-    const games: NHLGame[] = Array.isArray(data?.games) ? data.games : [];
-
-    await ctx.runMutation(internal.games.syncGames, {
-      games: games.map((g) => ({
-        gameId: g.id,
-        gameDate: g.gameDate,
-        season: g.season,
-        homeTeamAbbrev: g.homeTeam.abbrev,
-        awayTeamAbbrev: g.awayTeam.abbrev,
-        homeScore: g.homeTeam.score,
-        awayScore: g.awayTeam.score,
-        gameState: mapGameState(g.gameState),
-        period: g.periodDescriptor?.number,
-        venue: g.venue?.default,
-        startTimeUTC: g.startTimeUTC,
-        goals: (g.goals || []).map((goal) => ({
-          period: goal.periodDescriptor?.number ?? goal.period ?? 1,
-          timeInPeriod: goal.timeInPeriod,
-          playerId: goal.playerId,
-          lastName: goal.lastName?.default ?? String(goal.playerId),
-          teamAbbrev: goal.teamAbbrev ?? "",
-          isEmptyNet: goal.goalModifier === "empty-net",
-        })),
-      })),
-    });
-
-    return { count: games.length };
+    const today = easternDate()
+    const date = args.date ?? (args.yesterday ? shiftDate(today, -1) : today)
+    seasonForDate(date)
+    const data = await fetchNhl<{ games: NHLGame[] }>(`score/${date}`)
+    await ctx.runMutation(internal.games.syncGames, { games: data.games.map(mapGame) })
+    return { count: data.games.length }
   },
-});
+})
+
+export async function syncSeasonSchedule(
+  ctx: ActionCtx,
+  year: number,
+): Promise<{ count: number; lastGameDate: string }> {
+  const source = await prepareSeason(ctx, year)
+  const seasonId = (year - 1) * 10000 + year
+  const teams = source.standings.map((standing) => standing.teamAbbrev.default)
+  const games = new Map<number, NHLGame>()
+  for (let offset = 0; offset < teams.length; offset += 4) {
+    const schedules = await Promise.all(
+      teams
+        .slice(offset, offset + 4)
+        .map((team) => fetchNhl<{ games: NHLGame[] }>(`club-schedule-season/${team}/${seasonId}`)),
+    )
+    for (const schedule of schedules) {
+      for (const game of schedule.games) {
+        if (game.season === seasonId && (game.gameType === 2 || game.gameType === 3))
+          games.set(game.id, game)
+      }
+    }
+  }
+  const records = [...games.values()]
+  for (let offset = 0; offset < records.length; offset += 100) {
+    await ctx.runMutation(internal.games.syncGames, {
+      games: records.slice(offset, offset + 100).map(mapGame),
+    })
+  }
+  const today = easternDate()
+  const lastGameDate =
+    records
+      .filter((game) => game.gameDate <= today)
+      .map((game) => game.gameDate)
+      .sort()
+      .at(-1) ?? source.startDate
+  return { count: records.length, lastGameDate }
+}
 
 export const syncGames = internalMutation({
   args: {
@@ -152,75 +141,56 @@ export const syncGames = internalMutation({
         awayTeamAbbrev: v.string(),
         homeScore: v.optional(v.number()),
         awayScore: v.optional(v.number()),
-        gameState: v.string(),
+        gameState,
         period: v.optional(v.number()),
         venue: v.optional(v.string()),
         startTimeUTC: v.string(),
-        goals: v.array(
-          v.object({
-            period: v.number(),
-            timeInPeriod: v.string(),
-            playerId: v.number(),
-            lastName: v.string(),
-            teamAbbrev: v.string(),
-            isEmptyNet: v.optional(v.boolean()),
-          })
-        ),
-      })
+        goals: v.optional(v.array(goal)),
+      }),
     ),
   },
+  returns: upsertResult,
   handler: async (ctx, args) => {
-    const seasonYear = args.games[0]?.season;
-    if (!seasonYear) return { inserted: 0, updated: 0 };
-
-    const allTeams = await ctx.db.query("teams").collect();
-    const teamMap = new Map(allTeams.map((t) => [t.short_name, t._id]));
-
-    const existingGames = await ctx.db
-      .query("games")
-      .withIndex("season", (q) => q.eq("season", seasonYear))
-      .collect();
-    const existingMap = new Map(existingGames.map((g) => [g.gameId, g._id]));
-
-    let inserted = 0;
-    let updated = 0;
-
+    let inserted = 0
+    let updated = 0
+    const teamsByYear = new Map<number, Awaited<ReturnType<typeof seasonTeams>>>()
     for (const game of args.games) {
-      const homeTeamId = teamMap.get(game.homeTeamAbbrev);
-      const awayTeamId = teamMap.get(game.awayTeamAbbrev);
-
-      if (!homeTeamId || !awayTeamId) {
-        console.log(
-          `Team not found: ${game.homeTeamAbbrev} or ${game.awayTeamAbbrev}`
-        );
-        continue;
+      const year = game.season % 10000
+      let teams = teamsByYear.get(year)
+      if (!teams) {
+        teams = await seasonTeams(ctx, year)
+        teamsByYear.set(year, teams)
       }
-
-      const gameData = {
+      const homeTeam = teams.find((team) => team.short_name === game.homeTeamAbbrev)
+      const awayTeam = teams.find((team) => team.short_name === game.awayTeamAbbrev)
+      if (!homeTeam || !awayTeam)
+        throw new Error(`Missing team for game ${game.gameId} in season ${game.season}`)
+      const existing = await ctx.db
+        .query('games')
+        .withIndex('gameId', (q) => q.eq('gameId', game.gameId))
+        .unique()
+      const record = {
         gameId: game.gameId,
         gameDate: game.gameDate,
         season: game.season,
-        homeTeam_id: homeTeamId,
-        awayTeam_id: awayTeamId,
+        homeTeam_id: homeTeam._id,
+        awayTeam_id: awayTeam._id,
         homeScore: game.homeScore,
         awayScore: game.awayScore,
         gameState: game.gameState,
         period: game.period,
         venue: game.venue,
         startTimeUTC: game.startTimeUTC,
-        goals: game.goals,
-      };
-
-      const existingId = existingMap.get(game.gameId);
-      if (existingId) {
-        await ctx.db.patch(existingId, gameData);
-        updated++;
+        ...(game.goals !== undefined ? { goals: game.goals } : {}),
+      }
+      if (existing) {
+        await ctx.db.patch(existing._id, record)
+        updated++
       } else {
-        await ctx.db.insert("games", gameData);
-        inserted++;
+        await ctx.db.insert('games', record)
+        inserted++
       }
     }
-
-    return { inserted, updated };
+    return { inserted, updated }
   },
-});
+})

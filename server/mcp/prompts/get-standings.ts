@@ -3,13 +3,15 @@ export default defineMcpPrompt({
   description: 'Get the NHL standings for all teams',
   handler: async () => {
     return {
-      messages: [{
-        role: 'user',
-        content: {
-          type: 'text',
-          text: 'What are the NHL standings for all teams?'
-        }
-      }]
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: 'What are the NHL standings for all teams?',
+          },
+        },
+      ],
     }
-  }
+  },
 })

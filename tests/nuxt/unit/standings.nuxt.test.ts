@@ -22,7 +22,7 @@ const createStanding = (overrides: Partial<Standing>): Standing => ({
   name: undefined,
   division: undefined,
   year: 2025,
-  ...overrides
+  ...overrides,
 })
 
 describe('compareStandings', () => {
@@ -66,7 +66,7 @@ describe('compareStandings', () => {
       createStanding({ pts: 65, gp: 50, row: 30, w: 35 }),
       createStanding({ pts: 60, gp: 48, row: 25, w: 28 }),
       createStanding({ pts: 60, gp: 50, row: 26, w: 30 }),
-      createStanding({ pts: 55, gp: 50, row: 22, w: 25 })
+      createStanding({ pts: 55, gp: 50, row: 22, w: 25 }),
     ]
 
     const sorted = [...standings].sort(compareStandings)

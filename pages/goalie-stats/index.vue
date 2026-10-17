@@ -11,12 +11,20 @@
 </template>
 
 <script setup lang="ts">
-import { api } from "../../convex/_generated/api"
+import { api } from '../../convex/_generated/api'
 
-type SortColumn = 'gamesPlayed' | 'wins' | 'losses' | 'otLosses' | 'savePct' | 'goalsAgainstAverage' | 'shutouts'
+type SortColumn =
+  | 'gamesPlayed'
+  | 'wins'
+  | 'losses'
+  | 'otLosses'
+  | 'savePct'
+  | 'goalsAgainstAverage'
+  | 'shutouts'
 type SortDirection = 'asc' | 'desc'
 
 const router = useRouter()
+const { year, withSeason } = useSeason()
 
 const sortBy = ref<SortColumn>('wins')
 const sortOrder = ref<SortDirection>('desc')
@@ -26,19 +34,22 @@ const debouncedSearchQuery = refDebounced(searchQuery, 200)
 const { data: goaliesData } = await useConvexQuery(
   api.goalieStats.getGoalieStatsWithTeamsSorted,
   computed(() => ({
-    year: 2026,
+    year: year.value,
     sortBy: sortBy.value,
     sortOrder: sortOrder.value,
     limit: 100,
-  }))
+  })),
+  { auth: 'none' },
 )
 
 const { data: searchResults } = await useConvexQuery(
   api.goalieStats.searchGoalies,
   computed(() => ({
     query: debouncedSearchQuery.value,
+    year: year.value,
     limit: 20,
-  }))
+  })),
+  { auth: 'none' },
 )
 
 const goalies = computed(() => {
@@ -50,7 +61,7 @@ const goalies = computed(() => {
 
 function onTeamChange(value: string) {
   if (value) {
-    router.push(`/goalie-stats/${value}`)
+    router.push(withSeason(`/goalie-stats/${value}`))
   }
 }
 
@@ -60,6 +71,6 @@ function onSortChange(column: SortColumn, direction: SortDirection) {
 }
 
 useHead({
-  title: 'Goalie Stats'
+  title: 'Goalie Stats',
 })
 </script>

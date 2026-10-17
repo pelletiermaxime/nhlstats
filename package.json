@@ -2,60 +2,62 @@
   "name": "nhlstats-v2-frontend",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@10.33.0",
-  "engines": {
-    "node": ">=24"
-  },
+  "type": "module",
   "scripts": {
     "dev": "turbo run dev:nuxt dev:convex --ui=tui",
-    "dev:nuxt": "portless nhlstats nuxt dev --dotenv .env.local",
+    "dev:nuxt": "nuxt dev --dotenv .env.local --host localhost --port 3000 --strictPort",
     "dev:convex": "convex dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "test": "vitest run",
+    "test": "vp test",
     "test:browser": "playwright test",
     "test:browser:update": "playwright test --update-snapshots",
-    "check": "turbo run lint typecheck test test:browser",
-    "check:quiet": "turbo run lint typecheck test test:browser --output-logs=errors-only",
-    "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
-  },
-  "devDependencies": {
-    "@iconify-json/mdi": "^1.2.3",
-    "@nuxt/eslint-config": "^1.15.2",
-    "@nuxt/test-utils": "^4.0.3",
-    "@playwright/test": "^1.59.1",
-    "@unocss/nuxt": "^66.6.8",
-    "@unocss/preset-icons": "^66.6.8",
-    "@unocss/reset": "^66.6.8",
-    "@vitest/ui": "4.1.5",
-    "@vue/test-utils": "^2.4.10",
-    "@vueuse/nuxt": "^14.3.0",
-    "eslint": "^10.3.0",
-    "happy-dom": "^20.9.0",
-    "portless": "^0.12.0",
-    "turbo": "^2.9.8",
-    "typescript": "^6.0.3",
-    "unocss": "^66.6.8",
-    "vitest": "^4.1.5",
-    "vue-tsc": "^3.2.7",
-    "zod": "^4.4.2"
+    "check": "vp run verify",
+    "check:quiet": "vp run --log=grouped verify",
+    "lint": "vp lint",
+    "typecheck": "nuxt typecheck --checker golar",
+    "test:ui": "vp test --ui",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check"
   },
   "dependencies": {
-    "@convex-dev/better-auth": "^0.12.1",
-    "@nuxt/hints": "^1.0.3",
-    "@nuxtjs/mcp-toolkit": "^0.16.0",
-    "@nuxtjs/seo": "5.1.3",
-    "agents": "^0.12.3",
-    "better-auth": "^1.6.9",
-    "better-convex-nuxt": "^0.3.4",
-    "convex": "^1.37.0",
-    "nuxt": "^4.4.4",
-    "vue": "^3.5.33"
+    "@better-auth/core": "1.7.7",
+    "@better-auth/oauth-provider": "1.7.7",
+    "@lupinum/better-convex-nuxt": "1.0.0-rc.6",
+    "@nuxt/hints": "^1.1.5",
+    "@nuxtjs/mcp-toolkit": "^0.24.2",
+    "@nuxtjs/seo": "6.0.1",
+    "agents": "^0.28.1",
+    "better-auth": "1.7.7",
+    "convex": "^1.47.0",
+    "nuxt": "^4.6.1",
+    "vue": "^3.5.44"
   },
-  "pnpm": {
-    "overrides": {
-      "h3": "1.15.10"
-    }
-  }
+  "devDependencies": {
+    "@edge-runtime/vm": "^5.0.0",
+    "@golar/vue": "^0.1.10",
+    "@iconify-json/mdi": "^1.2.3",
+    "@nuxt/test-utils": "^4.3.3",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "@typescript/native": "npm:typescript@~7.0.2",
+    "@unocss/nuxt": "^66.11.0",
+    "@unocss/preset-icons": "^66.11.0",
+    "@unocss/reset": "^66.11.0",
+    "@vitest/ui": "catalog:",
+    "@vue/test-utils": "^2.5.1",
+    "@vueuse/nuxt": "^15.0.0",
+    "convex-test": "^0.0.62",
+    "golar": "^0.1.10",
+    "happy-dom": "^21.0.3",
+    "turbo": "^2.11.8",
+    "unocss": "^66.11.0",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:",
+    "zod": "^4.6.7"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@10.33.0"
 }

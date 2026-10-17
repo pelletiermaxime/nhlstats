@@ -8,7 +8,7 @@
           :src="`/logos/SVG/${game.awayTeam?.short_name}.svg`"
           class="h-8 w-auto flex-shrink-0"
           :alt="`${game.awayTeam?.city} ${game.awayTeam?.name}`"
-        >
+        />
         <span class="text-white font-semibold text-sm truncate">
           {{ game.awayTeam?.city }}
         </span>
@@ -35,7 +35,7 @@
           :src="`/logos/SVG/${game.homeTeam?.short_name}.svg`"
           class="h-8 w-auto flex-shrink-0"
           :alt="`${game.homeTeam?.city} ${game.homeTeam?.name}`"
-        >
+        />
       </div>
     </div>
 
@@ -63,11 +63,7 @@
           <div class="text-zinc-400">
             3rd: <span :class="getGoalsClass(3, 'away')">{{ formatGoals(3, 'away') }}</span>
           </div>
-          <div
-            v-for="period in otPeriods"
-            :key="period"
-            class="text-green-400 font-medium"
-          >
+          <div v-for="period in otPeriods" :key="period" class="text-green-400 font-medium">
             {{ formatOtLabel(period) }}: <span>{{ formatGoals(period, 'away') }}</span>
           </div>
         </div>
@@ -82,11 +78,7 @@
           <div class="text-zinc-400">
             3rd: <span :class="getGoalsClass(3, 'home')">{{ formatGoals(3, 'home') }}</span>
           </div>
-          <div
-            v-for="period in otPeriods"
-            :key="period"
-            class="text-green-400 font-medium"
-          >
+          <div v-for="period in otPeriods" :key="period" class="text-green-400 font-medium">
             {{ formatOtLabel(period) }}: <span>{{ formatGoals(period, 'home') }}</span>
           </div>
         </div>
@@ -115,24 +107,26 @@ const homeTeamAbbrev = computed(() => props.game.homeTeam?.short_name ?? '')
 
 const otPeriods = computed(() => {
   if (!props.game.goals) return []
-  const periods = new Set(props.game.goals.filter(g => g.period > 3).map(g => g.period))
+  const periods = new Set(props.game.goals.filter((g) => g.period > 3).map((g) => g.period))
   return Array.from(periods).sort((a, b) => a - b)
 })
 
 function getGoalsForPeriod(period: number, team: 'away' | 'home'): EnrichedGoal[] {
   if (!props.game.goals) return []
   const teamAbbrev = team === 'away' ? awayTeamAbbrev.value : homeTeamAbbrev.value
-  return props.game.goals.filter(g => g.period === period && g.teamAbbrev === teamAbbrev)
+  return props.game.goals.filter((g) => g.period === period && g.teamAbbrev === teamAbbrev)
 }
 
 function formatGoals(period: number, team: 'away' | 'home'): string {
   const goals = getGoalsForPeriod(period, team)
   if (goals.length === 0) return '—'
-  return goals.map(g => {
-    let s = `${g.timeInPeriod} ${g.lastName}`
-    if (g.isEmptyNet) s += ' (EN)'
-    return s
-  }).join(', ')
+  return goals
+    .map((g) => {
+      let s = `${g.timeInPeriod} ${g.lastName}`
+      if (g.isEmptyNet) s += ' (EN)'
+      return s
+    })
+    .join(', ')
 }
 
 function formatOtLabel(period: number): string {
@@ -147,35 +141,35 @@ function getGoalsClass(period: number, team: 'away' | 'home'): string {
 
 const stateBadgeClass = computed(() => {
   switch (props.game.gameState) {
-  case 'LIVE':
-    return 'bg-red-600 text-white animate-pulse'
-  case 'FINAL':
-    return 'bg-zinc-600 text-zinc-300'
-  default:
-    return 'bg-zinc-500 text-white'
+    case 'LIVE':
+      return 'bg-red-600 text-white animate-pulse'
+    case 'FINAL':
+      return 'bg-zinc-600 text-zinc-300'
+    default:
+      return 'bg-zinc-500 text-white'
   }
 })
 
 const stateText = computed(() => {
   switch (props.game.gameState) {
-  case 'LIVE':
-    if (props.game.period !== undefined) {
-      const period = props.game.period
-      let periodText: string
-      if (period === 1) periodText = '1st'
-      else if (period === 2) periodText = '2nd'
-      else if (period === 3) periodText = '3rd'
-      else {
-        const otNum = period - 3
-        periodText = otNum === 1 ? 'OT' : `OT${otNum}`
+    case 'LIVE':
+      if (props.game.period !== undefined) {
+        const period = props.game.period
+        let periodText: string
+        if (period === 1) periodText = '1st'
+        else if (period === 2) periodText = '2nd'
+        else if (period === 3) periodText = '3rd'
+        else {
+          const otNum = period - 3
+          periodText = otNum === 1 ? 'OT' : `OT${otNum}`
+        }
+        return `LIVE ${periodText}`
       }
-      return `LIVE ${periodText}`
-    }
-    return 'LIVE'
-  case 'FINAL':
-    return 'FINAL'
-  default:
-    return formatTime(props.game.startTimeUTC)
+      return 'LIVE'
+    case 'FINAL':
+      return 'FINAL'
+    default:
+      return formatTime(props.game.startTimeUTC)
   }
 })
 
@@ -185,7 +179,7 @@ function formatTime(utcString: string): string {
     hour: 'numeric',
     minute: '2-digit',
     timeZone: 'America/New_York',
-    timeZoneName: 'short'
+    timeZoneName: 'short',
   })
 }
 </script>

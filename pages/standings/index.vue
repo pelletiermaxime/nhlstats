@@ -3,10 +3,7 @@
     <StandingsNav active="league" />
 
     <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
-      <table
-        id="tableOverall"
-        class="w-full text-white table-fixed min-w-[900px]"
-      >
+      <table id="tableOverall" class="w-full text-white table-fixed min-w-[900px]">
         <thead>
           <tr class="text-sm">
             <th class="w-10 px-1 py-2">#</th>
@@ -38,15 +35,18 @@
 
 <script setup lang="ts">
 import type { Standing } from '~/types/teams'
-import { api } from "~/convex/_generated/api"
+import { api } from '~/convex/_generated/api'
 
 definePageMeta({
-  title: 'Standings - League'
+  title: 'Standings - League',
 })
 
+const { year } = useSeason()
+
 const { data: standingsData } = await useConvexQuery(
-  api.standings.getCurrentStandingsWithTeams,
-  {}
+  api.standings.getStandingsWithTeams,
+  computed(() => ({ year: year.value })),
+  { auth: 'none' },
 )
 
 const standings = computed<Standing[]>(() => {

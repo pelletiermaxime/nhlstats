@@ -11,12 +11,21 @@
 </template>
 
 <script setup lang="ts">
-import { api } from "../../convex/_generated/api"
+import { api } from '../../convex/_generated/api'
 
-type SortColumn = 'gamesPlayed' | 'goals' | 'assists' | 'points' | 'plusMinus' | 'penaltyMinutes' | 'shots' | 'shootingPct'
+type SortColumn =
+  | 'gamesPlayed'
+  | 'goals'
+  | 'assists'
+  | 'points'
+  | 'plusMinus'
+  | 'penaltyMinutes'
+  | 'shots'
+  | 'shootingPct'
 type SortDirection = 'asc' | 'desc'
 
 const router = useRouter()
+const { year, withSeason } = useSeason()
 
 const sortBy = ref<SortColumn>('points')
 const sortOrder = ref<SortDirection>('desc')
@@ -26,19 +35,22 @@ const debouncedSearchQuery = refDebounced(searchQuery, 200)
 const { data: playersData } = await useConvexQuery(
   api.playerStats.getPlayerStatsWithTeamsSorted,
   computed(() => ({
-    year: 2026,
+    year: year.value,
     sortBy: sortBy.value,
     sortOrder: sortOrder.value,
     limit: 100,
-  }))
+  })),
+  { auth: 'none' },
 )
 
 const { data: searchResults } = await useConvexQuery(
   api.playerStats.searchPlayers,
   computed(() => ({
     query: debouncedSearchQuery.value,
+    year: year.value,
     limit: 20,
-  }))
+  })),
+  { auth: 'none' },
 )
 
 const players = computed(() => {
@@ -50,7 +62,7 @@ const players = computed(() => {
 
 function onTeamChange(value: string) {
   if (value) {
-    router.push(`/player-stats/${value}`)
+    router.push(withSeason(`/player-stats/${value}`))
   }
 }
 
@@ -60,6 +72,6 @@ function onSortChange(column: SortColumn, direction: SortDirection) {
 }
 
 useHead({
-  title: 'Player Stats'
+  title: 'Player Stats',
 })
 </script>

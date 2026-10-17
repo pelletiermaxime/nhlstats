@@ -13,8 +13,12 @@ import type * as crons from "../crons.js";
 import type * as games from "../games.js";
 import type * as goalieStats from "../goalieStats.js";
 import type * as http from "../http.js";
+import type * as lib_seasonData from "../lib/seasonData.js";
+import type * as lib_seasonImport from "../lib/seasonImport.js";
+import type * as lib_validators from "../lib/validators.js";
 import type * as migrations from "../migrations.js";
 import type * as playerStats from "../playerStats.js";
+import type * as seasons from "../seasons.js";
 import type * as seed from "../seed.js";
 import type * as standings from "../standings.js";
 import type * as teams from "../teams.js";
@@ -31,8 +35,12 @@ declare const fullApi: ApiFromModules<{
   games: typeof games;
   goalieStats: typeof goalieStats;
   http: typeof http;
+  "lib/seasonData": typeof lib_seasonData;
+  "lib/seasonImport": typeof lib_seasonImport;
+  "lib/validators": typeof lib_validators;
   migrations: typeof migrations;
   playerStats: typeof playerStats;
+  seasons: typeof seasons;
   seed: typeof seed;
   standings: typeof standings;
   teams: typeof teams;
@@ -65,5 +73,5 @@ export declare const internal: FilterApi<
 >;
 
 export declare const components: {
-  betterAuth: import("@convex-dev/better-auth/_generated/component.js").ComponentApi<"betterAuth">;
+  betterAuthV2: import("@lupinum/better-convex-nuxt/better-auth/_generated/component.js").ComponentApi<"betterAuthV2">;
 };

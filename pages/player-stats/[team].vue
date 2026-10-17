@@ -11,55 +11,80 @@
 </template>
 
 <script setup lang="ts">
-import { api } from "../../convex/_generated/api"
-import type { Id } from "../../convex/_generated/dataModel"
-import type { FunctionReturnType } from "convex/server"
+import { api } from '../../convex/_generated/api'
+import type { Id } from '../../convex/_generated/dataModel'
+import type { FunctionReturnType } from 'convex/server'
 
 type Teams = FunctionReturnType<typeof api.teams.getTeams>
-type SortColumn = 'gamesPlayed' | 'goals' | 'assists' | 'points' | 'plusMinus' | 'penaltyMinutes' | 'shots' | 'shootingPct'
+type SortColumn =
+  | 'gamesPlayed'
+  | 'goals'
+  | 'assists'
+  | 'points'
+  | 'plusMinus'
+  | 'penaltyMinutes'
+  | 'shots'
+  | 'shootingPct'
 type SortDirection = 'asc' | 'desc'
 
-const route = useRoute()
+const route = useRoute('player-stats-team')
 const router = useRouter()
+const { year, withSeason } = useSeason()
 
 useHead({
-  title: 'Player Stats'
+  title: 'Player Stats',
 })
 
-const teamParam = computed(() => route.params.team as string)
+const teamParam = computed(() => route.params.team)
 const sortBy = ref<SortColumn>('points')
 const sortOrder = ref<SortDirection>('desc')
 const searchQuery = ref('')
 const debouncedSearchQuery = refDebounced(searchQuery, 200)
 
-const { data: teams } = await useConvexQuery(api.teams.getTeams, {})
+const { data: teams } = await useConvexQuery(
+  api.teams.getTeams,
+  computed(() => ({ year: year.value })),
+  { auth: 'none' },
+)
 
-const selectedTeamId = computed<Id<"teams"> | undefined>(() => {
+const selectedTeamId = computed<Id<'teams'> | undefined>(() => {
   const team = teams.value?.find((t: Teams[number]) => t.short_name === teamParam.value)
   return team?._id
 })
 
-type PlayerStatsArgs = { year: number, teamId: Id<"teams">, sortBy: SortColumn, sortOrder: SortDirection }
+interface PlayerStatsArgs {
+  year: number
+  teamId: Id<'teams'>
+  sortBy: SortColumn
+  sortOrder: SortDirection
+}
 
-const queryArgs = computed<PlayerStatsArgs | null>(() => selectedTeamId.value ? {
-  year: 2026,
-  teamId: selectedTeamId.value,
-  sortBy: sortBy.value,
-  sortOrder: sortOrder.value,
-} : null)
+const queryArgs = computed<PlayerStatsArgs | 'skip'>(() =>
+  selectedTeamId.value
+    ? {
+        year: year.value,
+        teamId: selectedTeamId.value,
+        sortBy: sortBy.value,
+        sortOrder: sortOrder.value,
+      }
+    : 'skip',
+)
 
 const { data: teamPlayers } = await useConvexQuery(
   api.playerStats.getPlayerStatsWithTeamsByTeamSorted,
-  queryArgs
+  queryArgs,
+  { auth: 'none' },
 )
 
 const { data: searchResults } = await useConvexQuery(
   api.playerStats.searchPlayers,
   computed(() => ({
     query: debouncedSearchQuery.value,
+    year: year.value,
     teamId: selectedTeamId.value,
     limit: 20,
-  }))
+  })),
+  { auth: 'none' },
 )
 
 const players = computed(() => {
@@ -71,9 +96,9 @@ const players = computed(() => {
 
 function onTeamChange(value: string) {
   if (value) {
-    router.push(`/player-stats/${value}`)
+    router.push(withSeason(`/player-stats/${value}`))
   } else {
-    router.push('/player-stats')
+    router.push(withSeason('/player-stats'))
   }
 }
 

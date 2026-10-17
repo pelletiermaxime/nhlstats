@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const router = useRouter()
-const { signUp, isAuthenticated, refreshAuth } = useConvexAuth()
+const { withSeason } = useSeason()
+const { client, status: authStatus } = useConvexAuth()
 
 const name = ref('')
 const email = ref('')
@@ -10,10 +11,10 @@ const error = ref<string | null>(null)
 const loading = ref(false)
 
 watch(
-  isAuthenticated,
-  (authenticated) => {
-    if (authenticated) {
-      router.push('/')
+  authStatus,
+  (status) => {
+    if (status === 'authenticated') {
+      router.push(withSeason('/player-stats'))
     }
   },
   { immediate: true },
@@ -30,7 +31,7 @@ async function handleSignUp() {
   loading.value = true
 
   try {
-    const { error: authError } = await signUp.email({
+    const { error: authError } = await client.signUp.email({
       name: name.value,
       email: email.value,
       password: password.value,
@@ -40,12 +41,10 @@ async function handleSignUp() {
       error.value = authError.message ?? 'Unable to create account.'
       return
     }
-    await refreshAuth()
-    await router.push('/')
+    const destination = withSeason('/auth/signin')
+    await router.push({ ...destination, query: { ...destination.query, registered: '1' } })
   } catch (err) {
-    error.value = err instanceof Error
-      ? err.message
-      : 'Unable to create account. Please try again.'
+    error.value = err instanceof Error ? err.message : 'Unable to create account. Please try again.'
   } finally {
     loading.value = false
   }
@@ -61,9 +60,7 @@ async function handleSignUp() {
 
       <form class="space-y-6" @submit.prevent="handleSignUp">
         <div>
-          <label for="name" class="block text-sm font-medium text-gray-300">
-            Name
-          </label>
+          <label for="name" class="block text-sm font-medium text-gray-300"> Name </label>
           <input
             id="name"
             v-model="name"
@@ -71,13 +68,11 @@ async function handleSignUp() {
             required
             class="mt-1 block w-full px-3 py-2 bg-zinc-600 border border-zinc-500 rounded-md text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Your Name"
-          >
+          />
         </div>
 
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-300">
-            Email
-          </label>
+          <label for="email" class="block text-sm font-medium text-gray-300"> Email </label>
           <input
             id="email"
             v-model="email"
@@ -85,21 +80,21 @@ async function handleSignUp() {
             required
             class="mt-1 block w-full px-3 py-2 bg-zinc-600 border border-zinc-500 rounded-md text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="you@example.com"
-          >
+          />
         </div>
 
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-300">
-            Password
-          </label>
+          <label for="password" class="block text-sm font-medium text-gray-300"> Password </label>
           <input
             id="password"
             v-model="password"
             type="password"
+            minlength="15"
             required
             class="mt-1 block w-full px-3 py-2 bg-zinc-600 border border-zinc-500 rounded-md text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="••••••••"
-          >
+          />
+          <p class="mt-1 text-xs text-gray-400">Use at least 15 characters.</p>
         </div>
 
         <div>
@@ -110,10 +105,11 @@ async function handleSignUp() {
             id="confirmPassword"
             v-model="confirmPassword"
             type="password"
+            minlength="15"
             required
             class="mt-1 block w-full px-3 py-2 bg-zinc-600 border border-zinc-500 rounded-md text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="••••••••"
-          >
+          />
         </div>
 
         <button
@@ -131,9 +127,9 @@ async function handleSignUp() {
 
       <p class="text-center text-sm text-gray-400">
         Already have an account?
-        <NuxtLink to="/auth/signin" class="text-blue-400 hover:text-blue-300">
+        <SeasonLink to="/auth/signin" class="text-blue-400 hover:text-blue-300">
           Sign In
-        </NuxtLink>
+        </SeasonLink>
       </p>
     </div>
   </div>

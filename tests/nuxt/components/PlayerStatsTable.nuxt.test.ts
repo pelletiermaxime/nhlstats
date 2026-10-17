@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { ref } from 'vue'
-import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
 import PlayerStatsTable from '~/components/PlayerStatsTable.vue'
 import type { PlayerStatsWithTeam } from '~/types/players'
 import type { Team } from '~/types/teams'
@@ -13,7 +13,7 @@ const mockTeam = (overrides: Partial<Team> = {}): Team => ({
   name: 'Maple Leafs',
   year: 2026,
   division_id: 'div123' as unknown as Team['division_id'],
-  ...overrides
+  ...overrides,
 })
 
 const mockPlayer = (overrides: Partial<PlayerStatsWithTeam> = {}): PlayerStatsWithTeam => ({
@@ -45,20 +45,35 @@ const mockPlayer = (overrides: Partial<PlayerStatsWithTeam> = {}): PlayerStatsWi
   shorthandedAssists: 1,
   shorthandedPoints: 3,
   team: mockTeam(),
-  ...overrides
+  ...overrides,
 })
 
-vi.mock('better-convex-nuxt', () => ({
-  useConvexQuery: () => ({
-    data: ref([
-      mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
-      mockTeam({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' }),
-      mockTeam({ short_name: 'VGK', city: 'Vegas', name: 'Golden Knights' }),
-    ])
-  })
+mockNuxtImport('useConvexQuery', () => () => ({
+  data: ref([
+    mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
+    mockTeam({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' }),
+    mockTeam({ short_name: 'VGK', city: 'Vegas', name: 'Golden Knights' }),
+  ]),
 }))
 
 describe('PlayerStatsTable', () => {
+  it('keeps players without a team visible without a broken team link', async () => {
+    const component = await mountSuspended(PlayerStatsTable, {
+      props: {
+        players: [mockPlayer({ team: null })],
+        selectedTeamShortName: '',
+        sortBy: 'points',
+        sortOrder: 'desc',
+        onTeamChange: vi.fn(),
+        onSortChange: vi.fn(),
+      },
+    })
+
+    expect(component.get('tbody').text()).toContain('Auston Matthews')
+    expect(component.find('tbody a').exists()).toBe(false)
+    expect(component.find('tbody img').exists()).toBe(false)
+  })
+
   it('renders player list', async () => {
     const players = [
       mockPlayer({ firstName: 'Connor', lastName: 'McDavid', points: 124 }),
@@ -74,7 +89,7 @@ describe('PlayerStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
@@ -85,12 +100,12 @@ describe('PlayerStatsTable', () => {
       mockPlayer({
         firstName: 'Auston',
         lastName: 'Matthews',
-        team: mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' })
+        team: mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
       }),
       mockPlayer({
         firstName: 'Mitch',
         lastName: 'Marner',
-        team: mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' })
+        team: mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
       }),
     ]
 
@@ -102,16 +117,14 @@ describe('PlayerStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
   })
 
   it('renders with search query', async () => {
-    const players = [
-      mockPlayer({ firstName: 'Connor', lastName: 'McDavid', points: 124 }),
-    ]
+    const players = [mockPlayer({ firstName: 'Connor', lastName: 'McDavid', points: 124 })]
 
     const component = await mountSuspended(PlayerStatsTable, {
       props: {
@@ -122,7 +135,7 @@ describe('PlayerStatsTable', () => {
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
         searchQuery: 'mcdavid',
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
@@ -137,7 +150,7 @@ describe('PlayerStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()

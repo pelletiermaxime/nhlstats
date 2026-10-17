@@ -1,10 +1,6 @@
 <template>
   <div class="px-4 sm:px-0">
-    <div
-      v-for="(groupTeams, groupName) in groupedStandings"
-      :key="groupName"
-      class="mb-8"
-    >
+    <div v-for="(groupTeams, groupName) in groupedStandings" :key="groupName" class="mb-8">
       <h3 class="text-xl font-bold mb-2 text-center text-white">{{ groupName }}</h3>
       <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
         <table class="w-full text-white table-fixed min-w-[900px]">
@@ -30,7 +26,11 @@
             </tr>
           </thead>
           <tbody>
-            <StatsBlock :standings="groupTeams" :show-division="showDivision" :show-conference="showConference" />
+            <StatsBlock
+              :standings="groupTeams"
+              :show-division="showDivision"
+              :show-conference="showConference"
+            />
           </tbody>
         </table>
       </div>

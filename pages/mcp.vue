@@ -11,8 +11,7 @@
       "url": "https://nhlstats.org/mcp-server"
     }
   }
-}</pre
-      >
+}</pre>
     </div>
 
     <!-- Steps -->
@@ -71,19 +70,28 @@
         <div class="border-l-4 border-zinc-500 pl-4">
           <h3 class="font-semibold text-white">nhl-standings</h3>
           <p class="text-zinc-300 text-sm">Get NHL standings for a given year</p>
-          <p class="text-zinc-400 text-xs mt-1">Parameters: year (number)</p>
+          <p class="text-zinc-400 text-xs mt-1">
+            Parameters: year (optional season ending year; defaults to current season)
+          </p>
         </div>
 
         <div class="border-l-4 border-zinc-500 pl-4">
           <h3 class="font-semibold text-white">nhl-player-stats</h3>
           <p class="text-zinc-300 text-sm">Get player statistics with filtering options</p>
-          <p class="text-zinc-400 text-xs mt-1">Parameters: year (optional), team (optional), sortBy (optional: points, goals, assists), limit (optional, default 50, max 100)</p>
+          <p class="text-zinc-400 text-xs mt-1">
+            Parameters: year (optional), team (optional), sortBy (optional: points, goals, assists),
+            limit (optional, default 50, max 100)
+          </p>
         </div>
 
         <div class="border-l-4 border-zinc-500 pl-4">
           <h3 class="font-semibold text-white">nhl-team-info</h3>
-          <p class="text-zinc-300 text-sm">Get detailed information about a specific team including standings and all players</p>
-          <p class="text-zinc-400 text-xs mt-1">Parameters: team (required, short name like "MTL"), year (optional)</p>
+          <p class="text-zinc-300 text-sm">
+            Get detailed information about a specific team including standings and all players
+          </p>
+          <p class="text-zinc-400 text-xs mt-1">
+            Parameters: team (required, short name like "MTL"), year (optional)
+          </p>
         </div>
 
         <div class="border-l-4 border-zinc-500 pl-4">
@@ -94,14 +102,22 @@
 
         <div class="border-l-4 border-zinc-500 pl-4">
           <h3 class="font-semibold text-white">nhl-player-search</h3>
-          <p class="text-zinc-300 text-sm">Search for NHL players by name with optional team filtering</p>
-          <p class="text-zinc-400 text-xs mt-1">Parameters: query (required), team (optional), year (optional), limit (optional, default 20, max 50)</p>
+          <p class="text-zinc-300 text-sm">
+            Search for NHL players by name with optional team filtering
+          </p>
+          <p class="text-zinc-400 text-xs mt-1">
+            Parameters: query (required), team (optional), year (optional), limit (optional, default
+            20, max 50)
+          </p>
         </div>
 
         <div class="border-l-4 border-zinc-500 pl-4">
           <h3 class="font-semibold text-white">nhl-teams-list</h3>
           <p class="text-zinc-300 text-sm">Get list of all NHL teams with optional filtering</p>
-          <p class="text-zinc-400 text-xs mt-1">Parameters: conference (optional: EAST, WEST), division (optional)</p>
+          <p class="text-zinc-400 text-xs mt-1">
+            Parameters: year (optional season ending year), conference (optional: EAST, WEST),
+            division (optional)
+          </p>
         </div>
 
         <div class="border-l-4 border-zinc-500 pl-4">
@@ -143,6 +159,6 @@
 definePageMeta({})
 
 useHead({
-  title: 'MCP Configuration'
+  title: 'MCP Configuration',
 })
 </script>

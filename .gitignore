@@ -24,3 +24,4 @@ plans
 
 # TypeScript build info
 tsconfig.tsbuildinfo
+.vitest/

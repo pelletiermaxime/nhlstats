@@ -2,9 +2,7 @@
   <div class="px-4 sm:px-0">
     <div class="w-full sm:w-4/5 sm:mx-auto mb-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <h1 class="text-2xl font-bold text-white">
-          Scores
-        </h1>
+        <h1 class="text-2xl font-bold text-white">Scores</h1>
 
         <div class="flex items-center gap-2">
           <button
@@ -22,8 +20,10 @@
               type="date"
               class="bg-zinc-700 text-white px-3 py-2 pr-10 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 text-sm appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
               @change="onDateChange"
-            >
-            <span class="i-mdi-calendar absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 pointer-events-none" />
+            />
+            <span
+              class="i-mdi-calendar absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 pointer-events-none"
+            />
           </div>
 
           <button
@@ -48,11 +48,7 @@
           Live Games
         </h3>
         <div class="flex flex-wrap gap-3 justify-center">
-          <GameCard
-            v-for="game in liveGames"
-            :key="game._id"
-            :game="game"
-          />
+          <GameCard v-for="game in liveGames" :key="game._id" :game="game" />
         </div>
       </div>
 
@@ -62,11 +58,7 @@
           Final
         </h3>
         <div class="flex flex-wrap gap-3 justify-center">
-          <GameCard
-            v-for="game in finalGames"
-            :key="game._id"
-            :game="game"
-          />
+          <GameCard v-for="game in finalGames" :key="game._id" :game="game" />
         </div>
       </div>
 
@@ -76,11 +68,7 @@
           Upcoming
         </h3>
         <div class="flex flex-wrap gap-3 justify-center">
-          <GameCard
-            v-for="game in scheduledGames"
-            :key="game._id"
-            :game="game"
-          />
+          <GameCard v-for="game in scheduledGames" :key="game._id" :game="game" />
         </div>
       </div>
 
@@ -93,32 +81,40 @@
 </template>
 
 <script setup lang="ts">
-import { api } from "~/convex/_generated/api"
+import { api } from '~/convex/_generated/api'
+import { seasonForDate, shiftDate } from '~/shared/utils/seasons'
 
 definePageMeta({
   title: 'Scores',
-  validate: (route) => /^\d{4}-\d{2}-\d{2}$/.test(String(route.params.date))
+  validate: (route) => {
+    if (!('date' in route.params)) return false
+    try {
+      seasonForDate(String(route.params.date))
+      return true
+    } catch {
+      return false
+    }
+  },
 })
 
-const route = useRoute()
+const route = useRoute('scores-date')
 const router = useRouter()
 
-const selectedDate = computed(() => route.params.date as string)
+const selectedDate = computed(() => route.params.date)
 
 function navigateToDate(date: string) {
-  router.push(`/scores/${date}`)
+  router.push({
+    path: `/scores/${date}`,
+    query: { ...route.query, season: String(seasonForDate(date).id) },
+  })
 }
 
 function goToPreviousDay() {
-  const date = new Date(`${selectedDate.value}T00:00:00`)
-  date.setDate(date.getDate() - 1)
-  navigateToDate(date.toLocaleDateString('en-CA'))
+  navigateToDate(shiftDate(selectedDate.value, -1))
 }
 
 function goToNextDay() {
-  const date = new Date(`${selectedDate.value}T00:00:00`)
-  date.setDate(date.getDate() + 1)
-  navigateToDate(date.toLocaleDateString('en-CA'))
+  navigateToDate(shiftDate(selectedDate.value, 1))
 }
 
 function onDateChange(event: Event) {
@@ -128,37 +124,20 @@ function onDateChange(event: Event) {
   }
 }
 
-const seasonFor = (date: string) => {
-  const parts = date.split('-').map(Number)
-  const y = parts[0] ?? 0
-  const m = parts[1] ?? 0
-  const start = m >= 7 ? y : y - 1
-  return start * 10000 + (start + 1)
-}
-
 const queryArgs = computed(() => ({
   date: selectedDate.value,
-  season: seasonFor(selectedDate.value),
+  season: seasonForDate(selectedDate.value).id,
 }))
 
-const { data: games } = await useConvexQuery(
-  api.games.getGamesByDate,
-  queryArgs
-)
+const { data: games } = await useConvexQuery(api.games.getGamesByDate, queryArgs, { auth: 'none' })
 
 const allGames = computed(() => games.value ?? [])
 
-const liveGames = computed(() =>
-  allGames.value.filter((g) => g.gameState === 'LIVE')
-)
+const liveGames = computed(() => allGames.value.filter((g) => g.gameState === 'LIVE'))
 
-const finalGames = computed(() =>
-  allGames.value.filter((g) => g.gameState === 'FINAL')
-)
+const finalGames = computed(() => allGames.value.filter((g) => g.gameState === 'FINAL'))
 
-const scheduledGames = computed(() =>
-  allGames.value.filter((g) => g.gameState === 'SCHEDULED')
-)
+const scheduledGames = computed(() => allGames.value.filter((g) => g.gameState === 'SCHEDULED'))
 
 const isHydrated = ref(false)
 
@@ -171,7 +150,7 @@ const formattedDate = computed(() => {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   })
 })
 

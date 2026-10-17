@@ -1,70 +1,85 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
+import { openHydratedPage } from './helpers'
+
+async function registerAndSignIn(page: Page) {
+  const email = `test-${crypto.randomUUID()}@example.com`
+  const password = 'TestRegistrationPassword123!'
+  await openHydratedPage(page, '/auth/signup')
+  await page.fill('input#name', 'Test User')
+  await page.fill('input#email', email)
+  await page.fill('input#password', password)
+  await page.fill('input#confirmPassword', password)
+  await page.click('button[type="submit"]')
+  await expect(page).toHaveURL(/\/auth\/signin\?registered=1$/)
+  await expect(page.getByRole('status')).toHaveText('Account created. Sign in to continue.')
+  await page.fill('input#email', email)
+  await page.fill('input#password', password)
+  await page.click('button[type="submit"]')
+  await expect(page).toHaveURL(/\/player-stats$/)
+  return email
+}
 
 test.describe('Authentication', () => {
   test.describe('Sign Up', () => {
     test('should display sign up page', async ({ page }) => {
-      await page.goto('/auth/signup')
+      await openHydratedPage(page, '/auth/signup')
       await expect(page).toHaveTitle(/Signup/)
       await expect(page.locator('h1')).toContainText('Sign Up')
     })
 
     test('should show validation errors for empty fields', async ({ page }) => {
-      await page.goto('/auth/signup')
+      await openHydratedPage(page, '/auth/signup')
       await page.click('button[type="submit"]')
       // HTML5 validation should prevent submission
       await expect(page).toHaveURL('/auth/signup')
     })
 
     test('should navigate to sign in page', async ({ page }) => {
-      await page.goto('/auth/signup')
+      await openHydratedPage(page, '/auth/signup')
       await page.click('text=Sign In')
       await expect(page).toHaveURL('/auth/signin')
     })
 
-    test('should successfully register a new user', async ({ page }) => {
-      await page.goto('/auth/signup')
-      await page.waitForSelector('input#name')
-
-      const testEmail = `test-${Date.now()}@example.com`
-      const testPassword = 'TestPassword123!'
-      const testName = 'Test User'
-
-      await page.fill('input#name', testName)
-      await page.fill('input#email', testEmail)
-      await page.fill('input#password', testPassword)
-      await page.fill('input#confirmPassword', testPassword)
-      await page.click('button[type="submit"]')
-
-      // Should redirect to home (which redirects to /player-stats)
-      await expect(page).toHaveURL(/\/(player-stats)?/)
+    test('should register, sign in, display the profile, and sign out', async ({ page }) => {
+      const email = await registerAndSignIn(page)
+      await test.step('Show the authenticated navigation and profile', async () => {
+        await expect(page.getByRole('link', { name: email }).first()).toBeVisible()
+        await openHydratedPage(page, '/profile')
+        await expect(page.getByRole('heading', { name: 'Your Profile' })).toBeVisible()
+        await expect(page.getByText(email, { exact: true }).first()).toBeVisible()
+      })
+      await test.step('Sign out and protect the profile', async () => {
+        await page.getByRole('button', { name: 'Sign Out' }).click()
+        await expect(page).toHaveURL(/\/player-stats$/)
+        await openHydratedPage(page, '/profile')
+        await expect(page).toHaveURL(/\/auth\/signin/)
+      })
     })
   })
 
   test.describe('Sign In', () => {
     test('should display sign in page', async ({ page }) => {
-      await page.goto('/auth/signin')
+      await openHydratedPage(page, '/auth/signin')
       await expect(page).toHaveTitle(/Signin/)
       await expect(page.locator('h1')).toContainText('Sign In')
     })
 
     test('should show error for invalid credentials', async ({ page }) => {
-      await page.goto('/auth/signin')
+      await openHydratedPage(page, '/auth/signin')
 
       await page.fill('input#email', 'invalid@example.com')
       await page.fill('input#password', 'wrongpassword')
+      const response = page.waitForResponse(
+        (response) => new URL(response.url()).pathname === '/api/auth/sign-in/email',
+      )
       await page.click('button[type="submit"]')
 
-      // Wait for any error to appear
-      await page.waitForTimeout(1000)
-
-      // Check page content for any error indication
-      const pageContent = await page.content()
-      const hasError = pageContent.includes('error') || pageContent.includes('Invalid') || pageContent.includes('incorrect')
-      expect(hasError).toBe(true)
+      expect((await response).status()).toBe(401)
+      await expect(page.getByText(/invalid email or password|invalid credentials/i)).toBeVisible()
     })
 
     test('should navigate to sign up page', async ({ page }) => {
-      await page.goto('/auth/signin')
+      await openHydratedPage(page, '/auth/signin')
       await page.click('text=Sign Up')
       await expect(page).toHaveURL('/auth/signup')
     })
@@ -72,103 +87,62 @@ test.describe('Authentication', () => {
 
   test.describe('Profile', () => {
     test('should redirect to signin when not authenticated', async ({ page }) => {
-      await page.goto('/profile')
+      await openHydratedPage(page, '/profile')
       // Should redirect to sign in
-      await expect(page).toHaveURL(/auth\/signin/)
-    })
-
-    test.fixme('should display profile when authenticated', async ({ page }) => {
-      // First sign up
-      await page.goto('/auth/signup')
-      await page.waitForSelector('input#name')
-      const testEmail = `test-${Date.now()}@example.com`
-      await page.fill('input#name', 'Test User')
-      await page.fill('input#email', testEmail)
-      await page.fill('input#password', 'TestPassword123!')
-      await page.fill('input#confirmPassword', 'TestPassword123!')
-      await page.click('button[type="submit"]')
-
-      // Wait for redirect
-      await expect(page).toHaveURL(/\/(player-stats)?/)
-
-      // Wait for auth cookies to be set
-      await page.waitForTimeout(3000)
-
-      // Check if we're still showing Sign In links (meaning auth didn't work)
-      const pageContent = await page.content()
-      const hasSignInLink = pageContent.includes('Sign In')
-      
-      // If still showing Sign In, auth isn't working in test env
-      if (hasSignInLink) {
-        console.log('Warning: Auth state not detected after signup - skipping profile check')
-        test.skip()
-        return
-      }
-
-      // Navigate to profile
-      await page.goto('/profile')
-
-      // Should show profile page
-      await expect(page.locator('h1')).toContainText('Your Profile', { timeout: 10000 })
-    })
-
-    test.fixme('should sign out successfully', async ({ page }) => {
-      // First sign up
-      await page.goto('/auth/signup')
-      await page.waitForSelector('input#name')
-      const testEmail = `test-${Date.now()}@example.com`
-      await page.fill('input#name', 'Test User')
-      await page.fill('input#email', testEmail)
-      await page.fill('input#password', 'TestPassword123!')
-      await page.fill('input#confirmPassword', 'TestPassword123!')
-      await page.click('button[type="submit"]')
-
-      // Wait for redirect and auth to settle
-      await expect(page).toHaveURL(/\/(player-stats)?/)
-      await page.waitForTimeout(2000)
-
-      // Go to profile
-      await page.goto('/profile')
-      await expect(page.locator('h1')).toContainText('Your Profile', { timeout: 10000 })
-
-      // Sign out
-      await page.click('text=Sign Out')
-
-      // Should redirect to home
-      await expect(page).toHaveURL(/\/(player-stats)?/)
-
-      // Try to access profile again - should redirect to signin
-      await page.goto('/profile')
       await expect(page).toHaveURL(/auth\/signin/)
     })
   })
 
   test.describe('Navigation', () => {
     test('should show sign in/up links when not authenticated', async ({ page }) => {
-      await page.goto('/')
+      await openHydratedPage(page, '/')
 
       await expect(page.getByRole('link', { name: 'Sign In' }).first()).toBeVisible()
       await expect(page.getByRole('link', { name: 'Sign Up' }).first()).toBeVisible()
     })
-
-    test.fixme('should show profile link when authenticated', async ({ page }) => {
-      // Sign up first
-      await page.goto('/auth/signup')
-      await page.waitForSelector('input#name')
-      const testEmail = `test-${Date.now()}@example.com`
-      await page.fill('input#name', 'Test User')
-      await page.fill('input#email', testEmail)
-      await page.fill('input#password', 'TestPassword123!')
-      await page.fill('input#confirmPassword', 'TestPassword123!')
-      await page.click('button[type="submit"]')
-
-      // Wait for redirect and auth to settle
-      await expect(page).toHaveURL(/\/(player-stats)?/)
-      await page.waitForTimeout(2000)
-
-      // Should show profile link with email
-      const profileLink = page.getByRole('link', { name: testEmail })
-      await expect(profileLink.first()).toBeVisible()
-    })
   })
+})
+
+test('auth HTTP proxy supports registration, sessions and signout', async ({ page }) => {
+  const email = `test-${crypto.randomUUID()}@example.com`
+  const password = 'TestRegistrationPassword123!'
+  await page.goto('/auth/signin', { waitUntil: 'domcontentloaded' })
+
+  async function authRequest(path: string, data?: Record<string, string>) {
+    return page.evaluate(
+      async ({ path, data }) => {
+        const response = await fetch(
+          `/api/auth/${path}`,
+          data
+            ? {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(data),
+              }
+            : undefined,
+        )
+        const body = await response.json()
+        return {
+          status: response.status,
+          email: typeof body?.user?.email === 'string' ? body.user.email : null,
+          hasSession: body !== null,
+        }
+      },
+      { path, data },
+    )
+  }
+
+  const signup = await authRequest('sign-up/email', { name: 'Auth Proxy Test', email, password })
+  expect(signup).toMatchObject({ status: 200, email })
+  expect((await authRequest('sign-in/email', { email, password })).status).toBe(200)
+  expect(await authRequest('get-session')).toMatchObject({ status: 200, email })
+
+  await page.goto('/profile', { waitUntil: 'domcontentloaded' })
+  await expect(page).toHaveURL(/\/profile$/)
+  await expect(page.getByText(email, { exact: true }).first()).toBeVisible()
+
+  expect((await authRequest('sign-out', {})).status).toBe(200)
+  expect(await authRequest('get-session')).toMatchObject({ status: 200, hasSession: false })
+  await page.goto('/profile', { waitUntil: 'domcontentloaded' })
+  await expect(page).toHaveURL(/\/auth\/signin/)
 })

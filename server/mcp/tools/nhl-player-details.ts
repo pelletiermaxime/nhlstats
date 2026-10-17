@@ -1,35 +1,39 @@
 import { z } from 'zod'
+import { currentSeason } from '~/shared/utils/seasons'
 import { ConvexHttpClient } from 'convex/browser'
 import { api } from '~/convex/_generated/api'
-
-const DEFAULT_YEAR = 2026
 
 export default defineMcpTool({
   name: 'nhl-player-details',
   description: 'Get detailed season statistics for a specific NHL player for a given year',
   inputSchema: {
     playerId: z.number().describe('NHL player ID (e.g., 8478402 for Connor McDavid)'),
-    year: z.number().optional().describe('The season year (e.g., 2024, 2025, 2026). Defaults to current season')
+    year: z
+      .number()
+      .optional()
+      .describe('Season ending year (2026 means 2025–26). Defaults to the current season'),
   },
   handler: async ({ playerId, year }) => {
     const runtimeConfig = useRuntimeConfig()
     const convexClient = new ConvexHttpClient(runtimeConfig.convex.url)
 
-    const targetYear = year ?? DEFAULT_YEAR
+    const targetYear = year ?? currentSeason().year
 
     try {
       const player = await convexClient.query(api.playerStats.getPlayerById, {
         playerId,
-        year: targetYear
+        year: targetYear,
       })
 
       if (!player) {
         return {
-          content: [{
-            type: 'text',
-            text: `Player with ID ${playerId} not found for season ${targetYear}. Please verify the player ID.`
-          }],
-          isError: true
+          content: [
+            {
+              type: 'text',
+              text: `Player with ID ${playerId} not found for season ${targetYear}. Please verify the player ID.`,
+            },
+          ],
+          isError: true,
         }
       }
 
@@ -78,12 +82,14 @@ export default defineMcpTool({
       return jsonResult(cleanPlayer, false)
     } catch (error) {
       return {
-        content: [{
-          type: 'text',
-          text: `Error fetching player details for ID ${playerId}: ${error instanceof Error ? error.message : 'Unknown error'}`
-        }],
-        isError: true
+        content: [
+          {
+            type: 'text',
+            text: `Error fetching player details for ID ${playerId}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          },
+        ],
+        isError: true,
       }
     }
-  }
+  },
 })

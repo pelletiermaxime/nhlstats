@@ -3,9 +3,7 @@
     <StandingsNav active="conference" />
 
     <div class="mb-8">
-      <h2 class="text-2xl font-bold text-center text-white mb-4">
-        Western Conference
-      </h2>
+      <h2 class="text-2xl font-bold text-center text-white mb-4">Western Conference</h2>
       <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
         <table class="w-full text-white table-fixed min-w-[900px]">
           <thead>
@@ -35,9 +33,7 @@
     </div>
 
     <div>
-      <h2 class="text-2xl font-bold text-center text-white mb-4">
-        Eastern Conference
-      </h2>
+      <h2 class="text-2xl font-bold text-center text-white mb-4">Eastern Conference</h2>
       <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
         <table class="w-full text-white table-fixed min-w-[900px]">
           <thead>
@@ -70,16 +66,19 @@
 
 <script setup lang="ts">
 import type { Standing } from '~/types/teams'
-import { api } from "~/convex/_generated/api"
+import { api } from '~/convex/_generated/api'
 import { compareStandings } from '~/utils/standings'
 
 definePageMeta({
-  title: 'Standings - Conference'
+  title: 'Standings - Conference',
 })
 
+const { year } = useSeason()
+
 const { data: standingsData } = await useConvexQuery(
-  api.standings.getCurrentStandingsWithTeams,
-  {}
+  api.standings.getStandingsWithTeams,
+  computed(() => ({ year: year.value })),
+  { auth: 'none' },
 )
 
 const standings = computed<Standing[]>(() => {
@@ -87,9 +86,7 @@ const standings = computed<Standing[]>(() => {
 })
 
 const getTeamsByConference = (conference: string) => {
-  return standings.value
-    .filter(s => s.conference === conference)
-    .sort(compareStandings)
+  return standings.value.filter((s) => s.conference === conference).sort(compareStandings)
 }
 
 const westTeams = computed(() => getTeamsByConference('WEST'))

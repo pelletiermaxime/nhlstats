@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const router = useRouter()
-const { signIn, isAuthenticated, refreshAuth } = useConvexAuth()
+const { withSeason } = useSeason()
+const { client, status: authStatus } = useConvexAuth()
+const route = useRoute()
+const registered = computed(() => route.query.registered === '1')
 
 const email = ref('')
 const password = ref('')
@@ -8,10 +11,10 @@ const error = ref<string | null>(null)
 const loading = ref(false)
 
 watch(
-  isAuthenticated,
-  (authenticated) => {
-    if (authenticated) {
-      router.push('/')
+  authStatus,
+  (status) => {
+    if (status === 'authenticated') {
+      router.push(withSeason('/player-stats'))
     }
   },
   { immediate: true },
@@ -22,7 +25,7 @@ async function handleSignIn() {
   loading.value = true
 
   try {
-    const { error: authError } = await signIn.email({
+    const { error: authError } = await client.signIn.email({
       email: email.value,
       password: password.value,
     })
@@ -30,9 +33,10 @@ async function handleSignIn() {
     if (authError) {
       error.value = authError.message ?? null
     } else {
-      await refreshAuth()
-      router.push('/')
+      router.push(withSeason('/player-stats'))
     }
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Unable to sign in. Please try again.'
   } finally {
     loading.value = false
   }
@@ -43,13 +47,15 @@ async function handleGoogleSignIn() {
   loading.value = true
 
   try {
-    const { error: authError } = await signIn.social({
+    const { error: authError } = await client.signIn.social({
       provider: 'google',
     })
 
     if (authError) {
       error.value = authError.message ?? null
     }
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Unable to sign in. Please try again.'
   } finally {
     loading.value = false
   }
@@ -63,11 +69,13 @@ async function handleGoogleSignIn() {
         <h1 class="text-2xl font-bold text-white text-center">Sign In</h1>
       </div>
 
+      <p v-if="registered" class="text-green-300 text-sm text-center" role="status">
+        Account created. Sign in to continue.
+      </p>
+
       <form class="space-y-6" @submit.prevent="handleSignIn">
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-300">
-            Email
-          </label>
+          <label for="email" class="block text-sm font-medium text-gray-300"> Email </label>
           <input
             id="email"
             v-model="email"
@@ -75,13 +83,11 @@ async function handleGoogleSignIn() {
             required
             class="mt-1 block w-full px-3 py-2 bg-zinc-600 border border-zinc-500 rounded-md text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="you@example.com"
-          >
+          />
         </div>
 
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-300">
-            Password
-          </label>
+          <label for="password" class="block text-sm font-medium text-gray-300"> Password </label>
           <input
             id="password"
             v-model="password"
@@ -89,7 +95,7 @@ async function handleGoogleSignIn() {
             required
             class="mt-1 block w-full px-3 py-2 bg-zinc-600 border border-zinc-500 rounded-md text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="••••••••"
-          >
+          />
         </div>
 
         <button
@@ -142,9 +148,9 @@ async function handleGoogleSignIn() {
 
       <p class="text-center text-sm text-gray-400">
         Don't have an account?
-        <NuxtLink to="/auth/signup" class="text-blue-400 hover:text-blue-300">
+        <SeasonLink to="/auth/signup" class="text-blue-400 hover:text-blue-300">
           Sign Up
-        </NuxtLink>
+        </SeasonLink>
       </p>
     </div>
   </div>

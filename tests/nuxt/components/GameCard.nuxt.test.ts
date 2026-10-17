@@ -12,7 +12,7 @@ const mockTeam = (overrides: Partial<Team> = {}): Team => ({
   name: 'Maple Leafs',
   year: 2026,
   division_id: 'div123' as unknown as Team['division_id'],
-  ...overrides
+  ...overrides,
 })
 
 const mockGoal = (overrides: Partial<EnrichedGoal> = {}): EnrichedGoal => ({
@@ -22,7 +22,7 @@ const mockGoal = (overrides: Partial<EnrichedGoal> = {}): EnrichedGoal => ({
   lastName: 'Matthews',
   teamAbbrev: 'TOR',
   isEmptyNet: false,
-  ...overrides
+  ...overrides,
 })
 
 const mockGame = (overrides: Partial<GameWithTeams> = {}): GameWithTeams => ({
@@ -40,7 +40,7 @@ const mockGame = (overrides: Partial<GameWithTeams> = {}): GameWithTeams => ({
   homeTeam: mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
   awayTeam: mockTeam({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' }),
   goals: [],
-  ...overrides
+  ...overrides,
 })
 
 describe('GameCard', () => {
@@ -56,7 +56,7 @@ describe('GameCard', () => {
         mockGoal({ period: 1, timeInPeriod: '12:34', lastName: 'Matthews', teamAbbrev: 'TOR' }),
         mockGoal({ period: 1, timeInPeriod: '15:20', lastName: 'Suzuki', teamAbbrev: 'MTL' }),
         mockGoal({ period: 2, timeInPeriod: '08:45', lastName: 'Marner', teamAbbrev: 'TOR' }),
-      ]
+      ],
     })
     const component = await mountSuspended(GameCard, { props: { game } })
     expect(component.html()).toMatchSnapshot()
@@ -68,8 +68,14 @@ describe('GameCard', () => {
   it('renders empty net modifier', async () => {
     const game = mockGame({
       goals: [
-        mockGoal({ period: 3, timeInPeriod: '19:30', lastName: 'Matthews', teamAbbrev: 'TOR', isEmptyNet: true }),
-      ]
+        mockGoal({
+          period: 3,
+          timeInPeriod: '19:30',
+          lastName: 'Matthews',
+          teamAbbrev: 'TOR',
+          isEmptyNet: true,
+        }),
+      ],
     })
     const component = await mountSuspended(GameCard, { props: { game } })
     expect(component.html()).toMatchSnapshot()
@@ -83,7 +89,7 @@ describe('GameCard', () => {
       awayScore: 2,
       goals: [
         mockGoal({ period: 4, timeInPeriod: '05:23', lastName: 'Nylander', teamAbbrev: 'TOR' }),
-      ]
+      ],
     })
     const component = await mountSuspended(GameCard, { props: { game } })
     expect(component.html()).toMatchSnapshot()
@@ -96,7 +102,7 @@ describe('GameCard', () => {
       gameState: 'SCHEDULED',
       homeScore: undefined,
       awayScore: undefined,
-      goals: []
+      goals: [],
     })
     const component = await mountSuspended(GameCard, { props: { game } })
     expect(component.html()).toMatchSnapshot()
@@ -110,7 +116,7 @@ describe('GameCard', () => {
       awayScore: 0,
       goals: [
         mockGoal({ period: 1, timeInPeriod: '05:00', lastName: 'Matthews', teamAbbrev: 'TOR' }),
-      ]
+      ],
     })
     const component = await mountSuspended(GameCard, { props: { game } })
     expect(component.html()).toMatchSnapshot()

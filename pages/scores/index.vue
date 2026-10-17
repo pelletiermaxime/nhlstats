@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' })
+import { scoresDateForSeason } from '~/shared/utils/seasons'
 
-await navigateTo(`/scores/${today}`, { replace: true })
+const { seasonId, today, availableSeasons, withSeason } = useSeason()
+const selected = availableSeasons.value.find((item) => item.id === seasonId.value)
+const date = scoresDateForSeason(seasonId.value, selected?.lastGameDate ?? today.value, today.value)
+await navigateTo(withSeason(`/scores/${date}`), { replace: true })
 </script>

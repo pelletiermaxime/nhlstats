@@ -3,12 +3,13 @@ definePageMeta({
   convexAuth: true,
 })
 
-const { user, signOut } = useConvexAuth()
+const { user, client } = useConvexAuth()
 const router = useRouter()
+const { withSeason } = useSeason()
 
 async function handleSignOut() {
-  await signOut()
-  router.push('/')
+  await client.signOut()
+  router.push(withSeason('/player-stats'))
 }
 </script>
 
@@ -20,9 +21,12 @@ async function handleSignOut() {
       <div class="space-y-6">
         <div class="flex items-center space-x-4">
           <div v-if="user?.image" class="w-20 h-20 rounded-full overflow-hidden">
-            <img :src="user.image" alt="Profile" class="w-full h-full object-cover">
+            <img :src="user.image" alt="Profile" class="w-full h-full object-cover" />
           </div>
-          <div v-else class="w-20 h-20 rounded-full bg-zinc-600 flex items-center justify-center text-3xl text-white">
+          <div
+            v-else
+            class="w-20 h-20 rounded-full bg-zinc-600 flex items-center justify-center text-3xl text-white"
+          >
             {{ user?.name?.charAt(0)?.toUpperCase() || '?' }}
           </div>
 

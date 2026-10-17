@@ -23,7 +23,7 @@ const mockStanding = (overrides: Partial<Standing> = {}): Standing => ({
   l10: '7-3-0',
   streak: 'W3',
   year: 2025,
-  ...overrides
+  ...overrides,
 })
 
 describe('GroupedStandings', () => {
@@ -31,11 +31,16 @@ describe('GroupedStandings', () => {
     const groupedStandings = {
       'Eastern Conference': [
         mockStanding({ short_name: 'TOR' }),
-        mockStanding({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' })
+        mockStanding({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' }),
       ],
       'Western Conference': [
-        mockStanding({ conference: 'WEST', short_name: 'VGK', city: 'Vegas', name: 'Golden Knights' })
-      ]
+        mockStanding({
+          conference: 'WEST',
+          short_name: 'VGK',
+          city: 'Vegas',
+          name: 'Golden Knights',
+        }),
+      ],
     }
     const component = await mountSuspended(GroupedStandings, { props: { groupedStandings } })
     expect(component.html()).toMatchSnapshot()
@@ -43,15 +48,17 @@ describe('GroupedStandings', () => {
 
   it('renders with division column', async () => {
     const groupedStandings = {
-      'Division Group': [mockStanding({ division: 'ATLANTIC' })]
+      'Division Group': [mockStanding({ division: 'ATLANTIC' })],
     }
-    const component = await mountSuspended(GroupedStandings, { props: { groupedStandings, showDivision: true, showConference: false } })
+    const component = await mountSuspended(GroupedStandings, {
+      props: { groupedStandings, showDivision: true, showConference: false },
+    })
     expect(component.html()).toMatchSnapshot()
   })
 
   it('renders empty groups', async () => {
     const groupedStandings = {
-      'Empty Group': []
+      'Empty Group': [],
     }
     const component = await mountSuspended(GroupedStandings, { props: { groupedStandings } })
     expect(component.html()).toMatchSnapshot()

@@ -44,22 +44,28 @@ function parseSSEResponse(text: string): unknown {
  * MCP JSON-RPC request helper
  * Makes a POST request to the MCP server with proper JSON-RPC formatting
  */
-async function mcpRequest(request: APIRequestContext, method: string, params?: unknown): Promise<McpResult> {
+async function mcpRequest(
+  request: APIRequestContext,
+  method: string,
+  params?: unknown,
+): Promise<McpResult> {
   const response = await request.post('/mcp-server', {
     data: {
       jsonrpc: '2.0',
       id: crypto.randomUUID(),
       method,
-      params
+      params,
     },
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json, text/event-stream'
+      Accept: 'application/json, text/event-stream',
     },
-    ignoreHTTPSErrors: true
   })
 
   expect(response.ok()).toBeTruthy()
+  if (response.headers()['content-type']?.includes('application/json')) {
+    return (await response.json()) as McpResult
+  }
   const text = await response.text()
   return parseSSEResponse(text) as McpResult
 }
@@ -92,7 +98,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-standings tool successfully', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-standings',
-      arguments: { year: 2025 }
+      arguments: { year: 2025 },
     })
 
     // Check the response has content
@@ -144,8 +150,8 @@ test.describe('MCP Server', () => {
       capabilities: {},
       clientInfo: {
         name: 'test-client',
-        version: '1.0.0'
-      }
+        version: '1.0.0',
+      },
     })
 
     expect(result.result).toBeDefined()
@@ -157,7 +163,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-player-stats tool successfully', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-player-stats',
-      arguments: { year: 2026, sortBy: 'points', limit: 10 }
+      arguments: { year: 2026, sortBy: 'points', limit: 10 },
     })
 
     expect(result.result).toBeDefined()
@@ -192,7 +198,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-player-stats with team filter', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-player-stats',
-      arguments: { year: 2026, team: 'MTL', limit: 5 }
+      arguments: { year: 2026, team: 'MTL', limit: 5 },
     })
 
     expect(result.result).toBeDefined()
@@ -208,7 +214,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-team-info tool successfully', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-team-info',
-      arguments: { team: 'MTL', year: 2026 }
+      arguments: { team: 'MTL', year: 2026 },
     })
 
     expect(result.result).toBeDefined()
@@ -235,7 +241,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-team-info with invalid team', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-team-info',
-      arguments: { team: 'INVALID', year: 2026 }
+      arguments: { team: 'INVALID', year: 2026 },
     })
 
     expect(result.result).toBeDefined()
@@ -250,7 +256,7 @@ test.describe('MCP Server', () => {
     // Using Connor McDavid's player ID (8478402) as a known player
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-player-details',
-      arguments: { playerId: 8478402, year: 2026 }
+      arguments: { playerId: 8478402, year: 2026 },
     })
 
     expect(result.result).toBeDefined()
@@ -276,7 +282,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-teams-list tool successfully', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-teams-list',
-      arguments: {}
+      arguments: {},
     })
 
     expect(result.result).toBeDefined()
@@ -300,7 +306,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-teams-list with conference filter', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-teams-list',
-      arguments: { conference: 'EAST' }
+      arguments: { conference: 'EAST' },
     })
 
     expect(result.result).toBeDefined()
@@ -321,7 +327,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-player-search tool successfully', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-player-search',
-      arguments: { query: 'Connor', limit: 10 }
+      arguments: { query: 'Connor', limit: 10 },
     })
 
     expect(result.result).toBeDefined()
@@ -353,7 +359,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-player-search with team filter', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-player-search',
-      arguments: { query: 'Connor', team: 'EDM', limit: 5 }
+      arguments: { query: 'Connor', team: 'EDM', limit: 5 },
     })
 
     expect(result.result).toBeDefined()
@@ -369,7 +375,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-player-search with invalid team', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-player-search',
-      arguments: { query: 'Connor', team: 'INVALID' }
+      arguments: { query: 'Connor', team: 'INVALID' },
     })
 
     expect(result.result).toBeDefined()
@@ -383,7 +389,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-scores tool successfully', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-scores',
-      arguments: { date: '2026-04-24' }
+      arguments: { date: '2026-04-24' },
     })
 
     expect(result.result).toBeDefined()
@@ -411,7 +417,7 @@ test.describe('MCP Server', () => {
   test('should call nhl-scores without date (defaults to today)', async ({ request }) => {
     const result = await mcpRequest(request, 'tools/call', {
       name: 'nhl-scores',
-      arguments: {}
+      arguments: {},
     })
 
     expect(result.result).toBeDefined()

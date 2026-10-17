@@ -1,7 +1,17 @@
-import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
+import { defineSchema, defineTable } from 'convex/server'
+import { v } from 'convex/values'
 
 export default defineSchema({
+  seasons: defineTable({
+    seasonId: v.number(),
+    year: v.number(),
+    label: v.string(),
+    lastGameDate: v.string(),
+    ready: v.boolean(),
+    updatedAt: v.number(),
+  })
+    .index('by_year', ['year'])
+    .index('by_ready_and_year', ['ready', 'year']),
   users: defineTable({
     authId: v.string(),
     displayName: v.optional(v.string()),
@@ -10,27 +20,30 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
   })
-    .index("by_auth_id", ["authId"])
-    .index("by_email", ["email"]),
+    .index('by_auth_id', ['authId'])
+    .index('by_email', ['email']),
 
   teams: defineTable({
     short_name: v.string(),
     city: v.string(),
     name: v.string(),
     year: v.number(),
-    division_id: v.optional(v.id("divisions")),
+    division_id: v.optional(v.id('divisions')),
   })
-    .index("by_division_id", ["division_id"])
-    .index("by_short_name", ["short_name"])
-    .index("by_year_short_name", ["year", "short_name"]),
+    .index('by_division_id', ['division_id'])
+    .index('by_short_name', ['short_name'])
+    .index('by_year_short_name', ['year', 'short_name'])
+    .index('by_year_and_division_id', ['year', 'division_id']),
 
   divisions: defineTable({
     name: v.string(),
     conference: v.string(),
-  }),
+  })
+    .index('by_name', ['name'])
+    .index('by_conference', ['conference']),
 
   standings: defineTable({
-    team_id: v.id("teams"),
+    team_id: v.id('teams'),
     year: v.number(),
     gp: v.number(),
     w: v.number(),
@@ -54,16 +67,16 @@ export default defineSchema({
     positionOverall: v.optional(v.number()),
     positionConference: v.optional(v.number()),
   })
-    .index("team_id", ["team_id"])
-    .index("year", ["year"])
-    .index("year_team", ["year", "team_id"]),
+    .index('team_id', ['team_id'])
+    .index('year', ['year'])
+    .index('year_team', ['year', 'team_id']),
 
   playerStats: defineTable({
     playerId: v.number(),
     firstName: v.string(),
     lastName: v.string(),
     searchName: v.string(), // Combined first + last name for search
-    team_id: v.id("teams"),
+    team_id: v.id('teams'),
     positionCode: v.string(),
     year: v.number(),
     gamesPlayed: v.number(),
@@ -86,21 +99,21 @@ export default defineSchema({
     shorthandedAssists: v.number(),
     shorthandedPoints: v.number(),
   })
-    .index("playerId", ["playerId"])
-    .index("year", ["year"])
-    .index("year_playerId", ["year", "playerId"])
-    .index("year_team_id", ["year", "team_id"])
-    .index("year_points", ["year", "points"])
-    .index("year_gamesPlayed", ["year", "gamesPlayed"])
-    .index("year_goals", ["year", "goals"])
-    .index("year_assists", ["year", "assists"])
-    .index("year_plusMinus", ["year", "plusMinus"])
-    .index("year_penaltyMinutes", ["year", "penaltyMinutes"])
-    .index("year_shots", ["year", "shots"])
-    .index("year_shootingPct", ["year", "shootingPct"])
-    .searchIndex("search_players", {
-      searchField: "searchName",
-      filterFields: ["team_id"],
+    .index('playerId', ['playerId'])
+    .index('year', ['year'])
+    .index('year_playerId', ['year', 'playerId'])
+    .index('year_team_id', ['year', 'team_id'])
+    .index('year_points', ['year', 'points'])
+    .index('year_gamesPlayed', ['year', 'gamesPlayed'])
+    .index('year_goals', ['year', 'goals'])
+    .index('year_assists', ['year', 'assists'])
+    .index('year_plusMinus', ['year', 'plusMinus'])
+    .index('year_penaltyMinutes', ['year', 'penaltyMinutes'])
+    .index('year_shots', ['year', 'shots'])
+    .index('year_shootingPct', ['year', 'shootingPct'])
+    .searchIndex('search_players', {
+      searchField: 'searchName',
+      filterFields: ['year', 'team_id'],
     }),
 
   goalieStats: defineTable({
@@ -108,7 +121,7 @@ export default defineSchema({
     firstName: v.string(),
     lastName: v.string(),
     searchName: v.string(), // Combined first + last name for search
-    team_id: v.id("teams"),
+    team_id: v.id('teams'),
     year: v.number(),
     // Games
     gamesPlayed: v.number(),
@@ -131,28 +144,28 @@ export default defineSchema({
     assists: v.optional(v.number()),
     penaltyMinutes: v.optional(v.number()),
   })
-    .index("playerId", ["playerId"])
-    .index("year", ["year"])
-    .index("year_playerId", ["year", "playerId"])
-    .index("year_team_id", ["year", "team_id"])
-    .index("year_gamesPlayed", ["year", "gamesPlayed"])
-    .index("year_wins", ["year", "wins"])
-    .index("year_losses", ["year", "losses"])
-    .index("year_otLosses", ["year", "otLosses"])
-    .index("year_savePct", ["year", "savePct"])
-    .index("year_goalsAgainstAverage", ["year", "goalsAgainstAverage"])
-    .index("year_shutouts", ["year", "shutouts"])
-    .searchIndex("search_goalies", {
-      searchField: "searchName",
-      filterFields: ["team_id"],
+    .index('playerId', ['playerId'])
+    .index('year', ['year'])
+    .index('year_playerId', ['year', 'playerId'])
+    .index('year_team_id', ['year', 'team_id'])
+    .index('year_gamesPlayed', ['year', 'gamesPlayed'])
+    .index('year_wins', ['year', 'wins'])
+    .index('year_losses', ['year', 'losses'])
+    .index('year_otLosses', ['year', 'otLosses'])
+    .index('year_savePct', ['year', 'savePct'])
+    .index('year_goalsAgainstAverage', ['year', 'goalsAgainstAverage'])
+    .index('year_shutouts', ['year', 'shutouts'])
+    .searchIndex('search_goalies', {
+      searchField: 'searchName',
+      filterFields: ['year', 'team_id'],
     }),
 
   games: defineTable({
     gameId: v.number(),
     gameDate: v.string(),
     season: v.number(),
-    homeTeam_id: v.id("teams"),
-    awayTeam_id: v.id("teams"),
+    homeTeam_id: v.id('teams'),
+    awayTeam_id: v.id('teams'),
     homeScore: v.optional(v.number()),
     awayScore: v.optional(v.number()),
     gameState: v.string(),
@@ -160,19 +173,23 @@ export default defineSchema({
     timeRemaining: v.optional(v.string()),
     venue: v.optional(v.string()),
     startTimeUTC: v.string(),
-    goals: v.optional(v.array(v.object({
-      period: v.number(),
-      timeInPeriod: v.string(),
-      playerId: v.number(),
-      lastName: v.string(),
-      teamAbbrev: v.string(),
-      isEmptyNet: v.optional(v.boolean()),
-    }))),
+    goals: v.optional(
+      v.array(
+        v.object({
+          period: v.number(),
+          timeInPeriod: v.string(),
+          playerId: v.number(),
+          lastName: v.string(),
+          teamAbbrev: v.string(),
+          isEmptyNet: v.optional(v.boolean()),
+        }),
+      ),
+    ),
   })
-    .index("gameId", ["gameId"])
-    .index("season", ["season"])
-    .index("gameDate", ["gameDate"])
-    .index("homeTeam_id", ["homeTeam_id"])
-    .index("awayTeam_id", ["awayTeam_id"])
-    .index("season_date", ["season", "gameDate"]),
-});
+    .index('gameId', ['gameId'])
+    .index('season', ['season'])
+    .index('gameDate', ['gameDate'])
+    .index('homeTeam_id', ['homeTeam_id'])
+    .index('awayTeam_id', ['awayTeam_id'])
+    .index('season_date', ['season', 'gameDate']),
+})

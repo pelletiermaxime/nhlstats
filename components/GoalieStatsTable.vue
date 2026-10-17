@@ -1,8 +1,12 @@
 <template>
   <div class="px-4 sm:px-0">
-    <div class="w-full sm:w-4/5 sm:mx-auto mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+    <div
+      class="w-full sm:w-4/5 sm:mx-auto mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+    >
       <div class="flex items-center gap-2">
-        <label for="team-filter" class="text-white font-semibold whitespace-nowrap">Filter by Team:</label>
+        <label for="team-filter" class="text-white font-semibold whitespace-nowrap"
+          >Filter by Team:</label
+        >
         <select
           id="team-filter"
           :value="selectedTeamShortName"
@@ -23,7 +27,7 @@
           type="text"
           placeholder="Search goalies..."
           class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-full sm:w-64 placeholder-zinc-400 text-sm"
-        >
+        />
       </div>
     </div>
     <div class="w-full sm:w-4/5 sm:mx-auto overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
@@ -89,17 +93,14 @@
           >
             <td class="px-1 py-2 font-bold">{{ index + 1 }}</td>
             <td class="px-1 py-2">
-              <NuxtLink
-                v-if="goalie.team"
-                :to="`/goalie-stats/${goalie.team.short_name}`"
-              >
+              <SeasonLink v-if="goalie.team" :to="`/goalie-stats/${goalie.team.short_name}`">
                 <img
                   :src="`/logos/SVG/${goalie.team.short_name}.svg`"
                   class="h-8 sm:h-10 mx-auto cursor-pointer hover:scale-110 transition-transform"
                   :alt="`${goalie.team.city} ${goalie.team.name}`"
                   :title="`Click to filter by ${goalie.team.city} ${goalie.team.name}`"
-                >
-              </NuxtLink>
+                />
+              </SeasonLink>
               <span v-else class="text-zinc-400">-</span>
             </td>
             <td class="px-1 py-2 text-left">{{ goalie.firstName }} {{ goalie.lastName }}</td>
@@ -122,10 +123,17 @@
 </template>
 
 <script setup lang="ts">
-import { api } from "../convex/_generated/api"
+import { api } from '../convex/_generated/api'
 import type { GoalieStatsWithTeam } from '~/types/goalies'
 
-type SortColumn = 'gamesPlayed' | 'wins' | 'losses' | 'otLosses' | 'savePct' | 'goalsAgainstAverage' | 'shutouts'
+type SortColumn =
+  | 'gamesPlayed'
+  | 'wins'
+  | 'losses'
+  | 'otLosses'
+  | 'savePct'
+  | 'goalsAgainstAverage'
+  | 'shutouts'
 type SortDirection = 'asc' | 'desc'
 
 const props = defineProps<{
@@ -139,7 +147,13 @@ const props = defineProps<{
 
 const searchQuery = defineModel<string>('searchQuery', { default: '' })
 
-const { data: teams } = await useConvexQuery(api.teams.getTeams, {})
+const { year } = useSeason()
+
+const { data: teams } = await useConvexQuery(
+  api.teams.getTeams,
+  computed(() => ({ year: year.value })),
+  { auth: 'none' },
+)
 
 const sortedTeams = computed(() => {
   const teamsList = teams.value ?? []

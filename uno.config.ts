@@ -8,7 +8,7 @@ export default defineConfig({
     'menu-mobile-active': 'bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium',
     'menu-mobile-inactive':
       'text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium',
-    title: 'text-white text-4xl text-center'
+    title: 'text-white text-4xl text-center',
   },
   presets: [
     presetUno(),
@@ -17,5 +17,5 @@ export default defineConfig({
     }),
   ],
   // Disable transformers that might conflict with Nuxt
-  transformers: []
+  transformers: [],
 })

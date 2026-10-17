@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { currentSeason } from '~/shared/utils/seasons'
 import { ConvexHttpClient } from 'convex/browser'
 import { api } from '~/convex/_generated/api'
 import type { Id } from '~/convex/_generated/dataModel'
@@ -30,20 +31,27 @@ export default defineMcpTool({
   name: 'nhl-teams-list',
   description: 'Get list of all NHL teams with optional filtering by conference or division',
   inputSchema: {
+    year: z.number().optional().describe('Season ending year; defaults to the current season'),
     conference: z.enum(['EAST', 'WEST']).optional().describe('Filter by conference: EAST or WEST'),
-    division: z.string().optional().describe('Filter by division name (e.g., "Atlantic", "Metropolitan", "Central", "Pacific")')
+    division: z
+      .string()
+      .optional()
+      .describe('Filter by division name (e.g., "Atlantic", "Metropolitan", "Central", "Pacific")'),
   },
-  handler: async ({ conference, division }) => {
+  handler: async ({ conference, division, year }) => {
     if (conference && division) {
       return {
-        content: [{
-          type: 'text',
-          text: 'Cannot specify both conference and division. Please provide only one filter.'
-        }],
-        isError: true
+        content: [
+          {
+            type: 'text',
+            text: 'Cannot specify both conference and division. Please provide only one filter.',
+          },
+        ],
+        isError: true,
       }
     }
 
+    const targetYear = year ?? currentSeason().year
     const runtimeConfig = useRuntimeConfig()
     const convexClient = new ConvexHttpClient(runtimeConfig.convex.url)
 
@@ -51,15 +59,23 @@ export default defineMcpTool({
       let teams: Team[]
 
       if (division) {
-        teams = await convexClient.query(api.teams.getTeamsByDivisionName, { division })
+        teams = await convexClient.query(api.teams.getTeamsByDivisionName, {
+          division,
+          year: targetYear,
+        })
       } else if (conference) {
-        teams = await convexClient.query(api.teams.getTeamsByConference, { conference })
+        teams = await convexClient.query(api.teams.getTeamsByConference, {
+          conference,
+          year: targetYear,
+        })
       } else {
-        teams = await convexClient.query(api.teams.getTeams)
+        teams = await convexClient.query(api.teams.getTeams, { year: targetYear })
       }
 
-      const divisions = await convexClient.query(api.teams.getDivisions)
-      const divisionMap = new Map<string, Division>(divisions.map((d: Division) => [d._id.toString(), d]))
+      const divisions = await convexClient.query(api.teams.getDivisions, { year: targetYear })
+      const divisionMap = new Map<string, Division>(
+        divisions.map((d: Division) => [d._id.toString(), d]),
+      )
 
       const cleanTeams: CleanTeam[] = teams.map((team: Team) => {
         const div = team.division_id ? divisionMap.get(team.division_id.toString()) : undefined
@@ -83,20 +99,25 @@ export default defineMcpTool({
         return (a.conference || '').localeCompare(b.conference || '')
       })
 
-      return jsonResult({
-        total: sortedTeams.length,
-        conference: conference || null,
-        division: division || null,
-        teams: sortedTeams
-      }, false)
+      return jsonResult(
+        {
+          total: sortedTeams.length,
+          conference: conference || null,
+          division: division || null,
+          teams: sortedTeams,
+        },
+        false,
+      )
     } catch (error) {
       return {
-        content: [{
-          type: 'text',
-          text: `Error fetching teams list: ${error instanceof Error ? error.message : 'Unknown error'}`
-        }],
-        isError: true
+        content: [
+          {
+            type: 'text',
+            text: `Error fetching teams list: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          },
+        ],
+        isError: true,
       }
     }
-  }
+  },
 })

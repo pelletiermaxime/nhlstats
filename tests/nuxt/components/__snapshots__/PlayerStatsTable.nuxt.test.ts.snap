@@ -5,6 +5,9 @@ exports[`PlayerStatsTable > renders empty state 1`] = `
   <div class="w-full sm:w-4/5 sm:mx-auto mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
     <div class="flex items-center gap-2"><label for="team-filter" class="text-white font-semibold whitespace-nowrap">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 text-sm" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+        <option value="VGK">Vegas Golden Knights</option>
       </select></div>
     <div class="flex items-center gap-2 w-full sm:w-auto"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-full sm:w-64 placeholder-zinc-400 text-sm"></div>
   </div>
@@ -37,6 +40,9 @@ exports[`PlayerStatsTable > renders filtered by team 1`] = `
   <div class="w-full sm:w-4/5 sm:mx-auto mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
     <div class="flex items-center gap-2"><label for="team-filter" class="text-white font-semibold whitespace-nowrap">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 text-sm" value="TOR">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+        <option value="VGK">Vegas Golden Knights</option>
       </select></div>
     <div class="flex items-center gap-2 w-full sm:w-auto"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-full sm:w-64 placeholder-zinc-400 text-sm"></div>
   </div>
@@ -98,6 +104,9 @@ exports[`PlayerStatsTable > renders player list 1`] = `
   <div class="w-full sm:w-4/5 sm:mx-auto mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
     <div class="flex items-center gap-2"><label for="team-filter" class="text-white font-semibold whitespace-nowrap">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 text-sm" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+        <option value="VGK">Vegas Golden Knights</option>
       </select></div>
     <div class="flex items-center gap-2 w-full sm:w-auto"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-full sm:w-64 placeholder-zinc-400 text-sm"></div>
   </div>
@@ -173,6 +182,9 @@ exports[`PlayerStatsTable > renders with search query 1`] = `
   <div class="w-full sm:w-4/5 sm:mx-auto mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
     <div class="flex items-center gap-2"><label for="team-filter" class="text-white font-semibold whitespace-nowrap">Filter by Team:</label><select id="team-filter" class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 text-sm" value="">
         <option value="">All Teams</option>
+        <option value="MTL">Montreal Canadiens</option>
+        <option value="TOR">Toronto Maple Leafs</option>
+        <option value="VGK">Vegas Golden Knights</option>
       </select></div>
     <div class="flex items-center gap-2 w-full sm:w-auto"><label for="player-search" class="sr-only">Search players</label><input id="player-search" type="text" placeholder="Search players..." class="bg-zinc-700 text-white px-3 py-2 rounded-lg border border-zinc-600 focus:outline-none focus:border-blue-500 w-full sm:w-64 placeholder-zinc-400 text-sm"></div>
   </div>

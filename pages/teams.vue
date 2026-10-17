@@ -8,7 +8,7 @@
       <div class="bg-zinc-500 px-2 py-3 border-b text-white rounded-t-lg">
         {{ division.name }}
       </div>
-      <NuxtLink
+      <SeasonLink
         v-for="team in teamsByDivision[division._id]"
         :key="team._id"
         :to="`/player-stats/${team.short_name}`"
@@ -19,23 +19,33 @@
             :src="`/logos/SVG/${team.short_name}.svg`"
             class="h-10 hover:scale-110 transition-transform"
             :alt="`${team.city} ${team.name}`"
-          >
+          />
         </div>
         <span class="text-white">{{ team.city }} {{ team.name }}</span>
-      </NuxtLink>
+      </SeasonLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { api } from "../convex/_generated/api";
+import { api } from '../convex/_generated/api'
 
 definePageMeta({})
 
 useHead({
-  title: 'Teams'
+  title: 'Teams',
 })
 
-const { data: divisions } = await useConvexQuery(api.teams.getDivisions, {})
-const { data: teamsByDivision } = await useConvexQuery(api.teams.getTeamsByDivision, {})
+const { year } = useSeason()
+
+const { data: divisions } = await useConvexQuery(
+  api.teams.getDivisions,
+  computed(() => ({ year: year.value })),
+  { auth: 'none' },
+)
+const { data: teamsByDivision } = await useConvexQuery(
+  api.teams.getTeamsByDivision,
+  computed(() => ({ year: year.value })),
+  { auth: 'none' },
+)
 </script>

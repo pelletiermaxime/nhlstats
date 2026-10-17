@@ -13,7 +13,7 @@ const mockTeam = (overrides: Partial<Team> = {}): Team => ({
   name: 'Maple Leafs',
   year: 2026,
   division_id: 'div123' as unknown as Team['division_id'],
-  ...overrides
+  ...overrides,
 })
 
 const mockGoalie = (overrides: Partial<GoalieStatsWithTeam> = {}): GoalieStatsWithTeam => ({
@@ -40,7 +40,7 @@ const mockGoalie = (overrides: Partial<GoalieStatsWithTeam> = {}): GoalieStatsWi
   assists: 2,
   penaltyMinutes: 4,
   team: mockTeam(),
-  ...overrides
+  ...overrides,
 })
 
 mockNuxtImport('useConvexQuery', () => () => ({
@@ -48,7 +48,7 @@ mockNuxtImport('useConvexQuery', () => () => ({
     mockTeam({ short_name: 'TOR', city: 'Toronto', name: 'Maple Leafs' }),
     mockTeam({ short_name: 'MTL', city: 'Montreal', name: 'Canadiens' }),
     mockTeam({ short_name: 'NYR', city: 'New York', name: 'Rangers' }),
-  ])
+  ]),
 }))
 
 describe('GoalieStatsTable', () => {
@@ -67,7 +67,7 @@ describe('GoalieStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
@@ -78,12 +78,12 @@ describe('GoalieStatsTable', () => {
       mockGoalie({
         firstName: 'Igor',
         lastName: 'Shesterkin',
-        team: mockTeam({ short_name: 'NYR', city: 'New York', name: 'Rangers' })
+        team: mockTeam({ short_name: 'NYR', city: 'New York', name: 'Rangers' }),
       }),
       mockGoalie({
         firstName: 'Jonathan',
         lastName: 'Quick',
-        team: mockTeam({ short_name: 'NYR', city: 'New York', name: 'Rangers' })
+        team: mockTeam({ short_name: 'NYR', city: 'New York', name: 'Rangers' }),
       }),
     ]
 
@@ -95,16 +95,14 @@ describe('GoalieStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
   })
 
   it('renders with search query', async () => {
-    const goalies = [
-      mockGoalie({ firstName: 'Igor', lastName: 'Shesterkin', wins: 35 }),
-    ]
+    const goalies = [mockGoalie({ firstName: 'Igor', lastName: 'Shesterkin', wins: 35 })]
 
     const component = await mountSuspended(GoalieStatsTable, {
       props: {
@@ -115,7 +113,7 @@ describe('GoalieStatsTable', () => {
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
         searchQuery: 'shesterkin',
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
@@ -130,7 +128,7 @@ describe('GoalieStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
@@ -150,7 +148,7 @@ describe('GoalieStatsTable', () => {
         sortOrder: 'asc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()
@@ -170,7 +168,7 @@ describe('GoalieStatsTable', () => {
         sortOrder: 'desc',
         onTeamChange: vi.fn(),
         onSortChange: vi.fn(),
-      }
+      },
     })
 
     expect(component.html()).toMatchSnapshot()

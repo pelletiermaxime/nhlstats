@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { currentSeason } from '~/shared/utils/seasons'
 import { ConvexHttpClient } from 'convex/browser'
 import { api } from '~/convex/_generated/api'
 
@@ -6,14 +7,16 @@ export default defineMcpTool({
   name: 'nhl-standings',
   description: 'Get the NHL standings for a given year',
   inputSchema: {
-    year: z.number().describe('The year to fetch the standings for (e.g., 2023, 2024, 2026)')
+    year: z.number().optional().describe('Season ending year; defaults to the current season'),
   },
   handler: async ({ year }) => {
     const runtimeConfig = useRuntimeConfig()
     const convexClient = new ConvexHttpClient(runtimeConfig.convex.url)
 
     try {
-      const result = await convexClient.query(api.standings.getStandingsWithTeams, { year })
+      const result = await convexClient.query(api.standings.getStandingsWithTeams, {
+        year: year ?? currentSeason().year,
+      })
 
       // Transform to clean format without internal IDs and metadata
       const cleanStandings = result.map((item) => ({
@@ -45,11 +48,13 @@ export default defineMcpTool({
       return jsonResult(cleanStandings, false)
     } catch (error) {
       return {
-        content: [{
-          type: 'text',
-          text: `Error fetching standings for year ${year}: ${error instanceof Error ? error.message : 'Unknown error'}`
-        }]
+        content: [
+          {
+            type: 'text',
+            text: `Error fetching standings for year ${year}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          },
+        ],
       }
     }
-  }
+  },
 })

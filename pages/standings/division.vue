@@ -3,33 +3,40 @@
     <StandingsNav active="division" />
 
     <div class="mb-8">
-      <h2 class="text-2xl font-bold text-center text-white mb-4">
-        Western Conference
-      </h2>
-      <GroupedStandings :grouped-standings="westDivisions" :show-division="false" :show-conference="false" />
+      <h2 class="text-2xl font-bold text-center text-white mb-4">Western Conference</h2>
+      <GroupedStandings
+        :grouped-standings="westDivisions"
+        :show-division="false"
+        :show-conference="false"
+      />
     </div>
 
     <div>
-      <h2 class="text-2xl font-bold text-center text-white mb-4">
-        Eastern Conference
-      </h2>
-      <GroupedStandings :grouped-standings="eastDivisions" :show-division="false" :show-conference="false" />
+      <h2 class="text-2xl font-bold text-center text-white mb-4">Eastern Conference</h2>
+      <GroupedStandings
+        :grouped-standings="eastDivisions"
+        :show-division="false"
+        :show-conference="false"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Standing } from '~/types/teams'
-import { api } from "~/convex/_generated/api"
+import { api } from '~/convex/_generated/api'
 import { compareStandings } from '~/utils/standings'
 
 definePageMeta({
-  title: 'Standings - Division'
+  title: 'Standings - Division',
 })
 
+const { year } = useSeason()
+
 const { data: standingsData } = await useConvexQuery(
-  api.standings.getCurrentStandingsWithTeams,
-  {}
+  api.standings.getStandingsWithTeams,
+  computed(() => ({ year: year.value })),
+  { auth: 'none' },
 )
 
 const standings = computed<Standing[]>(() => {
