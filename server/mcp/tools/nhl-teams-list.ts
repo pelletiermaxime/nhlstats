@@ -1,3 +1,4 @@
+import { useRuntimeConfig } from 'nuxt/server'
 import { z } from 'zod'
 import { currentSeason } from '~/shared/utils/seasons'
 import { ConvexHttpClient } from 'convex/browser'

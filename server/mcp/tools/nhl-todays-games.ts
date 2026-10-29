@@ -1,3 +1,4 @@
+import { useRuntimeConfig } from 'nuxt/server'
 import { easternDate, seasonForDate } from '~/shared/utils/seasons'
 import { ConvexHttpClient } from 'convex/browser'
 import { api } from '~/convex/_generated/api'

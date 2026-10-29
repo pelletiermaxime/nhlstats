@@ -55,7 +55,19 @@ vp run build
 vp run preview
 ```
 
-`vp dev`, `vp build`, and `vp preview` are Vite's built-in commands; use the project scripts above for this Nuxt application. The independent Bun/Electrobun desktop release workflow is unchanged.
+`vp dev`, `vp build`, and `vp preview` are Vite's built-in commands; use the project scripts above for this Nuxt application.
+
+The independent desktop package uses Bun and Electrobun 2. Install its locked dependencies and prepare its SDK before checking desktop types:
+
+```bash
+cd desktop
+bun install --frozen-lockfile
+bun x --no-install electrobun sync
+cd ..
+vp exec tsc -p desktop/tsconfig.json --noEmit
+```
+
+Electrobun downloads its paired build tools and projects the SDK into the ignored `desktop/.hutch/devkit` directory. `desktop/hutch.config.ts` keeps Bun as its package manager, and the existing desktop development and build scripts use the Bun main process.
 
 ## Authentication
 
