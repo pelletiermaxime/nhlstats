@@ -45,6 +45,8 @@ overrides:
   vite@*: 'catalog:'
   vitest@*: 'catalog:'
   '@ai-sdk/provider-utils@4': 4.0.62
+  'agents@0.31.0>@babel/plugin-proposal-decorators': '-'
+  'agents@0.31.0>@rolldown/plugin-babel': '-'
 peerDependencyRules:
   allowAny:
     - vite
