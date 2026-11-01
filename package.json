@@ -23,7 +23,7 @@
   "dependencies": {
     "@better-auth/core": "1.7.14",
     "@better-auth/oauth-provider": "1.7.14",
-    "@lupinum/better-convex-nuxt": "1.0.0-rc.6",
+    "@lupinum/better-convex-nuxt": "1.0.0-rc.8",
     "@nuxt/hints": "^1.1.5",
     "@nuxtjs/mcp-toolkit": "^0.24.3",
     "@nuxtjs/seo": "6.0.1",
