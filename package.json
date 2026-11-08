@@ -28,7 +28,7 @@
     "@nuxtjs/mcp-toolkit": "^0.24.3",
     "@nuxtjs/seo": "6.0.1",
     "agents": "^0.31.0",
-    "better-auth": "1.7.14",
+    "better-auth": "1.7.18",
     "convex": "^1.48.0",
     "nuxt": "^4.6.3",
     "vue": "^3.5.44"
